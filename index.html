@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ØRENO — Brand Architecture</title>
+  <meta name="description" content="Structured systems for brands that move in silence.">
+  <meta name="theme-color" content="#F5F3EE">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+  <link rel="stylesheet" href="styles.css?v=9.1">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="script.js?v=9.1" defer></script>
+</head>
+
+<body>
+  <div class="global-loader" aria-hidden="true">
+    <div class="loader-panel loader-panel--left"></div>
+    <div class="loader-panel loader-panel--right"></div>
+    <div class="loader-center">
+      <svg class="loader-o-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle class="lo-circle" cx="50" cy="50" r="42" stroke="rgba(245,243,238,0.75)" stroke-width="0.8"
+          stroke-dasharray="264" stroke-dashoffset="264" />
+        <line class="lo-line" x1="19" y1="81" x2="81" y2="19" stroke="rgba(245,243,238,0.75)" stroke-width="0.8"
+          stroke-linecap="round" stroke-dasharray="88" stroke-dashoffset="88" />
+      </svg>
+      <p class="loader-name">ØRENO STUDIO</p>
+    </div>
+    <span class="loader-counter" aria-hidden="true">00</span>
+  </div>
+
+  <!-- ── SVG filter bank — zero-size, renders nothing itself ── -->
+  <svg id="svg-filters" width="0" height="0" style="position:absolute;overflow:hidden;pointer-events:none"
+    aria-hidden="true" focusable="false">
+    <defs>
+      <!-- Ø hero background distortion (mouse-driven turbulence) -->
+      <filter id="hero-o-distort" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+        <feTurbulence id="oTurb" type="fractalNoise" baseFrequency="0 0" numOctaves="4" seed="3" result="noise" />
+        <feDisplacementMap id="oDisp" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R"
+          yChannelSelector="G" />
+      </filter>
+    </defs>
+  </svg>
+
+  <div class="grain" aria-hidden="true"></div>
+  <div class="page-overlay" aria-hidden="true"></div>
+  <div class="h-progress" aria-hidden="true">
+    <div class="h-progress-fill"></div>
+  </div>
+  <div class="cursor" aria-hidden="true"><span class="cursor-text"></span></div>
+
+  <!-- ── HEADER — fixed, outside scroll track ── -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <a class="header-logo" href="#" data-goto=".hero" aria-label="ØRENO home">
+        <img src="assets/SVG/black_logo.svg" alt="ØRENO" height="27" decoding="async" fetchpriority="high"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="header-logo-text">ØRENO</span>
+      </a>
+      <nav class="header-nav" aria-label="Primary navigation">
+        <a href="#" class="nav-link" data-goto="#work">Work</a>
+        <a href="#" class="nav-link" data-goto="#studio">Studio</a>
+        <a href="inquiry.html" class="nav-cta">Start a project</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════
+       HORIZONTAL SCROLL TRACK
+  ══════════════════════════════════════ -->
+  <div id="h-scroll-wrapper">
+    <div id="h-track">
+
+      <!-- ── 01 HERO ── -->
+      <section class="panel hero" aria-labelledby="hero-heading">
+
+        <div class="hero-grid" aria-hidden="true"></div>
+        <img class="hero-o-bg" src="assets/SVG/black_o.svg" alt="" aria-hidden="true" draggable="false">
+
+        <div class="hero-inner">
+
+          <div class="hero-top">
+            <p class="hero-eyebrow" aria-hidden="true">Brand architecture studio.</p>
+            <h1 class="hero-main" id="hero-heading">ØRENO<br>STUDIO</h1>
+          </div>
+
+          <div class="hero-bottom">
+            <p class="hero-subline">Systems built for brands that operate with precision.</p>
+            <a href="inquiry.html" class="hero-cta">
+              Start a project
+              <span class="hero-cta-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+
+        </div>
+
+        <span class="panel-index" aria-hidden="true">01 / 11</span>
+      </section>
+
+      <!-- ── 02 MANIFESTO ── -->
+      <section class="panel section-manifesto" aria-label="Manifesto">
+        <div class="manifesto-inner">
+          <h2 class="manifesto-line">Structure outlasts style.</h2>
+          <h2 class="manifesto-line">Silence outlasts noise.</h2>
+        </div>
+        <span class="panel-index panel-index--light" aria-hidden="true">02 / 11</span>
+      </section>
+
+      <!-- ── 03 STUDIO ── -->
+      <section class="panel section section-studio" id="studio" aria-labelledby="studio-heading">
+        <div class="section-inner studio-inner">
+
+          <div class="studio-left">
+            <p class="section-tag reveal">ØRENO / Brand Architecture</p>
+            <h2 class="section-h reveal" id="studio-heading">
+              We design quiet,<br>cinematic identities<br>that feel inevitable.
+            </h2>
+            <p class="section-p reveal">
+              Every interaction is mapped, measured, and aligned to a system built to scale. Not decoration —
+              architecture.
+            </p>
+          </div>
+
+          <div class="studio-right" aria-hidden="true">
+            <img class="studio-o-bg" src="assets/SVG/black_o.svg" alt="" aria-hidden="true" draggable="false">
+          </div>
+
+        </div>
+        <span class="panel-index" aria-hidden="true">03 / 11</span>
+      </section>
+
+      <!-- ── 04 WORK / SERVICE ROWS ── -->
+      <section class="panel section-system" id="work" aria-label="Services">
+        <div class="section-inner system-inner">
+
+          <div class="system-header">
+            <p class="section-tag reveal">Services</p>
+            <h2 class="section-h reveal">What we do.</h2>
+          </div>
+
+          <div class="system-rows" role="list">
+
+            <div class="system-row reveal" role="listitem">
+              <button class="srow-trigger" aria-expanded="false" aria-controls="srow-body-1">
+                <span class="srow-num" aria-hidden="true">01</span>
+                <div class="srow-meta">
+                  <p class="srow-cat">Foundation</p>
+                  <h3 class="srow-title">Visual Architecture</h3>
+                </div>
+                <span class="srow-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M12 5v14M5 12h14" stroke-linecap="round" />
+                  </svg>
+                </span>
+              </button>
+              <div class="srow-body-wrap" id="srow-body-1">
+                <div class="srow-body-inner">
+                  <p class="srow-body">Grayscale frameworks, hierarchy rules, and motion systems that lock brand
+                    presence into a single coherent language. Built to be adopted, not interpreted.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="system-row reveal" role="listitem">
+              <button class="srow-trigger" aria-expanded="false" aria-controls="srow-body-2">
+                <span class="srow-num" aria-hidden="true">02</span>
+                <div class="srow-meta">
+                  <p class="srow-cat">Application</p>
+                  <h3 class="srow-title">Interface &amp; Narrative</h3>
+                </div>
+                <span class="srow-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M12 5v14M5 12h14" stroke-linecap="round" />
+                  </svg>
+                </span>
+              </button>
+              <div class="srow-body-wrap" id="srow-body-2">
+                <div class="srow-body-inner">
+                  <p class="srow-body">Product, decks, and environments that carry the same controlled tension from
+                    first impression to final detail.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="system-row reveal" role="listitem">
+              <button class="srow-trigger" aria-expanded="false" aria-controls="srow-body-3">
+                <span class="srow-num" aria-hidden="true">03</span>
+                <div class="srow-meta">
+                  <p class="srow-cat">Continuity</p>
+                  <h3 class="srow-title">Ongoing Direction</h3>
+                </div>
+                <span class="srow-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M12 5v14M5 12h14" stroke-linecap="round" />
+                  </svg>
+                </span>
+              </button>
+              <div class="srow-body-wrap" id="srow-body-3">
+                <div class="srow-body-inner">
+                  <p class="srow-body">Long-term guidance so internal teams move fast without eroding the system that
+                    makes the brand feel precise and deliberate.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <span class="panel-index" aria-hidden="true">04 / 11</span>
+      </section>
+
+      <!-- ── 05 CASE STUDIES ── -->
+      <section class="panel panel--wide-md section section-case-studies" id="case-studies" aria-labelledby="cs-heading">
+        <div class="section-inner cs-inner">
+
+          <div class="cs-header">
+            <p class="section-tag reveal">Selected Work</p>
+            <h2 class="section-h reveal" id="cs-heading">
+              The evidence is<br>being compiled.
+            </h2>
+            <p class="section-p reveal">Three systems. Processing now.</p>
+          </div>
+
+          <div class="cs-grid" role="list">
+
+            <div class="cs-card reveal" role="listitem">
+              <div class="cs-card-inner">
+                <div class="cs-scan-line" aria-hidden="true"></div>
+                <div class="cs-skeleton" aria-hidden="true">
+                  <div class="cs-skeleton-bar cs-skeleton-bar--wide"></div>
+                  <div class="cs-skeleton-bar cs-skeleton-bar--mid"></div>
+                  <div class="cs-skeleton-bar cs-skeleton-bar--short"></div>
+                  <div class="cs-skeleton-img"></div>
+                </div>
+                <div class="cs-overlay">
+                  <p class="cs-project-num">PROJECT 01</p>
+                  <div class="cs-progress-wrap" aria-hidden="true">
+                    <div class="cs-progress-fill" style="--cs-target:62%"></div>
+                  </div>
+                  <p class="cs-status">Processing<span class="cs-dots"></span></p>
+                </div>
+              </div>
+              <p class="cs-caption">Brand Architecture &amp; Identity</p>
+            </div>
+
+            <div class="cs-card reveal" role="listitem">
+              <div class="cs-card-inner">
+                <div class="cs-scan-line" aria-hidden="true"></div>
+                <div class="cs-skeleton" aria-hidden="true">
+                  <div class="cs-skeleton-bar cs-skeleton-bar--mid"></div>
+                  <div class="cs-skeleton-bar cs-skeleton-bar--wide"></div>
+                  <div class="cs-skeleton-bar cs-skeleton-bar--short"></div>
+                  <div class="cs-skeleton-img"></div>
+                </div>
+                <div class="cs-overlay">
+                  <p class="cs-project-num">PROJECT 02</p>
+                  <div class="cs-progress-wrap" aria-hidden="true">
+                    <div class="cs-progress-fill" style="--cs-target:47%"></div>
+                  </div>
+                  <p class="cs-status">Processing<span class="cs-dots"></span></p>
+                </div>
+              </div>
+              <p class="cs-caption">Visual System &amp; Motion</p>
+            </div>
+
+            <div class="cs-card reveal" role="listitem">
+              <div class="cs-card-inner">
+                <div class="cs-scan-line" aria-hidden="true"></div>
+                <div class="cs-skeleton" aria-hidden="true">
+                  <div class="cs-skeleton-bar cs-skeleton-bar--short"></div>
+                  <div class="cs-skeleton-bar cs-skeleton-bar--wide"></div>
+                  <div class="cs-skeleton-bar cs-skeleton-bar--mid"></div>
+                  <div class="cs-skeleton-img"></div>
+                </div>
+                <div class="cs-overlay">
+                  <p class="cs-project-num">PROJECT 03</p>
+                  <div class="cs-progress-wrap" aria-hidden="true">
+                    <div class="cs-progress-fill" style="--cs-target:38%"></div>
+                  </div>
+                  <p class="cs-status">Processing<span class="cs-dots"></span></p>
+                </div>
+              </div>
+              <p class="cs-caption">Interface &amp; Art Direction</p>
+            </div>
+
+          </div>
+
+        </div>
+        <span class="panel-index" aria-hidden="true">05 / 11</span>
+      </section>
+
+      <!-- ── 06 MARQUEE SEPARATOR ── -->
+      <div class="panel panel--marquee section-marquee" aria-hidden="true">
+        <div class="marquee-track">
+          <div class="marquee-item">
+            <span>Brand Architecture</span><span class="dot"></span>
+            <span>Visual Identity</span><span class="dot"></span>
+            <span>Motion Systems</span><span class="dot"></span>
+            <span>Interface Design</span><span class="dot"></span>
+            <span>Art Direction</span><span class="dot"></span>
+            <span>Precision</span><span class="dot"></span>
+          </div>
+          <div class="marquee-item" aria-hidden="true">
+            <span>Brand Architecture</span><span class="dot"></span>
+            <span>Visual Identity</span><span class="dot"></span>
+            <span>Motion Systems</span><span class="dot"></span>
+            <span>Interface Design</span><span class="dot"></span>
+            <span>Art Direction</span><span class="dot"></span>
+            <span>Precision</span><span class="dot"></span>
+          </div>
+        </div>
+        <span class="panel-index panel-index--light" aria-hidden="true">06 / 11</span>
+      </div>
+
+      <!-- ── 07 BRAND DISSECTION ── -->
+      <section class="panel section section-dissection" id="system" aria-labelledby="dissection-heading">
+        <div class="section-inner dissection-inner">
+
+          <div class="dissection-header">
+            <div>
+              <p class="section-tag reveal">Identity Specimen</p>
+              <h2 class="section-h reveal" id="dissection-heading">
+                The anatomy of a<br>system built to last.
+              </h2>
+            </div>
+            <p class="dissection-desc reveal">
+              Every element is a deliberate decision. Hover the wordmark to inspect the logic beneath the surface.
+            </p>
+          </div>
+
+          <div class="dissection-body">
+            <div class="dissection-stage reveal">
+              <div class="specimen-scan" aria-hidden="true"></div>
+              <div class="stage-bracket stage-bracket--tl" aria-hidden="true"></div>
+              <div class="stage-bracket stage-bracket--tr" aria-hidden="true"></div>
+              <div class="stage-bracket stage-bracket--bl" aria-hidden="true"></div>
+              <div class="stage-bracket stage-bracket--br" aria-hidden="true"></div>
+              <p class="stage-meta" aria-hidden="true">ØRENO / IDENTITY SYS. v1.0</p>
+              <div class="specimen-word" aria-label="ØRENO wordmark specimen">
+                <span class="ltr">Ø<span class="ltr-tip">Crossed O — ambiguity by design</span></span><span
+                  class="ltr">R<span class="ltr-tip">Weight: 700 / Montserrat</span></span><span class="ltr">E<span
+                    class="ltr-tip">Tracking: −40 / tight</span></span><span class="ltr">N<span class="ltr-tip">Diagonal
+                    tension</span></span><span class="ltr">O<span class="ltr-tip">Closure — the full
+                    system</span></span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <span class="panel-index" aria-hidden="true">07 / 11</span>
+      </section>
+
+      <!-- ── 08 PROCESS — 2×2 grid ── -->
+      <section class="panel section section-process" aria-labelledby="process-heading">
+        <div class="section-inner">
+
+          <div class="process-header">
+            <p class="section-tag reveal">How we work</p>
+            <h2 class="section-h reveal" id="process-heading">
+              A system for<br>building systems.
+            </h2>
+          </div>
+
+          <div class="process-grid" role="list">
+
+            <div class="process-cell reveal" role="listitem">
+              <span class="process-ghost" aria-hidden="true">01</span>
+              <div class="process-cell-inner">
+                <p class="process-num">01</p>
+                <h3 class="process-title">Audit &amp; Diagnosis</h3>
+                <p class="process-week">Wk 1–2</p>
+              </div>
+            </div>
+
+            <div class="process-cell reveal" role="listitem">
+              <span class="process-ghost" aria-hidden="true">02</span>
+              <div class="process-cell-inner">
+                <p class="process-num">02</p>
+                <h3 class="process-title">System Architecture</h3>
+                <p class="process-week">Wk 3–5</p>
+              </div>
+            </div>
+
+            <div class="process-cell reveal" role="listitem">
+              <span class="process-ghost" aria-hidden="true">03</span>
+              <div class="process-cell-inner">
+                <p class="process-num">03</p>
+                <h3 class="process-title">Application &amp; Proof</h3>
+                <p class="process-week">Wk 6–8</p>
+              </div>
+            </div>
+
+            <div class="process-cell reveal" role="listitem">
+              <span class="process-ghost" aria-hidden="true">04</span>
+              <div class="process-cell-inner">
+                <p class="process-num">04</p>
+                <h3 class="process-title">Handoff &amp; Direction</h3>
+                <p class="process-week">Ongoing</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <span class="panel-index" aria-hidden="true">08 / 11</span>
+      </section>
+
+      <!-- ── 09 CTA ── -->
+      <section class="panel panel--wide-sm section section-cta" aria-label="Call to action">
+        <div class="section-inner cta-inner">
+          <p class="cta-eyebrow reveal">For founders &amp; teams</p>
+          <h2 class="cta-heading">
+            When the work<br>is sharp, the brand<br>should be sharper.
+          </h2>
+          <a href="inquiry.html" class="btn reveal">
+            Start the conversation
+            <span class="btn-arrow" aria-hidden="true"></span>
+          </a>
+        </div>
+        <span class="panel-index panel-index--light" aria-hidden="true">09 / 11</span>
+      </section>
+
+      <!-- ── 10 CONTACT ── -->
+      <section class="panel section section-contact" id="contact" aria-labelledby="contact-heading">
+        <div class="section-inner contact-inner">
+          <p class="section-tag reveal">Get in touch</p>
+          <h2 class="section-h reveal" id="contact-heading">What are you<br>building?</h2>
+          <form class="contact-form reveal" novalidate>
+            <div class="form-row">
+              <div class="form-field">
+                <input type="text" name="name" placeholder="Name" required autocomplete="name">
+                <span class="form-error">Required</span>
+              </div>
+              <div class="form-field">
+                <input type="email" name="email" placeholder="Email" required autocomplete="email">
+                <span class="form-error">Required</span>
+              </div>
+            </div>
+            <div class="form-field">
+              <textarea name="message" placeholder="Tell us about your project" required></textarea>
+              <span class="form-error">Required</span>
+            </div>
+            <button type="submit" class="btn btn--dark">
+              Send inquiry
+              <span class="btn-arrow" aria-hidden="true"></span>
+            </button>
+          </form>
+        </div>
+        <span class="panel-index" aria-hidden="true">10 / 11</span>
+      </section>
+
+      <!-- ── 11 FOOTER ── -->
+      <footer class="panel site-footer" role="contentinfo">
+        <div class="footer-wordmark" aria-hidden="true">ØRENO</div>
+        <div class="footer-inner">
+          <span class="footer-mark">© 2026 ØRENO<br>Brand Architecture</span>
+          <nav class="footer-links" aria-label="Footer navigation">
+            <a href="#" data-goto="#studio">Studio</a>
+            <a href="#" data-goto="#work">Work</a>
+            <a href="#" data-goto="#case-studies">Case Studies</a>
+            <a href="inquiry.html">Inquiry</a>
+          </nav>
+          <div class="footer-social" aria-label="Social links">
+            <a href="https://www.instagram.com/orenostudio/" target="_blank" rel="noopener noreferrer"
+              class="footer-social__link" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" width="16" height="16" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none" />
+              </svg>
+              <span>Instagram</span>
+            </a>
+            <a href="https://www.tiktok.com/@orenostudio" target="_blank" rel="noopener noreferrer"
+              class="footer-social__link" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true">
+                <path
+                  d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9.05a8.16 8.16 0 0 0 4.77 1.52V7.13a4.85 4.85 0 0 1-1-.44z" />
+              </svg>
+              <span>TikTok</span>
+            </a>
+          </div>
+          <a href="#" data-goto=".hero" class="footer-back" aria-label="Back to start">
+            ← Back to start
+          </a>
+        </div>
+        <span class="panel-index" aria-hidden="true">11 / 11</span>
+      </footer>
+
+    </div><!-- #h-track -->
+  </div><!-- #h-scroll-wrapper -->
+
+  <button class="scroll-top" aria-label="Back to start">←</button>
+
+  <!-- ── MOBILE SCROLL PROGRESS + SECTION LABEL ── -->
+  <div class="m-progress" aria-hidden="true">
+    <div class="m-progress-fill"></div>
+  </div>
+  <div class="m-section-label" aria-hidden="true" id="m-section-label">01 / INTRO</div>
+
+  <!-- ── MOBILE BOTTOM NAV (touch devices only) ── -->
+  <nav class="mobile-nav" aria-label="App navigation">
+
+    <a href="#" class="mobile-nav__item is-active" data-goto-m=".hero">
+      <svg class="mobile-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+        aria-hidden="true">
+        <path d="M3 9.75L12 3l9 6.75V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.75z" stroke-linecap="round"
+          stroke-linejoin="round" />
+        <path d="M9 21V12h6v9" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <span class="mobile-nav__label">Home</span>
+    </a>
+
+    <a href="#" class="mobile-nav__item" data-goto-m="#work">
+      <svg class="mobile-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+        aria-hidden="true">
+        <rect x="3" y="3" width="7" height="7" rx="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <rect x="14" y="3" width="7" height="7" rx="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <rect x="3" y="14" width="7" height="7" rx="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <rect x="14" y="14" width="7" height="7" rx="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <span class="mobile-nav__label">Services</span>
+    </a>
+
+    <a href="#" class="mobile-nav__item" data-goto-m="#studio">
+      <svg class="mobile-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+        aria-hidden="true">
+        <circle cx="12" cy="8" r="3.5" stroke-linecap="round" />
+        <path d="M4 20c0-4 3.582-7 8-7s8 3 8 7" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <span class="mobile-nav__label">Studio</span>
+    </a>
+
+    <a href="#" class="mobile-nav__item" data-goto-m="#contact">
+      <svg class="mobile-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+        aria-hidden="true">
+        <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+          stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <span class="mobile-nav__label">Contact</span>
+    </a>
+
+    <a href="inquiry.html" class="mobile-nav__item mobile-nav__item--cta">
+      <span class="mobile-nav__label" style="font-size:0.55rem; letter-spacing:0.16em;">Start →</span>
+    </a>
+
+  </nav>
+
+  <!-- WhatsApp Button -->
+  <a href="https://wa.me/94729537427" class="whatsapp-btn" target="_blank" rel="noopener noreferrer"
+    aria-label="Chat with us on WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="26" height="26" fill="currentColor"
+      aria-hidden="true">
+      <path
+        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+    </svg>
+  </a>
+
+</body>
+
+</html>
