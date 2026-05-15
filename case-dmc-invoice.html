@@ -1,0 +1,1844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DMC Invoice System — Case Study — ØRENO Studio</title>
+<meta name="description" content="An in-depth case study of the Dapper Motor Company Invoice System — a Laravel 11 platform for UK-to-Sri Lanka vehicle export documentation, PDF generation, and multi-template email delivery. Live at dapper.oreno.lk.">
+<meta name="author" content="ØRENO Studio">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#050505">
+<link rel="canonical" href="https://oreno.lk/case-dmc-invoice">
+
+<!-- Icons & PWA -->
+<link rel="icon" href="/assets/icons/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<!-- Structured data: CreativeWork case study -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "@id": "https://oreno.lk/case-dmc-invoice",
+  "name": "DMC Invoice System — Case Study",
+  "headline": "Dapper Motor Company Invoice System — UK-to-Sri Lanka vehicle export platform",
+  "url": "https://oreno.lk/case-dmc-invoice",
+  "image": "https://oreno.lk/assets/og-image.jpg",
+  "inLanguage": "en",
+  "creator": {
+    "@type": "ProfessionalService",
+    "name": "ØRENO Studio",
+    "url": "https://oreno.lk"
+  },
+  "about": ["Invoice management", "Laravel", "PDF generation", "Google OAuth", "Vehicle export"],
+  "keywords": "invoice system, Laravel 11, vehicle export, case study, ØRENO"
+}
+</script>
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ØRENO Studio">
+<meta property="og:title" content="DMC Invoice System — Case Study">
+<meta property="og:description" content="A bespoke invoice management platform for UK-to-Sri Lanka vehicle exports. PDF generation, Google OAuth, dark mode, 15-filter search.">
+<meta property="og:url" content="https://oreno.lk/case-dmc-invoice">
+<meta property="og:image" content="https://oreno.lk/assets/og-image.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="styles.css?v=12.5">
+
+<style>
+  /* ═══════════════════════════════════════════════════
+     CASE STUDY — SHARED TOKENS (DMC Blue)
+  ═══════════════════════════════════════════════════ */
+  :root {
+    --cs-accent: #3b82f6;
+    --cs-accent-dim: rgba(59,130,246,0.18);
+    --cs-dark: #070707;
+    --cs-dark-2: #0f0f0f;
+    --cs-line-dark: rgba(255,255,255,0.09);
+    --cs-line-dark-h: rgba(255,255,255,0.18);
+    --cs-text-dark: rgba(245,243,238,0.92);
+    --cs-muted-dark: rgba(245,243,238,0.48);
+    --cs-dim-dark: rgba(245,243,238,0.32);
+  }
+
+  .cs-page { font-family: 'Montserrat', sans-serif; color: var(--c-fg); background: var(--c-bg); }
+
+  /* Panel override: the case study uses panels-with-inner-pad. */
+  .panel.cs-panel {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: clamp(3.8rem, 6.5vh, 6rem) var(--pad-x) clamp(2.2rem, 4vh, 3.6rem);
+    overflow: hidden;
+  }
+  .panel.cs-panel.cs-panel--dark {
+    background: var(--cs-dark);
+    color: var(--cs-text-dark);
+    border-right-color: var(--cs-line-dark);
+  }
+  .panel.cs-panel .cs-panel-inner {
+    max-width: var(--max-w);
+    width: 100%; margin: 0 auto;
+    position: relative;
+  }
+
+  /* ─── TYPE RAMP — guided trail ──────────────
+     1 eyebrow  → 2 caption → 3 body → 4 lede
+     → 5 stage-h → 6 sec-h → 7 pull-q → 8 hero
+     Each step ~1.25–1.35× the one before it.
+  ─────────────────────────────────────────── */
+  .cs-eyebrow {
+    font-size: clamp(0.56rem, 0.7vw, 0.68rem);
+    letter-spacing: 0.32em; text-transform: uppercase; font-weight: 500;
+    color: var(--c-dim); display: inline-flex; align-items: center; gap: 0.8rem;
+    margin-bottom: 1rem;
+  }
+  .cs-eyebrow::before {
+    content: ""; width: 1.5rem; height: 1px; background: currentColor; flex-shrink: 0;
+  }
+  .cs-panel--dark .cs-eyebrow { color: var(--cs-dim-dark); }
+
+  .cs-sec-h {
+    font-size: clamp(1.8rem, 3.6vw, 2.8rem);
+    font-weight: 500; line-height: 1.1; letter-spacing: -0.02em;
+    color: var(--c-fg);
+  }
+  .cs-panel--dark .cs-sec-h { color: var(--cs-text-dark); }
+
+  .cs-sec-lede {
+    font-size: clamp(1.05rem, 1.35vw, 1.25rem);
+    line-height: 1.6; color: var(--c-muted);
+    max-width: 52ch; letter-spacing: -0.005em;
+  }
+  .cs-panel--dark .cs-sec-lede { color: var(--cs-muted-dark); }
+
+  .cs-sec-head {
+    display: grid; grid-template-columns: 1fr 1.4fr;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: start;
+    margin-bottom: clamp(1.6rem, 3.8vh, 2.8rem);
+  }
+  .cs-sec-head .cs-eyebrow { margin-bottom: 0.7rem; }
+  .cs-sec-head .cs-sec-h { margin-bottom: 0; }
+
+  /* ═══════════════════════════════════════════════════
+     01 · HERO
+  ═══════════════════════════════════════════════════ */
+  .cs-hero { background: var(--cs-dark); color: var(--cs-text-dark); }
+  .cs-hero-bg {
+    position: absolute; inset: 0; z-index: 0; opacity: 0.75;
+    pointer-events: none;
+  }
+  .cs-hero-bg svg { width: 100%; height: 100%; display: block; }
+  .cs-hero-inner { position: relative; z-index: 2; }
+
+  .cs-hero-top {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: clamp(1.4rem, 3vh, 2.4rem);
+    font-size: var(--fs-label); letter-spacing: 0.28em;
+    text-transform: uppercase; color: var(--cs-dim-dark);
+  }
+  .cs-hero-back {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    color: var(--cs-dim-dark); text-decoration: none;
+    padding-bottom: 0.25rem; border-bottom: 1px solid transparent;
+    transition: color 0.3s ease, border-color 0.3s ease;
+  }
+  .cs-hero-back:hover { color: var(--cs-text-dark); border-bottom-color: var(--cs-accent); }
+  .cs-hero-eyebrow {
+    font-size: clamp(0.56rem, 0.7vw, 0.68rem); letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--cs-accent); display: inline-flex; align-items: center; gap: 0.8rem;
+    margin-bottom: 1rem; font-weight: 500;
+  }
+  .cs-hero-eyebrow::before {
+    content: ""; width: 1.8rem; height: 1px; background: var(--cs-accent); flex-shrink: 0;
+  }
+  .cs-hero-title {
+    font-size: clamp(2.2rem, 5.4vw, 4.8rem);
+    font-weight: 600; line-height: 1.02;
+    letter-spacing: -0.03em;
+    color: var(--cs-text-dark);
+    margin-bottom: clamp(0.6rem, 1.2vh, 1rem);
+  }
+  .cs-hero-sub {
+    font-size: clamp(1.05rem, 1.35vw, 1.25rem);
+    line-height: 1.6; color: var(--cs-muted-dark);
+    letter-spacing: -0.005em;
+    max-width: 620px;
+    margin-bottom: clamp(1rem, 2.2vh, 1.5rem);
+  }
+  .cs-hero-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: clamp(0.9rem, 2vh, 1.4rem); }
+  .cs-hero-pills span {
+    font-size: clamp(0.5rem, 0.78vw, 0.6rem);
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--cs-muted-dark);
+    border: 1px solid var(--cs-line-dark-h);
+    padding: 0.45rem 0.85rem;
+  }
+
+  /* HERO BODY — splits intro copy from section index */
+  .cs-hero-body {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(2rem, 4vw, 4rem);
+    align-items: start;
+    margin-bottom: clamp(1.2rem, 2.4vh, 2rem);
+  }
+  .cs-hero-intro { min-width: 0; }
+  .cs-hero-intro .cs-hero-sub { margin-bottom: 0; }
+
+  /* SECTION INDEX — the "jump to" nav inside the hero */
+  .cs-index {
+    border-left: 1px solid var(--cs-line-dark);
+    padding-left: clamp(1.2rem, 2vw, 2rem);
+    min-width: 0;
+  }
+  .cs-index-label {
+    font-size: clamp(0.56rem, 0.7vw, 0.68rem);
+    letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--cs-accent); font-weight: 500;
+    margin: 0 0 clamp(0.8rem, 1.5vh, 1.2rem);
+    display: inline-flex; align-items: center; gap: 0.7rem;
+  }
+  .cs-index-label::before {
+    content: ""; width: 1.4rem; height: 1px; background: var(--cs-accent);
+  }
+  .cs-index-list {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column;
+  }
+  .cs-index-list li {
+    border-bottom: 1px solid rgba(245,243,238,0.08);
+  }
+  .cs-index-list li:first-child {
+    border-top: 1px solid rgba(245,243,238,0.08);
+  }
+  .cs-index-item {
+    appearance: none; background: transparent; border: 0; outline: 0;
+    font-family: inherit; cursor: pointer;
+    width: 100%; text-align: left;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    column-gap: clamp(0.8rem, 1.4vw, 1.2rem);
+    align-items: baseline;
+    padding: clamp(0.55rem, 0.95vh, 0.85rem) 0.4rem clamp(0.55rem, 0.95vh, 0.85rem) 0;
+    color: var(--cs-text-dark);
+    transition: padding-left 0.35s ease, background 0.35s ease;
+  }
+  .cs-index-item:hover,
+  .cs-index-item:focus-visible,
+  .cs-index-item.is-active {
+    padding-left: 0.9rem;
+    background: color-mix(in srgb, var(--cs-accent) 6%, transparent);
+  }
+  .cs-index-item:hover .cs-index-arrow,
+  .cs-index-item:focus-visible .cs-index-arrow,
+  .cs-index-item.is-active .cs-index-arrow {
+    transform: translateX(4px);
+    color: var(--cs-accent);
+  }
+  .cs-index-item:hover .cs-index-num,
+  .cs-index-item:focus-visible .cs-index-num,
+  .cs-index-item.is-active .cs-index-num,
+  .cs-index-item:hover .cs-index-title,
+  .cs-index-item:focus-visible .cs-index-title,
+  .cs-index-item.is-active .cs-index-title {
+    color: var(--cs-accent);
+  }
+  .cs-index-num {
+    font-size: clamp(0.52rem, 0.68vw, 0.62rem);
+    letter-spacing: 0.24em;
+    color: rgba(245,243,238,0.4);
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+    transition: color 0.35s ease;
+  }
+  .cs-index-title {
+    font-size: clamp(0.92rem, 1.15vw, 1.1rem);
+    color: var(--cs-text-dark);
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    line-height: 1.25;
+    transition: color 0.35s ease;
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .cs-index-desc {
+    grid-column: 2;
+    grid-row: 2;
+    font-size: clamp(0.68rem, 0.82vw, 0.78rem);
+    color: rgba(245,243,238,0.42);
+    line-height: 1.4;
+    margin-top: 0.15rem;
+  }
+  .cs-index-arrow {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+    align-self: center;
+    color: rgba(245,243,238,0.35);
+    transition: transform 0.35s ease, color 0.35s ease;
+    flex-shrink: 0;
+  }
+
+  .cs-hero-meta {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--cs-line-dark);
+    padding-top: clamp(0.9rem, 1.6vh, 1.4rem);
+  }
+  .cs-hero-meta-item {
+    display: flex; flex-direction: column; gap: 0.35rem;
+    padding-right: 1rem;
+  }
+  .cs-hero-meta-label {
+    font-size: clamp(0.42rem, 0.6vw, 0.5rem);
+    letter-spacing: 0.26em; text-transform: uppercase;
+    color: var(--cs-dim-dark);
+  }
+  .cs-hero-meta-value {
+    font-size: clamp(0.78rem, 1.1vw, 0.95rem);
+    color: var(--cs-text-dark); font-weight: 500;
+  }
+  .cs-hero-meta-value--live { color: var(--cs-accent); }
+
+  /* ═══════════════════════════════════════════════════
+     02 · THE CALL — manifesto-style numbered rows
+  ═══════════════════════════════════════════════════ */
+  .cs-call-rows { display: flex; flex-direction: column; margin-top: clamp(1rem, 2vh, 1.5rem); }
+  .cs-call-row {
+    display: grid;
+    grid-template-columns: clamp(3rem, 5vw, 5rem) 1fr;
+    align-items: baseline;
+    gap: clamp(1.5rem, 3vw, 2.4rem);
+    padding: clamp(1.4rem, 3vh, 2.2rem) 0;
+    border-bottom: 1px solid var(--c-border);
+  }
+  .cs-call-row:first-child { border-top: 1px solid var(--c-border); }
+  .cs-call-num {
+    font-size: clamp(0.5rem, 0.75vw, 0.6rem);
+    letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--cs-accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .cs-call-line {
+    font-size: clamp(1.3rem, 2.6vw, 2rem);
+    font-weight: 600; letter-spacing: -0.015em; line-height: 1.2;
+    color: var(--c-fg);
+  }
+  .cs-call-line span { color: var(--c-muted); font-weight: 400; }
+
+  /* ═══════════════════════════════════════════════════
+     03 · THE ANSWER — editorial pull quote
+  ═══════════════════════════════════════════════════ */
+  .cs-answer { text-align: left; }
+  .cs-answer .cs-panel-inner { max-width: 980px; }
+  .cs-answer-pre {
+    font-size: var(--fs-label); letter-spacing: 0.34em; text-transform: uppercase;
+    color: var(--cs-dim-dark); margin-bottom: clamp(2rem, 4vh, 2.8rem);
+    display: inline-flex; align-items: center; gap: 0.8rem;
+  }
+  .cs-answer-pre::before { content: ""; width: 1.8rem; height: 1px; background: var(--cs-accent); }
+  .cs-answer-q {
+    font-size: clamp(2rem, 4.2vw, 3.4rem);
+    font-weight: 500; line-height: 1.15; letter-spacing: -0.025em;
+    color: var(--cs-text-dark);
+  }
+  .cs-answer-q em {
+    font-style: normal; color: var(--cs-accent);
+  }
+  .cs-answer-sig {
+    margin-top: clamp(2.4rem, 5vh, 3.6rem);
+    font-size: var(--fs-label); letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--cs-muted-dark);
+    display: flex; gap: 1.2rem; align-items: center;
+  }
+  .cs-answer-sig::before { content:""; width: 2.4rem; height: 1px; background: var(--cs-muted-dark); }
+
+  /* ═══════════════════════════════════════════════════
+     04 · BY THE NUMBERS
+  ═══════════════════════════════════════════════════ */
+  .cs-nums-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--cs-line-dark);
+    border-left: 1px solid var(--cs-line-dark);
+  }
+  .cs-num-card {
+    padding: clamp(1.4rem, 3vw, 2.4rem) clamp(1.2rem, 2.4vw, 1.8rem);
+    border-right: 1px solid var(--cs-line-dark);
+    border-bottom: 1px solid var(--cs-line-dark);
+    position: relative;
+    transition: background 0.4s ease;
+  }
+  .cs-num-card:hover { background: rgba(59,130,246,0.04); }
+  .cs-num-card::before {
+    content: ""; position: absolute; top: 0; left: 0;
+    width: 0; height: 1px; background: var(--cs-accent);
+    transition: width 1.2s var(--ease-expo, cubic-bezier(0.16,1,0.3,1));
+  }
+  .cs-num-card.is-in::before { width: 100%; }
+  .cs-num-label {
+    font-size: clamp(0.42rem, 0.62vw, 0.5rem);
+    letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--cs-dim-dark); margin-bottom: 1.2rem;
+  }
+  .cs-num-value {
+    font-size: clamp(2rem, 4.2vw, 3.4rem);
+    font-weight: 500; line-height: 1; letter-spacing: -0.035em;
+    color: var(--cs-text-dark); font-variant-numeric: tabular-nums;
+  }
+  .cs-num-note {
+    margin-top: 0.9rem;
+    font-size: clamp(0.62rem, 0.82vw, 0.72rem);
+    color: var(--cs-muted-dark); line-height: 1.6;
+  }
+
+  /* ═══════════════════════════════════════════════════
+     05 · INSIDE THE SYSTEM — browser chrome + tabs + mockup
+  ═══════════════════════════════════════════════════ */
+  .cs-stage-layout {
+    display: grid; grid-template-columns: 1.6fr 1fr;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: center;
+    margin-top: clamp(0.8rem, 2vh, 1.4rem);
+  }
+  .cs-stage-frame {
+    border: 1px solid var(--c-border);
+    background: #0a1224;
+    box-shadow: 0 30px 60px -24px rgba(10,10,10,0.18), 0 0 0 1px rgba(59,130,246,0.05);
+    overflow: hidden;
+  }
+  .cs-stage-chrome {
+    background: #18181b;
+    padding: 0.55rem 0.9rem;
+    display: flex; align-items: center; gap: 0.8rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .cs-stage-dots { display: flex; gap: 0.36rem; }
+  .cs-stage-dots span {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(255,255,255,0.22);
+  }
+  .cs-stage-addr {
+    flex: 1; background: rgba(255,255,255,0.06);
+    padding: 0.35rem 0.8rem;
+    font-size: 0.56rem; letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.45);
+    font-family: 'Montserrat', monospace;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .cs-stage-addr svg { width: 9px; height: 9px; flex-shrink: 0; }
+  .cs-stage-view {
+    aspect-ratio: 16 / 10;
+    background: #0a1224;
+    position: relative; overflow: hidden;
+  }
+  .cs-stage-view svg { width: 100%; height: 100%; display: block; position: absolute; inset: 0; opacity: 0; transition: opacity 0.5s ease; }
+  .cs-stage-view svg.is-active { opacity: 1; }
+
+  .cs-stage-tabs {
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+    margin-top: 1rem;
+  }
+  .cs-stage-tab {
+    font-size: clamp(0.44rem, 0.62vw, 0.52rem);
+    letter-spacing: 0.24em; text-transform: uppercase;
+    padding: 0.55rem 0.9rem;
+    border: 1px solid var(--c-border);
+    background: transparent; color: var(--c-muted);
+    cursor: pointer; font-family: inherit;
+    transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  }
+  .cs-stage-tab:hover { color: var(--c-fg); border-color: rgba(10,10,10,0.2); }
+  .cs-stage-tab.is-active {
+    color: #fff; background: var(--cs-accent); border-color: var(--cs-accent);
+  }
+
+  .cs-stage-copy-item { display: none; }
+  .cs-stage-copy-item.is-active { display: block; }
+  .cs-stage-copy-label {
+    font-size: var(--fs-label); letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--cs-accent); margin-bottom: 1rem;
+  }
+  .cs-stage-copy-h {
+    font-size: clamp(1.3rem, 2.1vw, 1.75rem);
+    font-weight: 500; letter-spacing: -0.015em; line-height: 1.18;
+    color: var(--c-fg); margin-bottom: 0.7rem;
+  }
+  .cs-stage-copy-p {
+    font-size: clamp(0.82rem, 1vw, 0.92rem);
+    line-height: 1.65; color: var(--c-muted);
+  }
+  .cs-stage-hint {
+    margin-top: 1.4rem;
+    font-size: clamp(0.46rem, 0.66vw, 0.54rem);
+    letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--c-dim);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .cs-stage-hint::before { content: ""; width: 1rem; height: 1px; background: var(--c-dim); }
+
+  /* ═══════════════════════════════════════════════════
+     06 · ARCHITECTURE DIAGRAM
+  ═══════════════════════════════════════════════════ */
+  .cs-arch-stage {
+    border: 1px solid var(--c-border);
+    padding: clamp(1.1rem, 2.4vw, 2rem) clamp(1.1rem, 2.4vw, 2rem);
+    background: #FBFAF6;
+  }
+  .cs-arch-stage svg { display: block; width: 100%; height: auto; max-height: clamp(280px, 50vh, 520px); }
+  .cs-arch-node rect { fill: #fff; stroke: #18181b; stroke-width: 1; }
+  .cs-arch-node text {
+    font-family: 'Montserrat', sans-serif; fill: #18181b;
+    font-size: 11px; font-weight: 500;
+  }
+  .cs-arch-node .arch-sub {
+    font-size: 7px; fill: rgba(24,24,27,0.55);
+    letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  .cs-arch-line {
+    stroke: #18181b; stroke-width: 1; fill: none;
+  }
+  .cs-arch-accent { fill: var(--cs-accent); stroke: #18181b; stroke-width: 1; }
+  .cs-arch-accent-text { fill: #fff; font-weight: 600; }
+
+  /* ═══════════════════════════════════════════════════
+     07 · TECH STACK
+  ═══════════════════════════════════════════════════ */
+  .cs-stack-wrap { max-height: clamp(340px, 56vh, 560px); overflow-y: auto; }
+  .cs-stack-table {
+    width: 100%; border-collapse: collapse;
+    border-top: 1px solid var(--c-border);
+  }
+  .cs-stack-table tr { border-bottom: 1px solid var(--c-border); }
+  .cs-stack-table tr:hover { background: rgba(24,24,27,0.015); }
+  .cs-stack-table td {
+    padding: clamp(0.8rem, 1.5vh, 1.2rem) clamp(0.8rem, 2vw, 1.6rem);
+    vertical-align: top;
+    font-size: clamp(0.78rem, 1.05vw, 0.9rem);
+    line-height: 1.6;
+  }
+  .cs-stack-table td:nth-child(1) {
+    font-size: clamp(0.44rem, 0.66vw, 0.52rem);
+    letter-spacing: 0.26em; text-transform: uppercase;
+    color: var(--c-dim); width: 22%;
+    padding-top: calc(clamp(0.8rem, 1.5vh, 1.2rem) + 0.2rem);
+  }
+  .cs-stack-table td:nth-child(2) {
+    color: var(--c-fg); font-weight: 500; width: 28%;
+  }
+  .cs-stack-table td:nth-child(3) { color: var(--c-muted); max-width: 50ch; }
+
+  /* ═══════════════════════════════════════════════════
+     08 · DATABASE SCHEMA (dark panel)
+  ═══════════════════════════════════════════════════ */
+  .cs-schema-wrap {
+    padding: clamp(1rem, 2.5vw, 1.8rem);
+    border: 1px solid var(--cs-line-dark);
+    max-height: clamp(320px, 52vh, 520px); overflow: hidden;
+  }
+  .cs-schema-wrap svg { display: block; width: 100%; height: auto; max-height: clamp(280px, 46vh, 460px); }
+  .cs-schema-table-rect { fill: #0f0f0f; stroke: var(--cs-line-dark-h); stroke-width: 1; }
+  .cs-schema-table-header { fill: var(--cs-accent); }
+  .cs-schema-table-header-text {
+    font-family: 'Montserrat', sans-serif; font-size: 10px;
+    fill: #fff; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .cs-schema-col-text {
+    font-family: 'Montserrat', sans-serif; font-size: 9px;
+    fill: var(--cs-muted-dark);
+  }
+  .cs-schema-col-key { fill: var(--cs-accent); font-weight: 600; }
+  .cs-schema-rel {
+    stroke: var(--cs-accent); stroke-width: 1.2; fill: none;
+    stroke-dasharray: 3 3;
+  }
+
+  /* ═══════════════════════════════════════════════════
+     09 · ROLES MATRIX
+  ═══════════════════════════════════════════════════ */
+  .cs-roles-wrap { max-height: clamp(340px, 56vh, 560px); overflow: auto; }
+  .cs-roles-table {
+    width: 100%; border-collapse: collapse;
+    border: 1px solid var(--c-border);
+    font-size: clamp(0.7rem, 0.95vw, 0.82rem);
+  }
+  .cs-roles-table th, .cs-roles-table td {
+    padding: clamp(0.6rem, 1vh, 0.9rem) clamp(0.5rem, 0.9vw, 0.9rem);
+    border-bottom: 1px solid var(--c-border);
+    border-right: 1px solid var(--c-border);
+    text-align: center;
+  }
+  .cs-roles-table th {
+    font-size: clamp(0.42rem, 0.62vw, 0.5rem);
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--c-dim); font-weight: 500;
+    background: rgba(24,24,27,0.025);
+  }
+  .cs-roles-table td:first-child, .cs-roles-table th:first-child {
+    text-align: left; font-weight: 500; color: var(--c-fg);
+  }
+  .cs-roles-table tbody tr:hover { background: rgba(59,130,246,0.04); }
+  .cs-roles-dot {
+    display: inline-block; width: 8px; height: 8px;
+    background: var(--cs-accent); border-radius: 50%;
+  }
+  .cs-roles-dot--off {
+    background: transparent; border: 1px solid var(--c-border);
+  }
+
+  /* ═══════════════════════════════════════════════════
+     10 · OUTRO / CTA
+  ═══════════════════════════════════════════════════ */
+  .cs-outro { text-align: center; }
+  .cs-outro .cs-panel-inner { max-width: 820px; }
+  .cs-outro .cs-eyebrow { color: var(--cs-accent); justify-content: center; }
+  .cs-outro-h {
+    font-size: clamp(2rem, 4.2vw, 3.4rem);
+    font-weight: 500; line-height: 1.12; letter-spacing: -0.025em;
+    color: var(--cs-text-dark);
+    margin-bottom: 0.9rem;
+  }
+  .cs-outro-sub {
+    font-size: clamp(1.02rem, 1.3vw, 1.2rem);
+    line-height: 1.6; color: var(--cs-muted-dark);
+    letter-spacing: -0.005em;
+    max-width: 54ch; margin: 0 auto clamp(1.6rem, 3vh, 2.4rem);
+  }
+  .cs-outro-actions {
+    display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;
+  }
+  .cs-outro-btn {
+    display: inline-flex; align-items: center; gap: 0.7rem;
+    padding: 0.95rem 1.6rem;
+    font-size: clamp(0.5rem, 0.76vw, 0.6rem);
+    letter-spacing: 0.24em; text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--cs-line-dark-h);
+    color: var(--cs-text-dark);
+    transition: border-color 0.3s ease, background 0.3s ease, color 0.3s ease;
+  }
+  .cs-outro-btn:hover { border-color: var(--cs-accent); color: var(--cs-accent); }
+  .cs-outro-btn--primary {
+    background: var(--cs-accent); border-color: var(--cs-accent); color: #fff;
+  }
+  .cs-outro-btn--primary:hover { background: transparent; color: var(--cs-accent); }
+  .cs-outro-btn--live {
+    border-color: var(--cs-accent); color: var(--cs-accent);
+  }
+  .cs-outro-btn--live:hover { background: var(--cs-accent); color: #fff; }
+
+  /* Reveal animation base */
+  .cs-reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+  .cs-reveal.is-in { opacity: 1; transform: translateY(0); }
+
+  .cs-draw { stroke-dasharray: 600; stroke-dashoffset: 600; transition: stroke-dashoffset 1.6s ease; }
+  .cs-draw.is-in { stroke-dashoffset: 0; }
+
+  /* ═══════════════════════════════════════════════════
+     RESPONSIVE — mid-range, short-height, tablet, mobile
+  ═══════════════════════════════════════════════════ */
+  /* Mid-range laptops (the "forgotten middle": 1280–1440w) */
+  @media (max-width: 1440px) {
+    .panel.cs-panel { padding: clamp(3rem, 5vh, 5rem) var(--pad-x) clamp(1.8rem, 3vh, 3rem); }
+    .cs-hero-title { font-size: clamp(1.9rem, 3.8vw, 3.4rem); }
+    .cs-hero-body { gap: clamp(1.6rem, 3vw, 2.4rem); grid-template-columns: 1fr 1.05fr; }
+    .cs-index-item { padding: 0.55rem 0 0.55rem 0; }
+    .cs-index-desc { display: none; }
+    .cs-hero-meta { grid-template-columns: repeat(4, 1fr); row-gap: 1rem; column-gap: 1.4rem; }
+    .cs-nums-grid { grid-template-columns: repeat(2, 1fr); row-gap: 1.2rem; column-gap: 2rem; }
+    .cs-stack-table td, .cs-roles-table td { padding: 0.7rem 1rem; font-size: 0.85rem; }
+    .cs-stage-layout { gap: clamp(1.4rem, 2.8vw, 2.4rem); }
+    .cs-arch-stage { max-height: none; }
+    .cs-schema-wrap { max-height: clamp(320px, 48vh, 460px); }
+    .cs-stage-copy-h { font-size: clamp(1.2rem, 1.85vw, 1.55rem); }
+    .cs-stage-copy-p { font-size: clamp(0.78rem, 1vw, 0.9rem); }
+    .cs-scene-stats { gap: 0.45rem; }
+    .cs-scene-stat { padding: 0.5rem 0.6rem; }
+    .cs-scene-chart-wrap, .cs-scene-list-wrap { padding: 0.5rem 0.65rem; gap: 0.3rem; }
+    .cs-scene-body { gap: 0.55rem; }
+    .cs-scene-list-item { padding: 0.3rem 0.45rem; font-size: 0.47rem; }
+  }
+
+  /* Short-viewport guard — short laptops (720–820px tall) */
+  @media (max-height: 820px) {
+    .panel.cs-panel { padding-top: clamp(2.4rem, 4vh, 3.6rem); padding-bottom: clamp(1.4rem, 2.4vh, 2.4rem); }
+    .cs-hero-title { font-size: clamp(1.8rem, 3.4vw, 2.8rem); }
+    .cs-hero-top { margin-bottom: clamp(0.8rem, 1.6vh, 1.4rem); }
+    .cs-hero-sub, .cs-hero-pills { margin-bottom: clamp(0.6rem, 1.2vh, 1rem); }
+    .cs-hero-body { margin-bottom: clamp(0.9rem, 1.8vh, 1.4rem); }
+    .cs-index-item { padding-top: clamp(0.4rem, 0.8vh, 0.65rem); padding-bottom: clamp(0.4rem, 0.8vh, 0.65rem); }
+    .cs-index-desc { display: none; }
+    .cs-sec-head { margin-bottom: clamp(1.2rem, 2.4vh, 2rem); }
+    .cs-schema-wrap { max-height: clamp(280px, 44vh, 420px); }
+  }
+
+  @media (max-width: 1024px) {
+    .cs-sec-head { grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+    .cs-nums-grid { grid-template-columns: repeat(2, 1fr); }
+    .cs-hero-meta { grid-template-columns: repeat(2, 1fr); row-gap: 1.2rem; }
+    .cs-stage-layout { grid-template-columns: 1fr; }
+    .cs-hero-body { grid-template-columns: 1fr; gap: 1.6rem; }
+    .cs-index { border-left: 0; border-top: 1px solid var(--cs-line-dark); padding-left: 0; padding-top: 1.2rem; }
+    .cs-index-desc { display: block; }
+  }
+  @media (max-width: 768px) {
+    #h-scroll-wrapper {
+      position: static !important; height: auto !important; overflow: visible !important;
+    }
+    #h-track {
+      flex-direction: column !important; height: auto !important; transform: none !important;
+    }
+    .panel, .panel.cs-panel {
+      width: 100% !important; height: auto !important;
+      min-height: 0 !important; flex: none !important;
+      border-right: none !important;
+      border-bottom: 1px solid var(--c-border);
+    }
+    .panel.cs-panel--dark { border-bottom-color: var(--cs-line-dark); }
+    body { height: auto !important; }
+    .dot-nav, .panel-arrows { display: none !important; }
+    .cs-nums-grid { grid-template-columns: 1fr; }
+    .cs-hero-meta { grid-template-columns: 1fr 1fr; }
+    .cs-stack-wrap, .cs-roles-wrap, .cs-schema-wrap { max-height: none; }
+  }
+</style>
+<script src="/nav.js?v=1.0" defer></script>
+</head>
+
+<body id="page-case-dmc" data-page="case-dmc" class="cs-page">
+
+  <!-- ══════════════════════════════════════
+       HEADER — fixed frosted bar
+  ══════════════════════════════════════ -->
+  
+
+  <!-- ── NAV — mobile bottom tab bar ── -->
+  
+
+  <!-- ══════════════════════════════════════
+       H-SCROLL WRAPPER
+  ══════════════════════════════════════ -->
+  <div id="h-scroll-wrapper">
+    <div id="h-track">
+
+      <!-- ═══════════ 01 · HERO ═══════════ -->
+      <section class="panel cs-panel cs-panel--dark cs-hero" aria-labelledby="hero-title">
+        <div class="cs-hero-bg" aria-hidden="true">
+          <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="dmc-grid" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+                <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(59,130,246,0.08)" stroke-width="0.6"/>
+              </pattern>
+              <radialGradient id="dmc-glow" cx="50%" cy="45%" r="60%">
+                <stop offset="0%" stop-color="rgba(59,130,246,0.16)"/>
+                <stop offset="100%" stop-color="rgba(59,130,246,0)"/>
+              </radialGradient>
+            </defs>
+            <rect width="1600" height="900" fill="url(#dmc-grid)"/>
+            <rect width="1600" height="900" fill="url(#dmc-glow)"/>
+
+            <!-- Floating invoice document silhouettes -->
+            <rect x="180" y="180" width="80" height="105" rx="2" fill="none" stroke="rgba(59,130,246,0.22)" stroke-width="0.8"/>
+            <line x1="195" y1="200" x2="245" y2="200" stroke="rgba(59,130,246,0.18)" stroke-width="0.6"/>
+            <line x1="195" y1="212" x2="235" y2="212" stroke="rgba(59,130,246,0.12)" stroke-width="0.6"/>
+            <line x1="195" y1="224" x2="248" y2="224" stroke="rgba(59,130,246,0.12)" stroke-width="0.6"/>
+            <line x1="195" y1="248" x2="240" y2="248" stroke="rgba(59,130,246,0.18)" stroke-width="0.6"/>
+
+            <rect x="1320" y="320" width="80" height="105" rx="2" fill="none" stroke="rgba(59,130,246,0.18)" stroke-width="0.8"/>
+            <line x1="1335" y1="340" x2="1385" y2="340" stroke="rgba(59,130,246,0.15)" stroke-width="0.6"/>
+            <line x1="1335" y1="352" x2="1375" y2="352" stroke="rgba(59,130,246,0.10)" stroke-width="0.6"/>
+            <line x1="1335" y1="390" x2="1380" y2="390" stroke="rgba(59,130,246,0.15)" stroke-width="0.6"/>
+
+            <path class="dmc-flow" d="M 0 320 Q 400 280, 800 340 T 1600 300" fill="none" stroke="rgba(59,130,246,0.45)" stroke-width="1.1" stroke-dasharray="8 14"/>
+            <path class="dmc-flow" d="M 0 560 Q 400 600, 800 540 T 1600 580" fill="none" stroke="rgba(59,130,246,0.28)" stroke-width="0.9" stroke-dasharray="6 12"/>
+            <path class="dmc-flow" d="M 0 720 Q 400 680, 800 740 T 1600 700" fill="none" stroke="rgba(59,130,246,0.18)" stroke-width="0.7" stroke-dasharray="4 10"/>
+
+            <circle cx="420" cy="300" r="3" fill="rgba(59,130,246,0.85)"/>
+            <circle cx="980" cy="340" r="3" fill="rgba(59,130,246,0.65)"/>
+            <circle cx="1200" cy="560" r="2.5" fill="rgba(59,130,246,0.55)"/>
+            <circle cx="220" cy="560" r="2.5" fill="rgba(59,130,246,0.55)"/>
+            <circle cx="700" cy="540" r="2.5" fill="rgba(59,130,246,0.55)"/>
+          </svg>
+        </div>
+
+        <div class="cs-panel-inner cs-hero-inner">
+          <div class="cs-hero-top">
+            <a class="cs-hero-back" href="/#case-studies">
+              <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true">
+                <path d="M12 5H2M5 1L1 5l4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>Selected Work</span>
+            </a>
+            <span>Case Study 02 / 02 · Dapper Motor</span>
+          </div>
+
+          <div class="cs-hero-body">
+            <div class="cs-hero-intro">
+              <p class="cs-hero-eyebrow">Invoice Management Platform</p>
+              <h1 class="cs-hero-title" id="hero-title">Dapper Motor<br>Invoice System.</h1>
+              <p class="cs-hero-sub">A Laravel platform that retires four years of Word files and Excel sheets. UK-to-Sri Lanka vehicle export documentation, branded PDFs, multi-template email, a full audit trail.</p>
+            </div>
+
+            <nav class="cs-index" aria-label="Case study sections">
+              <p class="cs-index-label">Jump to section</p>
+              <ol class="cs-index-list">
+                <li>
+                  <button type="button" class="cs-index-item" data-jump="1">
+                    <span class="cs-index-num">01</span>
+                    <span class="cs-index-title">The call</span>
+                    <span class="cs-index-desc">Four years of Word files and a paper trail</span>
+                    <svg class="cs-index-arrow" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M2 5h10M8 1l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="cs-index-item" data-jump="2">
+                    <span class="cs-index-num">02</span>
+                    <span class="cs-index-title">The answer</span>
+                    <span class="cs-index-desc">One tool. One screen. No Excel.</span>
+                    <svg class="cs-index-arrow" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M2 5h10M8 1l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="cs-index-item" data-jump="3">
+                    <span class="cs-index-num">03</span>
+                    <span class="cs-index-title">By the numbers</span>
+                    <span class="cs-index-desc">Invoices shipped, seconds saved, seals signed</span>
+                    <svg class="cs-index-arrow" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M2 5h10M8 1l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="cs-index-item" data-jump="4">
+                    <span class="cs-index-num">04</span>
+                    <span class="cs-index-title">Inside the system</span>
+                    <span class="cs-index-desc">Login → Create → PDF → Send → Archive</span>
+                    <svg class="cs-index-arrow" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M2 5h10M8 1l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="cs-index-item" data-jump="5">
+                    <span class="cs-index-num">05</span>
+                    <span class="cs-index-title">Architecture</span>
+                    <span class="cs-index-desc">Laravel kernel, PDF + email + storage pipes</span>
+                    <svg class="cs-index-arrow" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M2 5h10M8 1l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="cs-index-item" data-jump="6">
+                    <span class="cs-index-num">06</span>
+                    <span class="cs-index-title">Tech stack</span>
+                    <span class="cs-index-desc">What we chose, and why it still runs</span>
+                    <svg class="cs-index-arrow" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M2 5h10M8 1l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="cs-index-item" data-jump="7">
+                    <span class="cs-index-num">07</span>
+                    <span class="cs-index-title">Database schema</span>
+                    <span class="cs-index-desc">Invoices, items, customers, audits — normalized</span>
+                    <svg class="cs-index-arrow" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M2 5h10M8 1l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="cs-index-item" data-jump="8">
+                    <span class="cs-index-num">08</span>
+                    <span class="cs-index-title">Roles matrix</span>
+                    <span class="cs-index-desc">Who creates, who approves, who sends</span>
+                    <svg class="cs-index-arrow" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M2 5h10M8 1l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="cs-index-item" data-jump="9">
+                    <span class="cs-index-num">09</span>
+                    <span class="cs-index-title">Start yours</span>
+                    <span class="cs-index-desc">Ready to build one of your own?</span>
+                    <svg class="cs-index-arrow" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M2 5h10M8 1l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </li>
+              </ol>
+            </nav>
+          </div>
+
+          <div class="cs-hero-meta">
+            <div class="cs-hero-meta-item">
+              <span class="cs-hero-meta-label">Client</span>
+              <span class="cs-hero-meta-value">Dapper Motor Company Ltd</span>
+            </div>
+            <div class="cs-hero-meta-item">
+              <span class="cs-hero-meta-label">Industry</span>
+              <span class="cs-hero-meta-value">Vehicle Export · UK → SL</span>
+            </div>
+            <div class="cs-hero-meta-item">
+              <span class="cs-hero-meta-label">Year</span>
+              <span class="cs-hero-meta-value">2025</span>
+            </div>
+            <div class="cs-hero-meta-item">
+              <span class="cs-hero-meta-label">Status</span>
+              <span class="cs-hero-meta-value cs-hero-meta-value--live">Live · dapper.oreno.lk</span>
+            </div>
+          </div>
+        </div>
+        <span class="panel-index panel-index--light" aria-hidden="true">01 / 11</span>
+      </section>
+
+      <!-- ═══════════ 02 · THE CALL ═══════════ -->
+      <section class="panel cs-panel" aria-labelledby="call-h">
+        <div class="cs-panel-inner">
+          <div class="cs-sec-head cs-reveal">
+            <div>
+              <p class="cs-eyebrow">The Call</p>
+              <h2 class="cs-sec-h" id="call-h">They came to us<br>with a paper trail.</h2>
+            </div>
+            <p class="cs-sec-lede">Every export started in Word. Every send-off ended in Gmail. No record, no search, no trail. Finding invoice DMC338 meant scrolling through a shared folder.</p>
+          </div>
+
+          <div class="cs-call-rows cs-reveal">
+            <div class="cs-call-row">
+              <span class="cs-call-num">01 / Pain</span>
+              <h3 class="cs-call-line">Each invoice was hand-built in Word.</h3>
+            </div>
+            <div class="cs-call-row">
+              <span class="cs-call-num">02 / Pain</span>
+              <h3 class="cs-call-line">PDFs were attached and emailed by hand.</h3>
+            </div>
+            <div class="cs-call-row">
+              <span class="cs-call-num">03 / Pain</span>
+              <h3 class="cs-call-line">Nobody could tell what was paid, pending, or lost.</h3>
+            </div>
+          </div>
+        </div>
+        <span class="panel-index" aria-hidden="true">02 / 11</span>
+      </section>
+
+      <!-- ═══════════ 03 · THE ANSWER ═══════════ -->
+      <section class="panel cs-panel cs-panel--dark cs-answer" aria-labelledby="answer-h">
+        <div class="cs-panel-inner cs-reveal">
+          <p class="cs-answer-pre">The Answer</p>
+          <h2 class="cs-answer-q" id="answer-h">
+            We built one system<br>that <em>runs every invoice</em>.<br>
+            Four fields. Four clicks. PDF out.
+          </h2>
+          <p class="cs-answer-sig">Laravel 11 · DomPDF · Live in 2025</p>
+        </div>
+        <span class="panel-index panel-index--light" aria-hidden="true">03 / 11</span>
+      </section>
+
+      <!-- ═══════════ 04 · BY THE NUMBERS ═══════════ -->
+      <section class="panel cs-panel cs-panel--dark" aria-labelledby="nums-h">
+        <div class="cs-panel-inner">
+          <div class="cs-sec-head cs-reveal">
+            <div>
+              <p class="cs-eyebrow">By the Numbers</p>
+              <h2 class="cs-sec-h" id="nums-h">In production.</h2>
+            </div>
+            <p class="cs-sec-lede">Live at <strong style="color:var(--cs-accent);">dapper.oreno.lk</strong>, processing real transactions for real vehicles crossing the Indian Ocean. The system that retired four years of manual invoice creation.</p>
+          </div>
+
+          <div class="cs-nums-grid">
+            <div class="cs-num-card cs-reveal">
+              <div class="cs-num-label">Total Invoices</div>
+              <div class="cs-num-value"><span data-count-to="127">0</span></div>
+              <div class="cs-num-note">Active, paid, and archived — all in one searchable database</div>
+            </div>
+            <div class="cs-num-card cs-reveal">
+              <div class="cs-num-label">Filter Parameters</div>
+              <div class="cs-num-value"><span data-count-to="15">0</span></div>
+              <div class="cs-num-note">Text · status · date range · price range · creator · email status</div>
+            </div>
+            <div class="cs-num-card cs-reveal">
+              <div class="cs-num-label">Permissions</div>
+              <div class="cs-num-value"><span data-count-to="10">0</span></div>
+              <div class="cs-num-note">Granular capabilities — invoices.create, invoices.pdf, settings.edit</div>
+            </div>
+            <div class="cs-num-card cs-reveal">
+              <div class="cs-num-label">Data Tables</div>
+              <div class="cs-num-value"><span data-count-to="6">0</span></div>
+              <div class="cs-num-note">Users · permissions · pivot · invoices · templates · settings</div>
+            </div>
+          </div>
+        </div>
+        <span class="panel-index panel-index--light" aria-hidden="true">04 / 11</span>
+      </section>
+
+      <!-- ═══════════ 05 · INSIDE THE SYSTEM ═══════════ -->
+      <section class="panel cs-panel panel--wide-md" aria-labelledby="stage-h" data-stage>
+        <div class="cs-panel-inner">
+          <div class="cs-sec-head cs-reveal">
+            <div>
+              <p class="cs-eyebrow">Inside the System</p>
+              <h2 class="cs-sec-h" id="stage-h">Click through<br>the real product.</h2>
+            </div>
+            <p class="cs-sec-lede">Every screen, in motion. Tap a tab — or let it auto-advance. This is what the DMC team sees when they log in to send an export invoice.</p>
+          </div>
+
+          <div class="cs-stage-layout cs-reveal">
+            <div>
+              <div class="cs-stage-frame">
+                <div class="cs-stage-chrome">
+                  <div class="cs-stage-dots"><span></span><span></span><span></span></div>
+                  <div class="cs-stage-addr">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                    <span data-stage-url>dapper.oreno.lk / login</span>
+                  </div>
+                </div>
+                <div class="cs-stage-view">
+                  <!-- Login mockup -->
+                  <svg class="is-active" data-stage-view="0" viewBox="0 0 200 110" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="0" width="200" height="110" fill="#0a1224"/>
+                    <rect x="64" y="18" width="72" height="78" fill="#0f172a" rx="2"/>
+                    <rect x="74" y="26" width="40" height="3" fill="#3b82f6"/>
+                    <rect x="74" y="34" width="52" height="2" fill="#fff" opacity="0.4"/>
+                    <rect x="74" y="46" width="52" height="8" fill="#0a1224" stroke="#1e293b" stroke-width="0.4" rx="1"/>
+                    <rect x="74" y="58" width="52" height="8" fill="#0a1224" stroke="#1e293b" stroke-width="0.4" rx="1"/>
+                    <rect x="74" y="70" width="52" height="8" fill="#3b82f6" rx="1"/>
+                    <line x1="74" y1="84" x2="126" y2="84" stroke="#1e293b" stroke-width="0.4"/>
+                    <rect x="74" y="88" width="52" height="6" fill="#0a1224" stroke="#1e293b" stroke-width="0.4" rx="1"/>
+                    <circle cx="80" cy="91" r="1.4" fill="#3b82f6"/>
+                    <rect x="84" y="90" width="38" height="2" fill="#fff" opacity="0.5"/>
+                  </svg>
+                  <!-- Create invoice mockup -->
+                  <svg data-stage-view="1" viewBox="0 0 200 110" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="0" width="200" height="110" fill="#0a1224"/>
+                    <rect x="6" y="6" width="90" height="98" fill="#0f172a" rx="1"/>
+                    <rect x="12" y="12" width="30" height="2" fill="#3b82f6"/>
+                    <rect x="12" y="20" width="78" height="8" fill="#0a1224" stroke="#1e293b" stroke-width="0.4" rx="1"/>
+                    <rect x="12" y="32" width="78" height="8" fill="#0a1224" stroke="#1e293b" stroke-width="0.4" rx="1"/>
+                    <rect x="12" y="44" width="36" height="8" fill="#0a1224" stroke="#1e293b" stroke-width="0.4" rx="1"/>
+                    <rect x="52" y="44" width="38" height="8" fill="#0a1224" stroke="#1e293b" stroke-width="0.4" rx="1"/>
+                    <rect x="12" y="60" width="30" height="3" fill="#3b82f6"/>
+                    <rect x="12" y="68" width="36" height="8" fill="#0a1224" stroke="#1e293b" stroke-width="0.4" rx="1"/>
+                    <rect x="52" y="68" width="38" height="8" fill="#0a1224" stroke="#1e293b" stroke-width="0.4" rx="1"/>
+                    <rect x="12" y="84" width="78" height="8" fill="#3b82f6" rx="1"/>
+                    <rect x="102" y="6" width="92" height="98" fill="#0f172a" rx="1"/>
+                    <rect x="108" y="12" width="40" height="3" fill="#fff" opacity="0.85"/>
+                    <rect x="108" y="20" width="28" height="2" fill="#fff" opacity="0.4"/>
+                    <line x1="108" y1="28" x2="188" y2="28" stroke="#1e293b" stroke-width="0.4"/>
+                    <rect x="108" y="34" width="60" height="2" fill="#fff" opacity="0.35"/>
+                    <rect x="108" y="40" width="50" height="2" fill="#fff" opacity="0.35"/>
+                    <rect x="108" y="46" width="55" height="2" fill="#fff" opacity="0.35"/>
+                    <line x1="108" y1="56" x2="188" y2="56" stroke="#1e293b" stroke-width="0.4"/>
+                    <rect x="108" y="62" width="30" height="2" fill="#fff" opacity="0.4"/>
+                    <rect x="162" y="62" width="26" height="3" fill="#fff" opacity="0.85"/>
+                    <rect x="108" y="70" width="30" height="2" fill="#fff" opacity="0.4"/>
+                    <rect x="162" y="70" width="26" height="3" fill="#fff" opacity="0.85"/>
+                    <line x1="108" y1="80" x2="188" y2="80" stroke="#3b82f6" stroke-width="0.6"/>
+                    <rect x="108" y="84" width="30" height="3" fill="#3b82f6"/>
+                    <rect x="162" y="84" width="26" height="4" fill="#fff"/>
+                  </svg>
+                  <!-- PDF preview mockup -->
+                  <svg data-stage-view="2" viewBox="0 0 200 110" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="0" width="200" height="110" fill="#0a1224"/>
+                    <rect x="55" y="4" width="90" height="102" fill="#fff" stroke="#3b82f6" stroke-width="0.6" rx="1"/>
+                    <rect x="62" y="10" width="32" height="5" fill="#0a0a0a"/>
+                    <rect x="62" y="18" width="20" height="2" fill="#71717a"/>
+                    <line x1="62" y1="26" x2="138" y2="26" stroke="#e4e4e7" stroke-width="0.5"/>
+                    <rect x="62" y="32" width="50" height="2" fill="#71717a" opacity="0.55"/>
+                    <rect x="62" y="38" width="40" height="2" fill="#71717a" opacity="0.55"/>
+                    <rect x="62" y="44" width="60" height="2" fill="#71717a" opacity="0.55"/>
+                    <line x1="62" y1="54" x2="138" y2="54" stroke="#e4e4e7" stroke-width="0.5"/>
+                    <rect x="62" y="58" width="30" height="2" fill="#71717a" opacity="0.5"/>
+                    <rect x="110" y="58" width="28" height="2" fill="#0a0a0a"/>
+                    <rect x="62" y="64" width="30" height="2" fill="#71717a" opacity="0.5"/>
+                    <rect x="110" y="64" width="28" height="2" fill="#0a0a0a"/>
+                    <line x1="62" y1="72" x2="138" y2="72" stroke="#0a0a0a" stroke-width="0.6"/>
+                    <rect x="62" y="76" width="30" height="2" fill="#3b82f6"/>
+                    <rect x="110" y="76" width="28" height="3" fill="#0a0a0a"/>
+                    <rect x="115" y="86" width="22" height="14" fill="none" stroke="#3b82f6" stroke-width="0.6" stroke-dasharray="1 1"/>
+                    <text x="126" y="95" text-anchor="middle" font-size="4" fill="#3b82f6">SEAL</text>
+                  </svg>
+                  <!-- Send email mockup -->
+                  <svg data-stage-view="3" viewBox="0 0 200 110" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="0" width="200" height="110" fill="#0a1224"/>
+                    <rect x="20" y="14" width="160" height="84" fill="#0f172a" rx="1"/>
+                    <rect x="26" y="20" width="40" height="3" fill="#3b82f6"/>
+                    <rect x="26" y="28" width="148" height="6" fill="#0a1224" stroke="#1e293b" stroke-width="0.4" rx="1"/>
+                    <rect x="29" y="30" width="34" height="2" fill="#fff" opacity="0.6"/>
+                    <rect x="26" y="38" width="148" height="6" fill="#0a1224" stroke="#1e293b" stroke-width="0.4" rx="1"/>
+                    <rect x="29" y="40" width="80" height="2" fill="#fff" opacity="0.6"/>
+                    <rect x="26" y="48" width="148" height="34" fill="#0a1224" stroke="#1e293b" stroke-width="0.4" rx="1"/>
+                    <rect x="29" y="52" width="74" height="2" fill="#fff" opacity="0.5"/>
+                    <rect x="29" y="58" width="120" height="2" fill="#fff" opacity="0.4"/>
+                    <rect x="29" y="64" width="100" height="2" fill="#fff" opacity="0.4"/>
+                    <rect x="29" y="70" width="58" height="2" fill="#fff" opacity="0.4"/>
+                    <rect x="29" y="76" width="48" height="2" fill="#3b82f6"/>
+                    <rect x="26" y="86" width="40" height="6" fill="#0a1224" stroke="#3b82f6" stroke-width="0.4" rx="1"/>
+                    <rect x="28" y="88" width="14" height="2" fill="#3b82f6"/>
+                    <rect x="44" y="88" width="20" height="2" fill="#fff" opacity="0.7"/>
+                    <rect x="148" y="86" width="26" height="6" fill="#3b82f6" rx="1"/>
+                  </svg>
+                  <!-- Archive / list mockup -->
+                  <svg data-stage-view="4" viewBox="0 0 200 110" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="0" width="200" height="110" fill="#0a1224"/>
+                    <rect x="6" y="6" width="188" height="14" fill="#0f172a" rx="1"/>
+                    <rect x="10" y="10" width="12" height="6" fill="#3b82f6" rx="1"/>
+                    <rect x="26" y="10" width="20" height="6" fill="#1e293b" rx="1"/>
+                    <rect x="50" y="10" width="20" height="6" fill="#1e293b" rx="1"/>
+                    <rect x="74" y="10" width="20" height="6" fill="#1e293b" rx="1"/>
+                    <rect x="98" y="10" width="20" height="6" fill="#1e293b" rx="1"/>
+                    <rect x="122" y="10" width="20" height="6" fill="#1e293b" rx="1"/>
+                    <rect x="6" y="24" width="188" height="80" fill="#0f172a" rx="1"/>
+                    <rect x="10" y="28" width="24" height="3" fill="#3b82f6"/>
+                    <rect x="38" y="28" width="50" height="3" fill="#fff" opacity="0.6"/>
+                    <rect x="92" y="28" width="40" height="3" fill="#fff" opacity="0.4"/>
+                    <rect x="136" y="28" width="20" height="5" fill="#10b981" rx="1"/>
+                    <rect x="160" y="28" width="28" height="3" fill="#fff" opacity="0.3"/>
+                    <rect x="10" y="40" width="24" height="3" fill="#3b82f6"/>
+                    <rect x="38" y="40" width="50" height="3" fill="#fff" opacity="0.6"/>
+                    <rect x="92" y="40" width="40" height="3" fill="#fff" opacity="0.4"/>
+                    <rect x="136" y="40" width="20" height="5" fill="#f59e0b" rx="1"/>
+                    <rect x="160" y="40" width="28" height="3" fill="#fff" opacity="0.3"/>
+                    <rect x="10" y="52" width="24" height="3" fill="#3b82f6"/>
+                    <rect x="38" y="52" width="50" height="3" fill="#fff" opacity="0.6"/>
+                    <rect x="92" y="52" width="40" height="3" fill="#fff" opacity="0.4"/>
+                    <rect x="136" y="52" width="20" height="5" fill="#71717a" rx="1"/>
+                    <rect x="160" y="52" width="28" height="3" fill="#fff" opacity="0.3"/>
+                    <rect x="10" y="64" width="24" height="3" fill="#3b82f6"/>
+                    <rect x="38" y="64" width="50" height="3" fill="#fff" opacity="0.6"/>
+                    <rect x="92" y="64" width="40" height="3" fill="#fff" opacity="0.4"/>
+                    <rect x="136" y="64" width="20" height="5" fill="#10b981" rx="1"/>
+                    <rect x="160" y="64" width="28" height="3" fill="#fff" opacity="0.3"/>
+                    <rect x="10" y="76" width="24" height="3" fill="#3b82f6"/>
+                    <rect x="38" y="76" width="50" height="3" fill="#fff" opacity="0.6"/>
+                    <rect x="92" y="76" width="40" height="3" fill="#fff" opacity="0.4"/>
+                    <rect x="136" y="76" width="20" height="5" fill="#ef4444" rx="1"/>
+                    <rect x="160" y="76" width="28" height="3" fill="#fff" opacity="0.3"/>
+                    <rect x="10" y="88" width="24" height="3" fill="#3b82f6"/>
+                    <rect x="38" y="88" width="50" height="3" fill="#fff" opacity="0.6"/>
+                    <rect x="92" y="88" width="40" height="3" fill="#fff" opacity="0.4"/>
+                    <rect x="136" y="88" width="20" height="5" fill="#10b981" rx="1"/>
+                    <rect x="160" y="88" width="28" height="3" fill="#fff" opacity="0.3"/>
+                  </svg>
+                  <!-- Settings mockup -->
+                  <svg data-stage-view="5" viewBox="0 0 200 110" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="0" width="200" height="110" fill="#0a1224"/>
+                    <rect x="6" y="6" width="46" height="98" fill="#0f172a" rx="1"/>
+                    <rect x="8" y="10" width="42" height="8" fill="#3b82f6" rx="1"/>
+                    <rect x="12" y="13" width="26" height="3" fill="#fff"/>
+                    <rect x="12" y="25" width="26" height="3" fill="#fff" opacity="0.45"/>
+                    <rect x="12" y="37" width="26" height="3" fill="#fff" opacity="0.45"/>
+                    <rect x="12" y="49" width="26" height="3" fill="#fff" opacity="0.45"/>
+                    <rect x="12" y="61" width="26" height="3" fill="#fff" opacity="0.45"/>
+                    <rect x="12" y="73" width="26" height="3" fill="#fff" opacity="0.45"/>
+                    <rect x="58" y="6" width="136" height="98" fill="#0f172a" rx="1"/>
+                    <rect x="64" y="12" width="40" height="3" fill="#3b82f6"/>
+                    <rect x="64" y="22" width="120" height="8" fill="#0a1224" stroke="#1e293b" stroke-width="0.4" rx="1"/>
+                    <rect x="64" y="36" width="120" height="8" fill="#0a1224" stroke="#1e293b" stroke-width="0.4" rx="1"/>
+                    <rect x="64" y="50" width="56" height="8" fill="#0a1224" stroke="#1e293b" stroke-width="0.4" rx="1"/>
+                    <rect x="124" y="50" width="60" height="8" fill="#0a1224" stroke="#1e293b" stroke-width="0.4" rx="1"/>
+                    <rect x="64" y="64" width="120" height="24" fill="#0a1224" stroke="#1e293b" stroke-width="0.4" rx="1"/>
+                    <rect x="152" y="92" width="32" height="7" fill="#3b82f6" rx="1"/>
+                  </svg>
+                </div>
+              </div>
+
+              <div class="cs-stage-tabs" role="tablist">
+                <button class="cs-stage-tab is-active" type="button" data-stage-tab="0">Login</button>
+                <button class="cs-stage-tab" type="button" data-stage-tab="1">Create</button>
+                <button class="cs-stage-tab" type="button" data-stage-tab="2">PDF</button>
+                <button class="cs-stage-tab" type="button" data-stage-tab="3">Send</button>
+                <button class="cs-stage-tab" type="button" data-stage-tab="4">Archive</button>
+                <button class="cs-stage-tab" type="button" data-stage-tab="5">Settings</button>
+              </div>
+            </div>
+
+            <div class="cs-stage-copy">
+              <div class="cs-stage-copy-item is-active" data-stage-copy="0">
+                <div class="cs-stage-copy-label">01 / Login</div>
+                <h3 class="cs-stage-copy-h">Two doors. One gate.</h3>
+                <p class="cs-stage-copy-p">Email + password, or Google OAuth. Google never auto-creates users — admin must pre-register every account. No public signup. Ever.</p>
+              </div>
+              <div class="cs-stage-copy-item" data-stage-copy="1">
+                <div class="cs-stage-copy-label">02 / Create</div>
+                <h3 class="cs-stage-copy-h">Form left. Document right.</h3>
+                <p class="cs-stage-copy-p">Two-column layout. FOB + Freight = CFR Total, calculated live. Amount-in-words generated automatically by GbpToWords. Save as Draft or Unpaid.</p>
+              </div>
+              <div class="cs-stage-copy-item" data-stage-copy="2">
+                <div class="cs-stage-copy-label">03 / PDF</div>
+                <h3 class="cs-stage-copy-h">A4. Branded. Sealed.</h3>
+                <p class="cs-stage-copy-p">DomPDF renders the Blade template. Seal embedded as base64. Streamed fresh on every request. Never stored on disk.</p>
+              </div>
+              <div class="cs-stage-copy-item" data-stage-copy="3">
+                <div class="cs-stage-copy-label">04 / Send</div>
+                <h3 class="cs-stage-copy-h">PDF auto-attached.</h3>
+                <p class="cs-stage-copy-p">Template pre-filled with placeholders. Edit before sending if needed. Sent timestamp logged on the invoice record forever.</p>
+              </div>
+              <div class="cs-stage-copy-item" data-stage-copy="4">
+                <div class="cs-stage-copy-label">05 / Archive</div>
+                <h3 class="cs-stage-copy-h">Fifteen filters, one list.</h3>
+                <p class="cs-stage-copy-p">Text, status, date, price, creator, email status — all combinable. Soft deletes preserve data. Excel export pulls every matching row.</p>
+              </div>
+              <div class="cs-stage-copy-item" data-stage-copy="5">
+                <div class="cs-stage-copy-label">06 / Settings</div>
+                <h3 class="cs-stage-copy-h">Six tabs. Zero guesswork.</h3>
+                <p class="cs-stage-copy-p">Company info, email templates, seal upload, SMTP config, staff permissions, appearance. Everything an admin needs — nothing they don't.</p>
+              </div>
+
+              <p class="cs-stage-hint">Click a tab — or watch it cycle</p>
+            </div>
+          </div>
+        </div>
+        <span class="panel-index" aria-hidden="true">05 / 11</span>
+      </section>
+
+      <!-- ═══════════ 06 · ARCHITECTURE ═══════════ -->
+      <section class="panel cs-panel" aria-labelledby="arch-h">
+        <div class="cs-panel-inner">
+          <div class="cs-sec-head cs-reveal">
+            <div>
+              <p class="cs-eyebrow">Architecture</p>
+              <h2 class="cs-sec-h" id="arch-h">Request in.<br>Invoice out.</h2>
+            </div>
+            <p class="cs-sec-lede">A classic Laravel MVC flow — router, middleware, thin controllers, services, Eloquent, Blade. No SPA, no API layer, no over-engineering. The simplest thing that could possibly work.</p>
+          </div>
+
+          <div class="cs-arch-stage cs-reveal">
+            <svg viewBox="0 0 1100 460" xmlns="http://www.w3.org/2000/svg" aria-label="DMC Invoice System architecture">
+              <g class="cs-arch-node">
+                <rect x="40" y="200" width="130" height="50" rx="2"/>
+                <text x="105" y="220" text-anchor="middle" class="arch-sub">Client</text>
+                <text x="105" y="236" text-anchor="middle">Browser</text>
+              </g>
+
+              <g class="cs-arch-node">
+                <rect x="230" y="200" width="130" height="50" rx="2"/>
+                <text x="295" y="220" text-anchor="middle" class="arch-sub">Laravel</text>
+                <text x="295" y="236" text-anchor="middle">Router</text>
+              </g>
+              <path class="cs-arch-line cs-draw" d="M 170 225 L 230 225"/>
+
+              <g class="cs-arch-node">
+                <rect x="230" y="60" width="130" height="100" rx="2"/>
+                <text x="295" y="82" text-anchor="middle" class="arch-sub">Middleware</text>
+                <text x="295" y="104" text-anchor="middle" font-size="9">auth</text>
+                <text x="295" y="120" text-anchor="middle" font-size="9">AdminOnly</text>
+                <text x="295" y="136" text-anchor="middle" font-size="9">CheckPermission</text>
+              </g>
+              <path class="cs-arch-line cs-draw" d="M 295 200 L 295 160"/>
+
+              <g class="cs-arch-node">
+                <rect class="cs-arch-accent" x="420" y="190" width="160" height="70" rx="2"/>
+                <text class="cs-arch-accent-text" x="500" y="216" text-anchor="middle" font-size="10">CONTROLLERS</text>
+                <text class="cs-arch-accent-text" x="500" y="232" text-anchor="middle" font-size="8" opacity="0.85">Invoice · Dashboard</text>
+                <text class="cs-arch-accent-text" x="500" y="244" text-anchor="middle" font-size="8" opacity="0.85">Settings · Staff · Auth</text>
+              </g>
+              <path class="cs-arch-line cs-draw" d="M 360 225 L 420 225"/>
+
+              <g class="cs-arch-node">
+                <rect x="640" y="120" width="170" height="70" rx="2"/>
+                <text x="725" y="140" text-anchor="middle" class="arch-sub">Services</text>
+                <text x="725" y="158" text-anchor="middle" font-size="9">InvoiceNumberService</text>
+                <text x="725" y="172" text-anchor="middle" font-size="9">GbpToWords · Filter</text>
+              </g>
+              <path class="cs-arch-line cs-draw" d="M 580 210 L 640 165"/>
+
+              <g class="cs-arch-node">
+                <rect x="640" y="260" width="170" height="70" rx="2"/>
+                <text x="725" y="280" text-anchor="middle" class="arch-sub">Eloquent Models</text>
+                <text x="725" y="298" text-anchor="middle" font-size="9">Invoice · User · Setting</text>
+                <text x="725" y="312" text-anchor="middle" font-size="9">Permission · Template</text>
+              </g>
+              <path class="cs-arch-line cs-draw" d="M 580 240 L 640 282"/>
+
+              <g class="cs-arch-node">
+                <rect x="870" y="260" width="150" height="50" rx="2"/>
+                <text x="945" y="280" text-anchor="middle" class="arch-sub">MariaDB</text>
+                <text x="945" y="296" text-anchor="middle">6 Tables</text>
+              </g>
+              <path class="cs-arch-line cs-draw" d="M 810 295 L 870 285"/>
+
+              <g class="cs-arch-node">
+                <rect x="870" y="120" width="150" height="50" rx="2"/>
+                <text x="945" y="140" text-anchor="middle" class="arch-sub">Blade</text>
+                <text x="945" y="156" text-anchor="middle">Views + PDF</text>
+              </g>
+              <path class="cs-arch-line cs-draw" d="M 810 150 L 870 148"/>
+
+              <g class="cs-arch-node">
+                <rect x="870" y="360" width="150" height="50" rx="2"/>
+                <text x="945" y="380" text-anchor="middle" class="arch-sub">DomPDF</text>
+                <text x="945" y="396" text-anchor="middle">Stream PDF</text>
+              </g>
+              <path class="cs-arch-line cs-draw" d="M 945 310 L 945 360"/>
+
+              <line x1="40" y1="430" x2="1060" y2="430" stroke="#18181b" stroke-width="0.5" stroke-dasharray="2 4"/>
+              <text x="550" y="446" text-anchor="middle" class="arch-sub" style="font-size:8px;">NO NPM · NO BUILD STEP · CDN ONLY · DEPLOYED VIA CPANEL FILE MANAGER</text>
+            </svg>
+          </div>
+        </div>
+        <span class="panel-index" aria-hidden="true">06 / 11</span>
+      </section>
+
+      <!-- ═══════════ 07 · TECH STACK ═══════════ -->
+      <section class="panel cs-panel" aria-labelledby="stack-h">
+        <div class="cs-panel-inner">
+          <div class="cs-sec-head cs-reveal">
+            <div>
+              <p class="cs-eyebrow">Tech Stack</p>
+              <h2 class="cs-sec-h" id="stack-h">Zero build tooling.<br>Zero excuses.</h2>
+            </div>
+            <p class="cs-sec-lede">No npm, no Node.js, no compiled assets. Everything is CDN-loaded or server-rendered. Deploy by uploading a zip to cPanel. The entire pipeline is "upload and extract."</p>
+          </div>
+
+          <div class="cs-stack-wrap cs-reveal">
+            <table class="cs-stack-table">
+              <tbody>
+                <tr><td>Backend</td><td>Laravel 11 · PHP 8.3</td><td>Mature MVC with first-class PDF, mail, and auth support. Runs on shared cPanel hosting without Docker.</td></tr>
+                <tr><td>Database</td><td>MariaDB 10.11</td><td>Six normalized tables, foreign keys, soft deletes. No NoSQL, no Redis, no extras.</td></tr>
+                <tr><td>Templating</td><td>Blade</td><td>Server-rendered HTML. The PDF template uses inline styles only — DomPDF ignores external CSS.</td></tr>
+                <tr><td>Frontend CSS</td><td>Tailwind (CDN)</td><td>CSS custom properties for theming. Dark mode via class toggle. No PostCSS, no build config.</td></tr>
+                <tr><td>Reactivity</td><td>Alpine.js (CDN)</td><td>Dropdowns, modals, date pickers, live CFR calc, collapsible filter panel — about 200 lines total.</td></tr>
+                <tr><td>PDF Engine</td><td>barryvdh/laravel-dompdf</td><td>Converts Blade templates to A4 PDFs on the fly. Seal embedded as base64. Never stored on disk.</td></tr>
+                <tr><td>Email</td><td>Laravel Mail · SMTP</td><td>Sends invoices with PDF attached. SMTP config stored in DB, editable from Settings. Synchronous — no queues.</td></tr>
+                <tr><td>Auth</td><td>Session + Google OAuth</td><td>Dual login. Google OAuth never auto-creates users. Admin must pre-register every account.</td></tr>
+                <tr><td>Export</td><td>maatwebsite/laravel-excel</td><td>Export filtered invoice lists to .xlsx. All matching rows, not just the current page.</td></tr>
+                <tr><td>Hosting</td><td>cPanel · Shared LAMP</td><td>PHP 8.3, MariaDB, no SSH. Deploy via File Manager zip upload. Live at dapper.oreno.lk.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <span class="panel-index" aria-hidden="true">07 / 11</span>
+      </section>
+
+      <!-- ═══════════ 08 · DATABASE SCHEMA ═══════════ -->
+      <section class="panel cs-panel cs-panel--dark panel--wide-md" aria-labelledby="schema-h">
+        <div class="cs-panel-inner">
+          <div class="cs-sec-head cs-reveal">
+            <div>
+              <p class="cs-eyebrow">Data Model</p>
+              <h2 class="cs-sec-h" id="schema-h">Six tables.<br>One truth.</h2>
+            </div>
+            <p class="cs-sec-lede">Users, permissions, the pivot, invoices, templates, and a singleton settings row. Foreign keys enforce referential integrity. Soft deletes preserve every record. The database is the contract.</p>
+          </div>
+
+          <div class="cs-schema-wrap cs-reveal">
+            <svg viewBox="0 0 1100 460" xmlns="http://www.w3.org/2000/svg" aria-label="DMC Invoice System database schema">
+              <!-- users -->
+              <g class="cs-schema-table">
+                <rect class="cs-schema-table-rect" x="60" y="40" width="190" height="140" rx="2"/>
+                <rect class="cs-schema-table-header" x="60" y="40" width="190" height="22" rx="2"/>
+                <text class="cs-schema-table-header-text" x="72" y="56">users</text>
+                <text class="cs-schema-col-text cs-schema-col-key" x="72" y="80">id · PK</text>
+                <text class="cs-schema-col-text" x="72" y="96">name · email · password</text>
+                <text class="cs-schema-col-text" x="72" y="110">google_id · nullable</text>
+                <text class="cs-schema-col-text" x="72" y="124">role · admin | staff</text>
+                <text class="cs-schema-col-text" x="72" y="138">is_active</text>
+                <text class="cs-schema-col-text" x="72" y="152">timestamps</text>
+              </g>
+
+              <!-- permissions -->
+              <g class="cs-schema-table">
+                <rect class="cs-schema-table-rect" x="60" y="220" width="190" height="100" rx="2"/>
+                <rect class="cs-schema-table-header" x="60" y="220" width="190" height="22" rx="2"/>
+                <text class="cs-schema-table-header-text" x="72" y="236">permissions</text>
+                <text class="cs-schema-col-text cs-schema-col-key" x="72" y="260">id · PK</text>
+                <text class="cs-schema-col-text" x="72" y="274">name · invoices.create</text>
+                <text class="cs-schema-col-text" x="72" y="288">label</text>
+              </g>
+
+              <!-- pivot -->
+              <g class="cs-schema-table">
+                <rect class="cs-schema-table-rect" x="60" y="360" width="190" height="80" rx="2"/>
+                <rect class="cs-schema-table-header" x="60" y="360" width="190" height="22" rx="2"/>
+                <text class="cs-schema-table-header-text" x="72" y="376">permission_user</text>
+                <text class="cs-schema-col-text cs-schema-col-key" x="72" y="400">user_id · FK</text>
+                <text class="cs-schema-col-text cs-schema-col-key" x="72" y="414">permission_id · FK</text>
+              </g>
+
+              <!-- invoices -->
+              <g class="cs-schema-table">
+                <rect class="cs-schema-table-rect" x="340" y="40" width="240" height="240" rx="2"/>
+                <rect class="cs-schema-table-header" x="340" y="40" width="240" height="22" rx="2"/>
+                <text class="cs-schema-table-header-text" x="352" y="56">invoices</text>
+                <text class="cs-schema-col-text cs-schema-col-key" x="352" y="80">id · PK</text>
+                <text class="cs-schema-col-text cs-schema-col-key" x="352" y="94">invoice_number · DMC343</text>
+                <text class="cs-schema-col-text" x="352" y="110">status · draft|unpaid|paid|cancelled</text>
+                <text class="cs-schema-col-text" x="352" y="126">importer_name · address</text>
+                <text class="cs-schema-col-text" x="352" y="142">vehicle_make_model · chassis</text>
+                <text class="cs-schema-col-text" x="352" y="158">transmission · engine_capacity</text>
+                <text class="cs-schema-col-text" x="352" y="174">year · colour · fuel_type</text>
+                <text class="cs-schema-col-text" x="352" y="190">fob_price · ocean_freight · cfr</text>
+                <text class="cs-schema-col-text" x="352" y="206">email_sent_at</text>
+                <text class="cs-schema-col-text cs-schema-col-key" x="352" y="222">created_by · updated_by · FK</text>
+                <text class="cs-schema-col-text" x="352" y="240">timestamps · deleted_at</text>
+              </g>
+
+              <!-- invoice_templates -->
+              <g class="cs-schema-table">
+                <rect class="cs-schema-table-rect" x="340" y="320" width="240" height="100" rx="2"/>
+                <rect class="cs-schema-table-header" x="340" y="320" width="240" height="22" rx="2"/>
+                <text class="cs-schema-table-header-text" x="352" y="336">invoice_templates</text>
+                <text class="cs-schema-col-text cs-schema-col-key" x="352" y="360">id · PK</text>
+                <text class="cs-schema-col-text" x="352" y="374">name · layout</text>
+                <text class="cs-schema-col-text" x="352" y="388">header_html · footer_html</text>
+                <text class="cs-schema-col-text" x="352" y="402">font_family</text>
+              </g>
+
+              <!-- settings -->
+              <g class="cs-schema-table">
+                <rect class="cs-schema-table-rect" x="680" y="40" width="220" height="180" rx="2"/>
+                <rect class="cs-schema-table-header" x="680" y="40" width="220" height="22" rx="2"/>
+                <text class="cs-schema-table-header-text" x="692" y="56">settings</text>
+                <text class="cs-schema-col-text" x="692" y="80">Singleton row</text>
+                <text class="cs-schema-col-text" x="692" y="96">company_name</text>
+                <text class="cs-schema-col-text" x="692" y="110">smtp_host · smtp_port</text>
+                <text class="cs-schema-col-text" x="692" y="124">smtp_username · enc pwd</text>
+                <text class="cs-schema-col-text" x="692" y="138">email_subject_template</text>
+                <text class="cs-schema-col-text" x="692" y="152">email_body_template</text>
+                <text class="cs-schema-col-text" x="692" y="166">seal_image_path</text>
+              </g>
+
+              <!-- relations -->
+              <path class="cs-schema-rel cs-draw" d="M 250 120 C 295 120, 295 120, 340 140"/>
+              <path class="cs-schema-rel cs-draw" d="M 155 180 L 155 220"/>
+              <path class="cs-schema-rel cs-draw" d="M 155 320 L 155 360"/>
+              <path class="cs-schema-rel cs-draw" d="M 580 180 C 630 180, 630 80, 680 80"/>
+              <path class="cs-schema-rel cs-draw" d="M 460 280 L 460 320"/>
+            </svg>
+          </div>
+        </div>
+        <span class="panel-index panel-index--light" aria-hidden="true">08 / 11</span>
+      </section>
+
+      <!-- ═══════════ 09 · ROLES MATRIX ═══════════ -->
+      <section class="panel cs-panel" aria-labelledby="roles-h">
+        <div class="cs-panel-inner">
+          <div class="cs-sec-head cs-reveal">
+            <div>
+              <p class="cs-eyebrow">Access Control</p>
+              <h2 class="cs-sec-h" id="roles-h">Ten capabilities.<br>Two roles.</h2>
+            </div>
+            <p class="cs-sec-lede">Every action is one of ten named permissions. The CheckPermission middleware enforces them on every route. No one sees a screen they don't need; no one touches a button they don't own.</p>
+          </div>
+
+          <div class="cs-roles-wrap cs-reveal">
+            <table class="cs-roles-table">
+              <thead>
+                <tr>
+                  <th>Capability</th><th>Admin</th><th>Staff</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>invoices.view</td><td><span class="cs-roles-dot"></span></td><td><span class="cs-roles-dot"></span></td></tr>
+                <tr><td>invoices.create</td><td><span class="cs-roles-dot"></span></td><td><span class="cs-roles-dot"></span></td></tr>
+                <tr><td>invoices.edit</td><td><span class="cs-roles-dot"></span></td><td><span class="cs-roles-dot"></span></td></tr>
+                <tr><td>invoices.delete</td><td><span class="cs-roles-dot"></span></td><td><span class="cs-roles-dot cs-roles-dot--off"></span></td></tr>
+                <tr><td>invoices.export</td><td><span class="cs-roles-dot"></span></td><td><span class="cs-roles-dot"></span></td></tr>
+                <tr><td>invoices.email</td><td><span class="cs-roles-dot"></span></td><td><span class="cs-roles-dot"></span></td></tr>
+                <tr><td>invoices.pdf</td><td><span class="cs-roles-dot"></span></td><td><span class="cs-roles-dot"></span></td></tr>
+                <tr><td>dashboard.view</td><td><span class="cs-roles-dot"></span></td><td><span class="cs-roles-dot"></span></td></tr>
+                <tr><td>settings.view</td><td><span class="cs-roles-dot"></span></td><td><span class="cs-roles-dot cs-roles-dot--off"></span></td></tr>
+                <tr><td>settings.edit</td><td><span class="cs-roles-dot"></span></td><td><span class="cs-roles-dot cs-roles-dot--off"></span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <span class="panel-index" aria-hidden="true">09 / 11</span>
+      </section>
+
+      <!-- ═══════════ 10 · OUTRO / CTA ═══════════ -->
+      <section class="panel cs-panel cs-panel--dark cs-outro" aria-labelledby="outro-h">
+        <div class="cs-panel-inner cs-reveal">
+          <p class="cs-eyebrow">Engineered by ØRENO</p>
+          <h2 class="cs-outro-h" id="outro-h">Still sending invoices<br>from a Word template?</h2>
+          <p class="cs-outro-sub">We build purpose-built systems that retire manual processes entirely. No generic SaaS. No subscription. Your system, your data, your domain.</p>
+          <div class="cs-outro-actions">
+            <a class="cs-outro-btn cs-outro-btn--primary" href="/inquiry">Start a project
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <a class="cs-outro-btn cs-outro-btn--live" href="https://dapper.oreno.lk" target="_blank" rel="noopener">View live system
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M9 3L3 9M9 3H5M9 3v4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <a class="cs-outro-btn" href="/case-rmi-erp">Previous case study</a>
+            <a class="cs-outro-btn" href="/#case-studies">Back to Work</a>
+          </div>
+        </div>
+        <span class="panel-index panel-index--light" aria-hidden="true">10 / 11</span>
+      </section>
+
+      <!-- ═══════════ 11 · FOOTER ═══════════ -->
+      <footer class="panel site-footer" role="contentinfo">
+        <div class="footer-wordmark" aria-hidden="true">ØRENO</div>
+        <div class="footer-inner">
+          <span class="footer-mark">© 2025 ØRENO<br>Brand Architecture</span>
+          <nav class="footer-links" aria-label="Footer navigation">
+            <a href="/#studio">Studio</a>
+            <a href="/#work">Work</a>
+            <a href="/#case-studies">Case Studies</a>
+            <a href="/#testimonials">Testimonials</a>
+            <a href="/testimonials">All Reviews</a>
+            <a href="/inquiry">Inquiry</a>
+          </nav>
+
+          <!-- Connect hover-reveal button -->
+          <div class="footer-connect">
+            <div class="footer-connect__wrap" id="footer-connect-wrap">
+              <button class="footer-connect__label" aria-label="Show social links" aria-expanded="false">Connect</button>
+              <div class="footer-connect__icons" aria-hidden="true">
+                <a href="https://www.instagram.com/orenostudio/" target="_blank" rel="noopener noreferrer" class="footer-connect__icon" aria-label="Instagram" style="--i:0">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true">
+                    <rect x="2" y="2" width="20" height="20" rx="5" />
+                    <circle cx="12" cy="12" r="4" />
+                    <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none" />
+                  </svg>
+                </a>
+                <a href="https://www.facebook.com/orenostudio" target="_blank" rel="noopener noreferrer" class="footer-connect__icon" aria-label="Facebook" style="--i:1">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                  </svg>
+                </a>
+                <a href="https://www.tiktok.com/@orenostudio" target="_blank" rel="noopener noreferrer" class="footer-connect__icon" aria-label="TikTok" style="--i:2">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true">
+                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9.05a8.16 8.16 0 0 0 4.77 1.52V7.13a4.85 4.85 0 0 1-1-.44z" />
+                  </svg>
+                </a>
+                <a href="https://www.linkedin.com/company/orenostudio" target="_blank" rel="noopener noreferrer" class="footer-connect__icon" aria-label="LinkedIn" style="--i:3">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <a href="/" class="footer-back" aria-label="Back to home">← Back to home</a>
+        </div>
+        <span class="panel-index panel-index--light" aria-hidden="true">11 / 11</span>
+      </footer>
+
+    </div><!-- #h-track -->
+  </div><!-- #h-scroll-wrapper -->
+
+  <!-- Scroll-top button -->
+  <button class="scroll-top" aria-label="Back to start" type="button">←</button>
+
+<script>
+/* ═══════════════════════════════════════════════════
+   CASE STUDY — self-contained engine
+   Horizontal scroll · cursor blob · reveal ·
+   count-up · SVG draw · tabbed stage
+═══════════════════════════════════════════════════ */
+(function(){
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isFine  = matchMedia('(hover:hover) and (pointer:fine)').matches;
+  const isMobile = () => window.innerWidth <= 768;
+
+  /* ── CURSOR BLOB ── */
+  if (isFine && !reduced) {
+    const blob = document.createElement('div');
+    blob.className = 'cursor-blob is-hidden';
+    document.body.appendChild(blob);
+    let mx=-200,my=-200,bx=-200,by=-200; const L=0.45;
+    (function loop(){
+      if(!document.hidden){ bx+=(mx-bx)*L; by+=(my-by)*L;
+        blob.style.left=bx+'px'; blob.style.top=by+'px'; }
+      requestAnimationFrame(loop);
+    })();
+    addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; blob.classList.remove('is-hidden'); });
+    addEventListener('mouseleave', () => blob.classList.add('is-hidden'));
+    addEventListener('mouseenter', () => blob.classList.remove('is-hidden'));
+    const LINK = 'a,button,.cs-stage-tab,.footer-connect__label,.scroll-top';
+    const HEAD = '.cs-hero-title,.cs-sec-h,.cs-answer-q,.cs-outro-h,.cs-call-line';
+    addEventListener('mouseover', e => {
+      const t = e.target;
+      if (t.closest && t.closest(HEAD))      { blob.classList.add('is-heading'); blob.classList.remove('is-link'); }
+      else if (t.closest && t.closest(LINK)) { blob.classList.add('is-link');    blob.classList.remove('is-heading'); }
+      else                                    { blob.classList.remove('is-link','is-heading'); }
+    });
+  }
+
+  /* ── HORIZONTAL SCROLL ENGINE ── */
+  const track   = document.querySelector('#h-track');
+  const progEl  = document.querySelector('.h-progress-fill');
+  const scrollTopEl = document.querySelector('.scroll-top');
+
+  function getMaxScroll(){ return track.scrollWidth - window.innerWidth; }
+  function setBodyHeight(){
+    if (isMobile()) { document.body.style.height = ''; return; }
+    document.body.style.height = (getMaxScroll() + window.innerHeight) + 'px';
+  }
+  setBodyHeight();
+
+  let lastClamped = 0;
+  window.addEventListener('scroll', () => {
+    if (isMobile()) return;
+    const max = getMaxScroll();
+    const clamped = Math.min(Math.max(window.scrollY, 0), max);
+    lastClamped = clamped;
+    track.style.transform = `translateX(${-clamped}px)`;
+    if (progEl) progEl.style.width = ((clamped / max) * 100) + '%';
+    if (scrollTopEl) scrollTopEl.classList.toggle('visible', clamped > 500);
+  }, { passive: true });
+
+  window.addEventListener('resize', () => {
+    setBodyHeight();
+    if (isMobile()) track.style.transform = 'translateX(0px)';
+  });
+
+  /* ── KEYBOARD NAV ── */
+  const panels = [...document.querySelectorAll('.panel')];
+  function scrollToPanel(idx) {
+    const p = panels[idx];
+    if (!p) return;
+    if (isMobile()) {
+      p.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
+    } else {
+      window.scrollTo({ top: p.offsetLeft, behavior: reduced ? 'auto' : 'smooth' });
+    }
+  }
+  function currentPanelIdx() {
+    if (isMobile()) {
+      const mid = window.scrollY + window.innerHeight * 0.5;
+      for (let i = panels.length - 1; i >= 0; i--) {
+        if (panels[i].offsetTop <= mid) return i;
+      }
+      return 0;
+    }
+    for (let i = panels.length - 1; i >= 0; i--) {
+      if (panels[i].offsetLeft <= lastClamped + window.innerWidth * 0.4) return i;
+    }
+    return 0;
+  }
+  addEventListener('keydown', e => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    const idx = currentPanelIdx();
+    if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); scrollToPanel(idx + 1); }
+    if (e.key === 'ArrowLeft'  || e.key === 'PageUp')   { e.preventDefault(); scrollToPanel(idx - 1); }
+    if (e.key === 'Home') { e.preventDefault(); scrollToPanel(0); }
+    if (e.key === 'End')  { e.preventDefault(); scrollToPanel(panels.length - 1); }
+  });
+
+  if (scrollTopEl) scrollTopEl.addEventListener('click', () => scrollToPanel(0));
+
+  /* ── SECTION INDEX: hero jump-nav ── */
+  const indexItems = [...document.querySelectorAll('.cs-index-item')];
+  indexItems.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = parseInt(btn.dataset.jump, 10);
+      if (!Number.isNaN(idx)) scrollToPanel(idx);
+    });
+  });
+  function updateIndexActive() {
+    const cur = currentPanelIdx();
+    indexItems.forEach(b => {
+      const t = parseInt(b.dataset.jump, 10);
+      b.classList.toggle('is-active', t === cur);
+    });
+  }
+  window.addEventListener('scroll', updateIndexActive, { passive: true });
+  window.addEventListener('resize', updateIndexActive);
+  updateIndexActive();
+
+  /* ── REVEAL ON PANEL ENTER ── */
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-in');
+        revealObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.cs-reveal, .cs-num-card, .cs-draw').forEach(el => revealObs.observe(el));
+
+  /* ── COUNT-UP ── */
+  const countObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = parseFloat(el.dataset.countTo);
+      const duration = reduced ? 0 : 1400;
+      const start = performance.now();
+      (function tick(now){
+        const t = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = Math.round(target * eased).toLocaleString();
+        if (t < 1) requestAnimationFrame(tick);
+        else el.textContent = target.toLocaleString();
+      })(performance.now());
+      countObs.unobserve(el);
+    });
+  }, { threshold: 0.4 });
+  document.querySelectorAll('[data-count-to]').forEach(el => countObs.observe(el));
+
+  /* ── SVG STROKE DRAW ── */
+  document.querySelectorAll('.cs-draw').forEach(path => {
+    try {
+      const len = path.getTotalLength ? path.getTotalLength() : 600;
+      path.style.strokeDasharray = len;
+      path.style.strokeDashoffset = len;
+    } catch(e) {}
+  });
+  const drawObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.strokeDashoffset = '0';
+        drawObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.25 });
+  document.querySelectorAll('.cs-draw').forEach(p => drawObs.observe(p));
+
+  /* ── HERO FLOW LINES (continuous) ── */
+  if (!reduced) {
+    document.querySelectorAll('.dmc-flow').forEach((f, i) => {
+      try {
+        const len = f.getTotalLength ? f.getTotalLength() : 1600;
+        f.animate(
+          [{ strokeDashoffset: 0 }, { strokeDashoffset: -len }],
+          { duration: 18000 + i * 4000, iterations: Infinity, easing: 'linear' }
+        );
+      } catch(e) {}
+    });
+  }
+
+  /* ── STAGE TABS — auto-advance when panel enters ── */
+  const stagePanel = document.querySelector('[data-stage]');
+  if (stagePanel) {
+    const tabs    = [...stagePanel.querySelectorAll('[data-stage-tab]')];
+    const views   = [...stagePanel.querySelectorAll('[data-stage-view]')];
+    const copies  = [...stagePanel.querySelectorAll('[data-stage-copy]')];
+    const urlEl   = stagePanel.querySelector('[data-stage-url]');
+    const URLS = [
+      'dapper.oreno.lk / login',
+      'dapper.oreno.lk / invoices / create',
+      'dapper.oreno.lk / invoices / 343 / pdf',
+      'dapper.oreno.lk / invoices / 343 / send',
+      'dapper.oreno.lk / invoices',
+      'dapper.oreno.lk / settings'
+    ];
+    let active = 0;
+    let auto   = null;
+
+    function setActive(i) {
+      active = i;
+      tabs.forEach((t, j)   => t.classList.toggle('is-active', j === i));
+      views.forEach((v, j)  => v.classList.toggle('is-active', j === i));
+      copies.forEach((c, j) => c.classList.toggle('is-active', j === i));
+      if (urlEl) urlEl.textContent = URLS[i] || URLS[0];
+    }
+
+    tabs.forEach((t, i) => t.addEventListener('click', () => {
+      setActive(i);
+      if (auto) { clearInterval(auto); auto = null; }
+    }));
+
+    const autoObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !auto && !reduced) {
+          auto = setInterval(() => setActive((active + 1) % tabs.length), 3500);
+        } else if (!entry.isIntersecting && auto) {
+          clearInterval(auto); auto = null;
+        }
+      });
+    }, { threshold: 0.3 });
+    autoObs.observe(stagePanel);
+  }
+
+  /* ── FOOTER CONNECT HOVER REVEAL ── */
+  const cw = document.getElementById('footer-connect-wrap');
+  if (cw) {
+    cw.addEventListener('mouseenter', () => cw.classList.add('is-open'));
+    cw.addEventListener('mouseleave', () => cw.classList.remove('is-open'));
+    const lbl = cw.querySelector('.footer-connect__label');
+    if (lbl) lbl.addEventListener('click', () => cw.classList.toggle('is-open'));
+  }
+
+  /* ── TOUCH SWIPE (desktop horizontal) ── */
+  let tx=0, ty=0, tLocked=null;
+  addEventListener('touchstart', e => {
+    if (isMobile()) return;
+    tx = e.touches[0].clientX; ty = e.touches[0].clientY; tLocked = null;
+  }, { passive: true });
+  addEventListener('touchmove', e => {
+    if (isMobile()) return;
+    const dx = tx - e.touches[0].clientX;
+    const dy = ty - e.touches[0].clientY;
+    if (tLocked === null && (Math.abs(dx) > 4 || Math.abs(dy) > 4)) {
+      tLocked = Math.abs(dx) >= Math.abs(dy) ? 'h' : 'v';
+    }
+    if (tLocked === 'h') { e.preventDefault(); window.scrollBy(dx, 0); tx = e.touches[0].clientX; }
+  }, { passive: false });
+
+})();
+</script>
+
+
+<!-- ══ DESKTOP NAV — Glow Menu ══ -->
+<nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+  <div class="snav-bg-glow" aria-hidden="true"></div>
+  <ul class="snav-list" role="list">
+    <li class="snav-item" data-nav="work">
+      <a class="snav-link" href="/#work" data-goto="#work">
+        <div class="snav-flipper">
+          <div class="snav-glow" style="background:radial-gradient(circle,rgba(212,160,23,.18) 0%,rgba(212,160,23,.07) 50%,transparent 100%)" aria-hidden="true"></div>
+          <div class="snav-face snav-face--front">Work</div>
+          <div class="snav-face snav-face--back">Work</div>
+        </div>
+      </a>
+    </li>
+    <li class="snav-item" data-nav="studio">
+      <a class="snav-link" href="/#studio" data-goto="#studio">
+        <div class="snav-flipper">
+          <div class="snav-glow" style="background:radial-gradient(circle,rgba(245,243,238,.16) 0%,rgba(245,243,238,.06) 50%,transparent 100%)" aria-hidden="true"></div>
+          <div class="snav-face snav-face--front">Studio</div>
+          <div class="snav-face snav-face--back">Studio</div>
+        </div>
+      </a>
+    </li>
+    <li class="snav-item" data-nav="voices">
+      <a class="snav-link" href="/testimonials">
+        <div class="snav-flipper">
+          <div class="snav-glow" style="background:radial-gradient(circle,rgba(59,130,246,.15) 0%,rgba(59,130,246,.05) 50%,transparent 100%)" aria-hidden="true"></div>
+          <div class="snav-face snav-face--front">Voices</div>
+          <div class="snav-face snav-face--back">Voices</div>
+        </div>
+      </a>
+    </li>
+    <li class="snav-item snav-item--cta" data-nav="start">
+      <a class="snav-link" href="/inquiry">
+        <div class="snav-flipper">
+          <div class="snav-face snav-face--front">Start a project <span aria-hidden="true">→</span></div>
+          <div class="snav-face snav-face--back">Start a project <span aria-hidden="true">→</span></div>
+        </div>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<!-- ══ MOBILE NAV — Bottom Tab Bar ══ -->
+<nav class="site-nav-mobile" id="site-nav-mobile" aria-label="Mobile navigation">
+  <a class="snm-tab" href="/" data-tab="home">
+    <span class="snm-dot" aria-hidden="true"></span>
+    <svg class="snm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 9.75L12 3l9 6.75V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.75z" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 21V12h6v9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span class="snm-label">Home</span>
+  </a>
+  <a class="snm-tab" href="/#work" data-tab="work" data-goto="#work">
+    <span class="snm-dot" aria-hidden="true"></span>
+    <svg class="snm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+    <span class="snm-label">Work</span>
+  </a>
+  <a class="snm-tab" href="/#studio" data-tab="studio" data-goto="#studio">
+    <span class="snm-dot" aria-hidden="true"></span>
+    <svg class="snm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M4 20c0-4 3.582-7 8-7s8 3 8 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span class="snm-label">Studio</span>
+  </a>
+  <a class="snm-tab" href="/testimonials" data-tab="voices">
+    <span class="snm-dot" aria-hidden="true"></span>
+    <svg class="snm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4h14a2 2 0 012 2v10a2 2 0 01-2 2h-6l-4 3v-3H5a2 2 0 01-2-2V6a2 2 0 012-2z" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 9h10M7 13h7" stroke-linecap="round"/></svg>
+    <span class="snm-label">Voices</span>
+  </a>
+  <a class="snm-tab snm-tab--cta" href="/inquiry" data-tab="start">
+    <svg class="snm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span class="snm-label">Start</span>
+  </a>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Testimonials — ØRENO Studio</title>
+<meta name="description" content="What clients say about working with ØRENO Studio. Quiet, cinematic brand identities built to last.">
+<meta name="author" content="ØRENO Studio">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#050505">
+<link rel="canonical" href="https://oreno.lk/testimonials">
+
+<!-- Icons & PWA -->
+<link rel="icon" href="/assets/icons/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Client Testimonials — ØRENO Studio",
+  "url": "https://oreno.lk/testimonials"
+}
+</script>
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ØRENO Studio">
+<meta property="og:title" content="Client Testimonials — ØRENO Studio">
+<meta property="og:description" content="What clients say about working with ØRENO Studio. Quiet, cinematic brand identities built to last.">
+<meta property="og:url" content="https://oreno.lk/testimonials">
+<meta property="og:image" content="https://oreno.lk/assets/og-image.jpg">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Client Testimonials — ØRENO Studio">
+<meta name="twitter:description" content="What clients say about working with ØRENO Studio.">
+<meta name="twitter:image" content="https://oreno.lk/assets/og-image.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="/styles.css?v=12.5">
+
+<style>
+/* ── PAGE BASE ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: #050505;
+  color: rgba(245,243,238,0.92);
+  font-family: 'Montserrat', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  cursor: none;
+}
+
+/* ── CUSTOM CURSOR ── */
+.tc-cursor {
+  position: fixed;
+  width: 0; height: 0;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+}
+.tc-cursor-inner {
+  position: absolute;
+  top: 0; left: 0;
+  transform: translate(-50%, -50%);
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: rgba(245,243,238,0.92);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0;
+  transition: opacity 0.25s ease, width 0.3s cubic-bezier(0.34,1.56,0.64,1), height 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+.tc-cursor-inner.is-visible {
+  opacity: 1;
+}
+.tc-cursor-label {
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #050505;
+  white-space: nowrap;
+}
+
+/* ── STAGE ── */
+.tc-stage {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(4rem,8vw,7rem) clamp(2rem,8vw,8rem);
+  padding-top: clamp(5rem,10vw,9rem);
+}
+
+/* ── TOP META BAR ── */
+.tc-meta {
+  position: fixed;
+  top: clamp(1.6rem,3.5vw,2.8rem);
+  left: clamp(2rem,8vw,8rem);
+  right: clamp(2rem,8vw,8rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+}
+
+/* Author bubbles */
+.tc-bubbles {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tc-bubble {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: rgba(245,243,238,0.06);
+  border: 1px solid rgba(245,243,238,0.14);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: rgba(245,243,238,0.38);
+  cursor: pointer;
+  transition: all 0.35s ease;
+  position: relative;
+}
+.tc-bubble.is-active {
+  background: rgba(245,243,238,0.10);
+  border-color: rgba(245,243,238,0.40);
+  color: rgba(245,243,238,0.92);
+  box-shadow: 0 0 0 2px rgba(245,243,238,0.15);
+}
+.tc-bubble::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1px solid rgba(245,243,238,0.22);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.tc-bubble.is-active::after { opacity: 1; }
+
+/* Index counter */
+.tc-counter {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: rgba(245,243,238,0.28);
+  font-variant-numeric: tabular-nums;
+}
+.tc-counter-current {
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: rgba(245,243,238,0.70);
+  display: inline-block;
+  transition: opacity 0.3s ease;
+}
+
+/* ── QUOTE ── */
+.tc-quote-wrap {
+  position: relative;
+  margin-bottom: clamp(2.5rem,5vh,4rem);
+}
+.tc-quote-mark {
+  font-size: clamp(4rem,8vw,7rem);
+  font-weight: 300;
+  line-height: 0.6;
+  color: rgba(245,243,238,0.06);
+  margin-bottom: 0.6rem;
+  display: block;
+  user-select: none;
+}
+.tc-quote {
+  font-size: clamp(1.3rem,3vw,2.5rem);
+  font-weight: 300;
+  line-height: 1.55;
+  letter-spacing: -0.02em;
+  color: rgba(245,243,238,0.92);
+  max-width: 820px;
+}
+.tc-word {
+  display: inline;
+  opacity: 0.1;
+  filter: blur(6px);
+  transition: opacity 0.5s ease, filter 0.5s ease;
+}
+.tc-word.is-visible {
+  opacity: 1;
+  filter: blur(0px);
+}
+
+/* ── AUTHOR ── */
+.tc-author-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  opacity: 0;
+  transform: translateX(-16px);
+  transition: opacity 0.5s ease 0.15s, transform 0.5s cubic-bezier(0.22,1,0.36,1) 0.15s;
+}
+.tc-author-wrap.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+.tc-author-line {
+  width: 2px;
+  height: 0;
+  background: rgba(245,243,238,0.40);
+  border-radius: 2px;
+  transition: height 0.4s cubic-bezier(0.22,1,0.36,1) 0.3s;
+  align-self: stretch;
+  min-height: 0;
+}
+.tc-author-wrap.is-visible .tc-author-line {
+  height: 100%;
+  min-height: 36px;
+}
+.tc-author-info {}
+.tc-author-name {
+  font-size: clamp(0.72rem,1.1vw,0.84rem);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(245,243,238,0.88);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+.tc-author-role {
+  font-size: clamp(0.58rem,0.85vw,0.65rem);
+  font-weight: 400;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(245,243,238,0.32);
+  display: block;
+}
+
+/* ── PROGRESS + HINT ── */
+.tc-bottom {
+  position: fixed;
+  bottom: clamp(2rem,4vw,3.5rem);
+  left: clamp(2rem,8vw,8rem);
+  right: clamp(2rem,8vw,8rem);
+}
+.tc-progress-track {
+  width: 100%;
+  height: 1px;
+  background: rgba(245,243,238,0.08);
+  border-radius: 1px;
+  overflow: hidden;
+  margin-bottom: 1.2rem;
+}
+.tc-progress-fill {
+  height: 100%;
+  background: rgba(245,243,238,0.45);
+  border-radius: 1px;
+  transition: width 0.5s cubic-bezier(0.22,1,0.36,1);
+}
+.tc-hint {
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(245,243,238,0.20);
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+.tc-hint-key {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* ── PAGE OVERLAY ── */
+.page-overlay {
+  position: fixed; inset: 0;
+  background: rgba(245,243,238,0.92);
+  z-index: 800;
+  transform: translateY(100%);
+  pointer-events: none;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  html, body { overflow: hidden; cursor: auto; }
+  .tc-cursor { display: none; }
+  .tc-bubble { width: 26px; height: 26px; font-size: 8px; }
+  .tc-quote { font-size: clamp(1.15rem, 5vw, 1.6rem); }
+  .tc-quote-mark { font-size: 3rem; }
+  .tc-stage { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px) + 2rem); }
+  .tc-bottom { bottom: calc(64px + env(safe-area-inset-bottom, 0px) + 1rem); }
+}
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+<script src="/nav.js?v=1.0" defer></script>
+</head>
+
+<body id="page-testimonials">
+
+<canvas id="global-thermo" aria-hidden="true" style="position:fixed;inset:0;z-index:9998;pointer-events:none;display:block;width:100%;height:100%;"></canvas>
+<div class="page-overlay" aria-hidden="true"></div>
+
+<!-- Custom cursor -->
+<div class="tc-cursor" id="tc-cursor" aria-hidden="true">
+  <div class="tc-cursor-inner" id="tc-cursor-inner">
+    <span class="tc-cursor-label">Next →</span>
+  </div>
+</div>
+
+<!-- Top meta -->
+<div class="tc-meta">
+  <div class="tc-bubbles" id="tc-bubbles" aria-label="Select testimonial"></div>
+  <div class="tc-counter">
+    <span class="tc-counter-current" id="tc-counter-current">01</span>
+    <span>&nbsp;/&nbsp;03</span>
+  </div>
+</div>
+
+<!-- Main stage -->
+<main class="tc-stage" role="main" id="tc-stage">
+  <div class="tc-quote-wrap">
+    <span class="tc-quote-mark" aria-hidden="true">"</span>
+    <blockquote class="tc-quote" id="tc-quote" aria-live="polite"></blockquote>
+  </div>
+
+  <div class="tc-author-wrap" id="tc-author-wrap">
+    <div class="tc-author-line" id="tc-author-line"></div>
+    <div class="tc-author-info">
+      <span class="tc-author-name" id="tc-author-name"></span>
+      <span class="tc-author-role" id="tc-author-role"></span>
+    </div>
+  </div>
+</main>
+
+<!-- Bottom progress + hint -->
+<div class="tc-bottom">
+  <div class="tc-progress-track">
+    <div class="tc-progress-fill" id="tc-progress-fill" style="width:33.33%"></div>
+  </div>
+  <p class="tc-hint" id="tc-hint">
+    <span class="tc-hint-key">Click anywhere</span>
+    <span class="tc-hint-key">← → Arrow keys</span>
+  </p>
+</div>
+
+<!-- Desktop glow nav -->
+<nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+  <div class="snav-bg-glow" aria-hidden="true"></div>
+  <ul class="snav-list" role="list">
+    <li class="snav-item" data-nav="work">
+      <a class="snav-link" href="/#work" data-goto="#work">
+        <div class="snav-flipper">
+          <div class="snav-glow" style="background:radial-gradient(circle,rgba(212,160,23,.18) 0%,rgba(212,160,23,.07) 50%,transparent 100%)" aria-hidden="true"></div>
+          <div class="snav-face snav-face--front">Work</div>
+          <div class="snav-face snav-face--back">Work</div>
+        </div>
+      </a>
+    </li>
+    <li class="snav-item" data-nav="studio">
+      <a class="snav-link" href="/#studio" data-goto="#studio">
+        <div class="snav-flipper">
+          <div class="snav-glow" style="background:radial-gradient(circle,rgba(245,243,238,.16) 0%,rgba(245,243,238,.06) 50%,transparent 100%)" aria-hidden="true"></div>
+          <div class="snav-face snav-face--front">Studio</div>
+          <div class="snav-face snav-face--back">Studio</div>
+        </div>
+      </a>
+    </li>
+    <li class="snav-item" data-nav="voices">
+      <a class="snav-link" href="/testimonials.html">
+        <div class="snav-flipper">
+          <div class="snav-glow" style="background:radial-gradient(circle,rgba(59,130,246,.15) 0%,rgba(59,130,246,.05) 50%,transparent 100%)" aria-hidden="true"></div>
+          <div class="snav-face snav-face--front">Voices</div>
+          <div class="snav-face snav-face--back">Voices</div>
+        </div>
+      </a>
+    </li>
+    <li class="snav-item snav-item--cta" data-nav="start">
+      <a class="snav-link" href="/inquiry.html">
+        <div class="snav-flipper">
+          <div class="snav-face snav-face--front">Start a project <span aria-hidden="true">→</span></div>
+          <div class="snav-face snav-face--back">Start a project <span aria-hidden="true">→</span></div>
+        </div>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<!-- Mobile bottom tab nav -->
+<nav class="site-nav-mobile" id="site-nav-mobile" aria-label="Mobile navigation">
+  <a class="snm-tab" href="/" data-tab="home">
+    <span class="snm-dot" aria-hidden="true"></span>
+    <svg class="snm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 9.75L12 3l9 6.75V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.75z" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 21V12h6v9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span class="snm-label">Home</span>
+  </a>
+  <a class="snm-tab" href="/#work" data-tab="work" data-goto="#work">
+    <span class="snm-dot" aria-hidden="true"></span>
+    <svg class="snm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+    <span class="snm-label">Work</span>
+  </a>
+  <a class="snm-tab" href="/#studio" data-tab="studio" data-goto="#studio">
+    <span class="snm-dot" aria-hidden="true"></span>
+    <svg class="snm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M4 20c0-4 3.582-7 8-7s8 3 8 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span class="snm-label">Studio</span>
+  </a>
+  <a class="snm-tab" href="/testimonials.html" data-tab="voices">
+    <span class="snm-dot" aria-hidden="true"></span>
+    <svg class="snm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4h14a2 2 0 012 2v10a2 2 0 01-2 2h-6l-4 3v-3H5a2 2 0 01-2-2V6a2 2 0 012-2z" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 9h10M7 13h7" stroke-linecap="round"/></svg>
+    <span class="snm-label">Voices</span>
+  </a>
+  <a class="snm-tab snm-tab--cta" href="/inquiry.html" data-tab="start">
+    <svg class="snm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span class="snm-label">Start</span>
+  </a>
+</nav>
+
+<script>
+/* ═══════════════════════════════════════════
+   ØRENO — Testimonials interactive component
+═══════════════════════════════════════════ */
+(function () {
+  'use strict';
+
+  const TESTIMONIALS = [
+    {
+      quote: "The seller was very responsive and communicated well — even prior to purchasing. This made me feel really comfortable about working with him.",
+      author: "Damith Sankha",
+      role: "Client · Web Design",
+      initials: "DS"
+    },
+    {
+      quote: "The process was smooth, and the final result exceeded my expectations. Thank you for bringing my vision to life with such creativity and professionalism!",
+      author: "Munazir Cassim",
+      role: "Client · Brand Identity",
+      initials: "MC"
+    },
+    {
+      quote: "A highly qualified designer with amazing communication skills. I highly recommend ØRENO for creative design services. Looking forward to working with you again.",
+      author: "Tharindu Sankalpa",
+      role: "Client · Design Services",
+      initials: "TS"
+    }
+  ];
+
+  let current = 0;
+  let isAnimating = false;
+  const total = TESTIMONIALS.length;
+
+  const quoteEl      = document.getElementById('tc-quote');
+  const authorWrap   = document.getElementById('tc-author-wrap');
+  const authorName   = document.getElementById('tc-author-name');
+  const authorRole   = document.getElementById('tc-author-role');
+  const progressFill = document.getElementById('tc-progress-fill');
+  const counterEl    = document.getElementById('tc-counter-current');
+  const bubblesEl    = document.getElementById('tc-bubbles');
+  const stageEl      = document.getElementById('tc-stage');
+
+  /* ── Build bubbles ── */
+  TESTIMONIALS.forEach((t, i) => {
+    const b = document.createElement('button');
+    b.className = 'tc-bubble' + (i === 0 ? ' is-active' : '');
+    b.textContent = t.initials;
+    b.setAttribute('aria-label', 'View testimonial from ' + t.author);
+    b.addEventListener('click', e => { e.stopPropagation(); goTo(i); });
+    bubblesEl.appendChild(b);
+  });
+
+  /* ── Render ── */
+  function render(idx, direction) {
+    if (isAnimating) return;
+    isAnimating = true;
+
+    const t = TESTIMONIALS[idx];
+
+    /* Author out */
+    authorWrap.classList.remove('is-visible');
+
+    /* Quote: fade all words out quickly */
+    const words = quoteEl.querySelectorAll('.tc-word');
+    words.forEach(w => { w.classList.remove('is-visible'); });
+
+    setTimeout(() => {
+      /* Update text */
+      authorName.textContent = t.author;
+      authorRole.textContent = t.role;
+
+      /* Split quote into word spans */
+      quoteEl.innerHTML = '';
+      quoteEl.setAttribute('aria-label', t.quote);
+      t.quote.split(/\s+/).filter(Boolean).forEach((word, wi, arr) => {
+        const span = document.createElement('span');
+        span.className = 'tc-word';
+        span.setAttribute('aria-hidden', 'true');
+        span.textContent = word;
+        quoteEl.appendChild(span);
+        if (wi < arr.length - 1) quoteEl.appendChild(document.createTextNode(' '));
+      });
+
+      /* Stagger words in */
+      const newWords = quoteEl.querySelectorAll('.tc-word');
+      newWords.forEach((w, wi) => {
+        setTimeout(() => { w.classList.add('is-visible'); }, wi * 28);
+      });
+
+      /* Author in — after first few words */
+      setTimeout(() => {
+        authorWrap.classList.add('is-visible');
+      }, Math.min(newWords.length * 28 * 0.4, 350));
+
+      /* Progress bar */
+      progressFill.style.width = ((idx + 1) / total * 100) + '%';
+
+      /* Counter */
+      counterEl.style.opacity = '0';
+      setTimeout(() => {
+        counterEl.textContent = String(idx + 1).padStart(2, '0');
+        counterEl.style.opacity = '1';
+      }, 80);
+
+      /* Bubbles */
+      bubblesEl.querySelectorAll('.tc-bubble').forEach((b, bi) => {
+        b.classList.toggle('is-active', bi === idx);
+      });
+
+      /* Done animating after words finish */
+      const wordsDuration = newWords.length * 28 + 500;
+      setTimeout(() => { isAnimating = false; }, wordsDuration);
+
+    }, 220);
+  }
+
+  function next() { goTo((current + 1) % total); }
+  function prev() { goTo((current - 1 + total) % total); }
+
+  function goTo(idx) {
+    if (idx === current && !isAnimating) return;
+    const direction = idx > current ? 1 : -1;
+    current = idx;
+    render(current, direction);
+  }
+
+  /* ── Custom cursor ── */
+  const cursor     = document.getElementById('tc-cursor');
+  const cursorInner = document.getElementById('tc-cursor-inner');
+  let curX = 0, curY = 0, targetX = 0, targetY = 0;
+
+  document.addEventListener('mousemove', e => {
+    targetX = e.clientX; targetY = e.clientY;
+  });
+
+  stageEl.addEventListener('mouseenter', () => cursorInner.classList.add('is-visible'));
+  stageEl.addEventListener('mouseleave', () => cursorInner.classList.remove('is-visible'));
+
+  /* Disable cursor for nav elements */
+  document.querySelectorAll('.site-nav, .site-nav-mobile, .tc-meta').forEach(el => {
+    el.addEventListener('mouseenter', () => cursorInner.classList.remove('is-visible'));
+  });
+
+  (function animateCursor() {
+    curX += (targetX - curX) * 0.14;
+    curY += (targetY - curY) * 0.14;
+    cursor.style.transform = 'translate(' + curX + 'px,' + curY + 'px)';
+    requestAnimationFrame(animateCursor);
+  })();
+
+  /* ── Interactions ── */
+  stageEl.addEventListener('click', e => {
+    /* Don't fire if clicking on author area */
+    if (e.target.closest('.tc-author-wrap')) return;
+    next();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+  });
+
+  /* Touch swipe */
+  let touchStartX = 0;
+  document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); }
+  }, { passive: true });
+
+  /* ── Page transitions ── */
+  const overlay = document.querySelector('.page-overlay');
+  document.addEventListener('click', e => {
+    const link = e.target.closest('a[href]');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('mailto') || link.target === '_blank') return;
+    e.preventDefault();
+    if (overlay && typeof gsap !== 'undefined') {
+      gsap.fromTo(overlay, { y: '100%' }, { y: '0%', duration: 0.55, ease: 'power3.inOut',
+        onComplete: () => { window.location.href = href; } });
+    } else { window.location.href = href; }
+  });
+
+  /* ── Init ── */
+  render(0, 1);
+
+})();
+</script>
+
+<script src="thermo-global.js?v=1.1"></script>
+
+</body>
+</html>

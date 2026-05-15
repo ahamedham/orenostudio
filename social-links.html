@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ØRENO Studio — Links</title>
+<meta name="description" content="ØRENO Studio — Brand Architecture & Software Studio. Colombo, Sri Lanka.">
+<meta property="og:title" content="ØRENO Studio">
+<meta property="og:description" content="Brand Architecture & Software Studio · Colombo">
+<meta property="og:url" content="https://oreno.lk/social-links">
+<meta property="og:image" content="https://oreno.lk/assets/og-image.png">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="/favicon.ico">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #080808;
+  --fg:      rgba(245, 243, 238, 0.92);
+  --muted:   rgba(245, 243, 238, 0.42);
+  --border:  rgba(245, 243, 238, 0.09);
+  --border-h:rgba(212, 160, 23, 0.45);
+  --card-bg: rgba(245, 243, 238, 0.04);
+  --card-h:  rgba(245, 243, 238, 0.07);
+  --gold:    #d4a017;
+  --gold-dim: rgba(212, 160, 23, 0.12);
+}
+
+html, body {
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(48px, 8vw, 80px) 20px clamp(40px, 6vw, 60px);
+  min-height: 100svh;
+}
+
+/* ── Profile ── */
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 44px;
+  width: 100%;
+}
+
+.logo-wrap {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.logo-wrap img {
+  width: 72px;
+  height: auto;
+}
+
+.profile-name {
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  color: var(--fg);
+  margin-bottom: 6px;
+}
+
+.profile-tag {
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ── Links ── */
+.links {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.link-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 15px 18px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  text-decoration: none;
+  color: var(--fg);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: background 200ms ease, border-color 200ms ease, transform 160ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.link-item:hover {
+  background: var(--card-h);
+  border-color: var(--border-h);
+  transform: translateY(-1px);
+}
+
+.link-item:active {
+  transform: translateY(0);
+}
+
+/* CTA — Start a Project */
+.link-item.link-cta {
+  background: var(--gold-dim);
+  border-color: rgba(212, 160, 23, 0.3);
+  color: var(--gold);
+}
+
+.link-item.link-cta:hover {
+  background: rgba(212, 160, 23, 0.18);
+  border-color: rgba(212, 160, 23, 0.6);
+}
+
+.link-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: rgba(245, 243, 238, 0.07);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.link-cta .link-icon {
+  background: rgba(212, 160, 23, 0.15);
+}
+
+.link-icon svg {
+  width: 17px;
+  height: 17px;
+}
+
+.link-label {
+  flex: 1;
+}
+
+.link-sublabel {
+  display: block;
+  font-size: 0.67rem;
+  font-weight: 400;
+  color: var(--muted);
+  margin-top: 2px;
+  letter-spacing: 0.03em;
+}
+
+.link-cta .link-sublabel {
+  color: rgba(212, 160, 23, 0.65);
+}
+
+.link-chevron {
+  width: 16px;
+  height: 16px;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.link-cta .link-chevron {
+  color: rgba(212, 160, 23, 0.55);
+}
+
+/* ── Divider ── */
+.links-divider {
+  width: 100%;
+  max-width: 420px;
+  height: 1px;
+  background: var(--border);
+  margin: 6px 0;
+}
+
+/* ── Footer ── */
+.footer {
+  margin-top: auto;
+  padding-top: 40px;
+  text-align: center;
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(245, 243, 238, 0.22);
+}
+
+.footer a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(245, 243, 238, 0.12);
+  transition: color 200ms ease;
+}
+
+.footer a:hover {
+  color: rgba(245, 243, 238, 0.5);
+}
+
+@media (max-width: 420px) {
+  .link-item { padding: 13px 15px; gap: 12px; }
+  .link-icon { width: 32px; height: 32px; border-radius: 8px; }
+  .link-icon svg { width: 15px; height: 15px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Profile ── -->
+<div class="profile">
+  <div class="logo-wrap">
+    <img src="/assets/SVG/white_O.svg" alt="ØRENO">
+  </div>
+  <div class="profile-name">ØRENO Studio</div>
+  <div class="profile-tag">Brand Architecture &amp; Software Studio<br>Colombo, Sri Lanka</div>
+</div>
+
+<!-- ── Links ── -->
+<div class="links">
+
+  <!-- CTA first -->
+  <a class="link-item link-cta" href="https://oreno.lk/inquiry" rel="noopener">
+    <div class="link-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5v14M5 12l7-7 7 7"/>
+      </svg>
+    </div>
+    <div class="link-label">
+      Start a Project
+      <span class="link-sublabel">Tell us about your brief</span>
+    </div>
+    <svg class="link-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+  </a>
+
+  <div class="links-divider"></div>
+
+  <!-- Website -->
+  <a class="link-item" href="https://oreno.lk" rel="noopener">
+    <div class="link-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+      </svg>
+    </div>
+    <div class="link-label">
+      Website
+      <span class="link-sublabel">oreno.lk</span>
+    </div>
+    <svg class="link-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+  </a>
+
+  <!-- Instagram -->
+  <a class="link-item" href="https://www.instagram.com/orenostudio/" target="_blank" rel="noopener">
+    <div class="link-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
+      </svg>
+    </div>
+    <div class="link-label">
+      Instagram
+      <span class="link-sublabel">@orenostudio</span>
+    </div>
+    <svg class="link-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+  </a>
+
+  <!-- TikTok -->
+  <a class="link-item" href="https://www.tiktok.com/@orenostudio" target="_blank" rel="noopener">
+    <div class="link-icon">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9.05a8.16 8.16 0 0 0 4.77 1.52V7.13a4.85 4.85 0 0 1-1-.44z"/>
+      </svg>
+    </div>
+    <div class="link-label">
+      TikTok
+      <span class="link-sublabel">@orenostudio</span>
+    </div>
+    <svg class="link-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+  </a>
+
+  <!-- Facebook -->
+  <a class="link-item" href="https://www.facebook.com/orenostudio" target="_blank" rel="noopener">
+    <div class="link-icon">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+      </svg>
+    </div>
+    <div class="link-label">
+      Facebook
+      <span class="link-sublabel">ØRENO Studio</span>
+    </div>
+    <svg class="link-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+  </a>
+
+  <!-- LinkedIn -->
+  <a class="link-item" href="https://www.linkedin.com/company/orenostudio" target="_blank" rel="noopener">
+    <div class="link-icon">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+      </svg>
+    </div>
+    <div class="link-label">
+      LinkedIn
+      <span class="link-sublabel">ØRENO Studio</span>
+    </div>
+    <svg class="link-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+  </a>
+
+  <div class="links-divider"></div>
+
+  <!-- WhatsApp -->
+  <a class="link-item" href="https://wa.me/94729537427" target="_blank" rel="noopener">
+    <div class="link-icon">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+      </svg>
+    </div>
+    <div class="link-label">
+      WhatsApp
+      <span class="link-sublabel">+94 72 953 7427</span>
+    </div>
+    <svg class="link-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+  </a>
+
+  <!-- Email -->
+  <a class="link-item" href="mailto:contact@oreno.lk">
+    <div class="link-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="4" width="20" height="16" rx="3"/><path d="M2 7l10 7 10-7"/>
+      </svg>
+    </div>
+    <div class="link-label">
+      Email
+      <span class="link-sublabel">contact@oreno.lk</span>
+    </div>
+    <svg class="link-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+  </a>
+
+</div>
+
+<!-- ── Footer ── -->
+<footer class="footer">
+  <a href="https://oreno.lk">© 2026 ØRENO Studio</a>
+</footer>
+
+</body>
+</html>

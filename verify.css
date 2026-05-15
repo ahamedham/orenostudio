@@ -1,0 +1,198 @@
+/* =====================================================
+   ØRENO — Email verification modal
+   Small centered popup. Light card over blurred backdrop.
+   Works on both light pages (index, packages) and dark (inquiry).
+===================================================== */
+
+.ov-root {
+  position: fixed; inset: 0; z-index: 10000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  opacity: 0; pointer-events: none;
+  transition: opacity 260ms ease;
+  font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+
+  /* Restore native cursor inside modal (site uses cursor:none + custom blob,
+     which fails over backdrop-filter and hides the pointer). */
+  cursor: default;
+}
+.ov-root.is-open { opacity: 1; pointer-events: auto; }
+.ov-root, .ov-root * { cursor: default; }
+.ov-root .ov-digit { cursor: text; }
+.ov-root .ov-btn,
+.ov-root .ov-close,
+.ov-root [data-ov-close] { cursor: pointer; }
+.ov-root .ov-btn:disabled,
+.ov-root .ov-btn-ghost:disabled { cursor: not-allowed; }
+
+/* Hide the global custom cursor while modal is open */
+body.ov-modal-open .cursor-blob { opacity: 0 !important; }
+body.ov-modal-open { cursor: auto; }
+
+.ov-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(8, 8, 8, 0.62);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+}
+
+.ov-card {
+  position: relative;
+  width: 100%; max-width: 400px;
+  background: #F5F3EE;
+  border: 1px solid rgba(10, 10, 10, 0.08);
+  border-radius: 4px;
+  padding: 32px 30px 28px;
+  box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.55),
+              0 0 0 1px rgba(212, 160, 23, 0.05);
+  transform: translateY(14px) scale(0.98);
+  transition: transform 340ms cubic-bezier(.2, .8, .2, 1);
+}
+.ov-root.is-open .ov-card { transform: translateY(0) scale(1); }
+
+/* Close button */
+.ov-close {
+  position: absolute; top: 14px; right: 14px;
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  background: transparent; border: none; cursor: pointer;
+  color: rgba(10, 10, 10, 0.45);
+  border-radius: 50%;
+  transition: background 180ms ease, color 180ms ease;
+}
+.ov-close:hover { background: rgba(10, 10, 10, 0.05); color: #0A0A0A; }
+.ov-close svg { width: 14px; height: 14px; }
+
+/* Header */
+.ov-kicker {
+  font-family: 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(10, 10, 10, 0.42);
+  margin: 0 0 10px;
+}
+.ov-title {
+  font-size: 20px; font-weight: 400; letter-spacing: -0.3px;
+  color: #0A0A0A; margin: 0 0 6px;
+}
+.ov-sub {
+  font-size: 13px; line-height: 1.55;
+  color: rgba(10, 10, 10, 0.58);
+  margin: 0 0 22px;
+}
+.ov-sub strong {
+  font-weight: 500; color: #0A0A0A;
+  border-bottom: 1px dashed rgba(10, 10, 10, 0.25);
+}
+
+/* 6-digit input row */
+.ov-digits {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  margin: 0 0 18px;
+}
+.ov-digit {
+  width: 100%; aspect-ratio: 1 / 1.15;
+  font-family: 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 22px; text-align: center;
+  color: #0A0A0A; background: #FFFFFF;
+  border: 1px solid rgba(10, 10, 10, 0.14);
+  border-radius: 3px;
+  outline: none;
+  transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+  caret-color: #d4a017;
+}
+.ov-digit:focus {
+  border-color: #d4a017;
+  box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.14);
+}
+.ov-digit.is-filled { background: #FAF8F3; }
+.ov-root.is-error .ov-digit {
+  border-color: rgba(194, 58, 45, 0.6);
+  background: rgba(194, 58, 45, 0.04);
+}
+
+/* Status line */
+.ov-status {
+  min-height: 18px;
+  font-size: 12px; line-height: 1.5;
+  color: rgba(10, 10, 10, 0.55);
+  margin: 0 0 18px;
+  text-align: center;
+}
+.ov-status.is-error { color: #c23a2d; }
+.ov-status.is-ok    { color: #1f7a3c; }
+
+/* Actions */
+.ov-actions {
+  display: flex; flex-direction: column; gap: 10px;
+}
+.ov-btn {
+  appearance: none; border: none; cursor: pointer;
+  font: inherit; font-size: 13px; letter-spacing: 0.04em;
+  padding: 13px 18px; border-radius: 3px;
+  transition: background 200ms ease, color 200ms ease, opacity 200ms ease, transform 160ms ease;
+}
+.ov-btn-primary {
+  background: #0A0A0A; color: #F5F3EE;
+}
+.ov-btn-primary:hover:not(:disabled) { background: #1a1a1a; }
+.ov-btn-primary:disabled {
+  opacity: 0.45; cursor: not-allowed;
+}
+.ov-btn-ghost {
+  background: transparent; color: rgba(10, 10, 10, 0.55);
+  font-family: 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 8px;
+}
+.ov-btn-ghost:hover:not(:disabled) { color: #0A0A0A; }
+.ov-btn-ghost:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* Loading spinner inside primary btn */
+.ov-spinner {
+  display: inline-block; width: 13px; height: 13px;
+  border: 1.5px solid rgba(245, 243, 238, 0.25);
+  border-top-color: #F5F3EE;
+  border-radius: 50%;
+  animation: ov-spin 700ms linear infinite;
+  vertical-align: -2px; margin-right: 8px;
+}
+@keyframes ov-spin { to { transform: rotate(360deg); } }
+
+/* Success checkmark state */
+.ov-root.is-done .ov-card {
+  transition: transform 340ms cubic-bezier(.2, .8, .2, 1);
+}
+.ov-check {
+  width: 54px; height: 54px;
+  margin: 10px auto 18px;
+  border-radius: 50%;
+  background: rgba(31, 122, 60, 0.08);
+  display: flex; align-items: center; justify-content: center;
+  color: #1f7a3c;
+}
+.ov-check svg { width: 26px; height: 26px; }
+
+/* Shake on error */
+@keyframes ov-shake {
+  0%,100% { transform: translateX(0); }
+  20%,60% { transform: translateX(-6px); }
+  40%,80% { transform: translateX(6px); }
+}
+.ov-root.is-error .ov-digits { animation: ov-shake 380ms ease; }
+
+/* Small screens */
+@media (max-width: 420px) {
+  .ov-card { padding: 26px 20px 22px; }
+  .ov-digit { font-size: 19px; }
+  .ov-digits { gap: 6px; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .ov-root, .ov-card, .ov-digit, .ov-btn { transition: none; }
+  .ov-root.is-error .ov-digits { animation: none; }
+  .ov-spinner { animation: none; }
+}

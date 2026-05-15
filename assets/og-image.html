@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ØRENO — OG Image Template (1200×630)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;padding:0;background:#050505;}
+  body{
+    width:1200px;height:630px;
+    font-family:'Montserrat',sans-serif;
+    color:#fff;
+    position:relative;
+    overflow:hidden;
+  }
+  .card{
+    width:1200px;height:630px;
+    display:flex;flex-direction:column;
+    align-items:center;justify-content:center;
+    position:relative;
+    background:
+      radial-gradient(ellipse at 20% 30%, rgba(255,255,255,0.035) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 70%, rgba(255,255,255,0.025) 0%, transparent 50%),
+      #050505;
+  }
+  .wordmark{
+    font-weight:900;
+    font-size:200px;
+    letter-spacing:-6px;
+    line-height:1;
+    color:#fff;
+    margin:0;
+  }
+  .tagline{
+    margin-top:28px;
+    font-weight:400;
+    font-size:28px;
+    letter-spacing:2px;
+    color:#9a9a9a;
+    text-transform:none;
+  }
+  .tagline .dot{color:#555;margin:0 10px;}
+  .footer-url{
+    position:absolute;
+    left:56px;bottom:44px;
+    font-weight:700;
+    font-size:22px;
+    letter-spacing:1px;
+    color:#cfcfcf;
+  }
+  .corner{
+    position:absolute;
+    right:56px;top:44px;
+    font-weight:700;
+    font-size:14px;
+    letter-spacing:4px;
+    color:#666;
+  }
+  .rule{
+    position:absolute;
+    left:56px;right:56px;
+    bottom:96px;
+    height:1px;
+    background:linear-gradient(to right, rgba(255,255,255,0.18), rgba(255,255,255,0));
+  }
+  /* Print/screenshot hint */
+  .hint{
+    position:fixed;left:8px;bottom:8px;
+    font-size:11px;color:#444;font-family:monospace;
+  }
+  @media print { .hint{display:none;} }
+</style>
+</head>
+<body>
+  <div class="card" id="og-card">
+    <div class="corner">BRAND ARCHITECTURE</div>
+    <h1 class="wordmark">ØRENO</h1>
+    <div class="tagline">Brand Architecture<span class="dot">·</span>Colombo, Sri Lanka</div>
+    <div class="rule"></div>
+    <div class="footer-url">oreno.lk</div>
+  </div>
+  <div class="hint">Open in Chrome at 1200×630, then screenshot → save as assets/og-image.jpg</div>
+</body>
+</html>

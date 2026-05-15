@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Start a Project — ØRENO Studio</title>
+<meta name="description" content="Tell us what you're building. ØRENO Studio will take it from there.">
+<meta name="author" content="ØRENO Studio">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#050505">
+<link rel="canonical" href="https://oreno.lk/inquiry">
+
+<!-- Icons & PWA -->
+<link rel="icon" href="/assets/icons/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "name": "Start a Project — ØRENO Studio",
+  "url": "https://oreno.lk/inquiry"
+}
+</script>
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ØRENO Studio">
+<meta property="og:title" content="Start a Project — ØRENO Studio">
+<meta property="og:description" content="Tell us what you're building. ØRENO Studio will take it from there.">
+<meta property="og:url" content="https://oreno.lk/inquiry">
+<meta property="og:image" content="https://oreno.lk/assets/og-image.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="/styles.css?v=12.5">
+<link rel="stylesheet" href="/verify.css?v=1.0">
+<script src="/verify.js?v=1.0" defer></script>
+
+<style>
+/* ═══════════════════════════════════════════
+   ØRENO — inquiry.html  v5.0
+   One-question-at-a-time fullscreen flow
+═══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --c-bg:       #050505;
+  --c-fg:       rgba(245,243,238,0.92);
+  --c-muted:    rgba(245,243,238,0.50);
+  --c-dim:      rgba(245,243,238,0.28);
+  --c-border:   rgba(245,243,238,0.10);
+  --c-border-h: rgba(245,243,238,0.30);
+  --ease-expo:  cubic-bezier(0.16,1,0.3,1);
+}
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: var(--c-bg);
+  color: var(--c-fg);
+  font-family: 'Montserrat', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── PAGE OVERLAY ── */
+.page-overlay {
+  position: fixed; inset: 0;
+  background: var(--c-fg);
+  z-index: 800;
+  transform: translateY(100%);
+  pointer-events: none;
+}
+
+/* ── PROGRESS BAR (top) ── */
+.inq-progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: clamp(1.2rem,2.5vw,2rem) clamp(2rem,8vw,7rem) 0;
+}
+.inq-progress-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.6rem;
+}
+.inq-progress-label {
+  font-size: 8.5px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--c-dim);
+  font-weight: 500;
+}
+.inq-progress-count {
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--c-dim);
+  font-variant-numeric: tabular-nums;
+}
+.inq-progress-count strong {
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: rgba(245,243,238,0.65);
+}
+.inq-progress-track {
+  width: 100%;
+  height: 1px;
+  background: rgba(245,243,238,0.07);
+  border-radius: 1px;
+  overflow: hidden;
+}
+.inq-progress-fill {
+  height: 100%;
+  background: rgba(245,243,238,0.50);
+  border-radius: 1px;
+  transition: width 0.5s var(--ease-expo);
+  width: 20%;
+}
+
+/* ── STEPS CONTAINER ── */
+.inq-container {
+  position: fixed;
+  inset: 0;
+}
+
+/* ── INDIVIDUAL STEP ── */
+.inq-step {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(6rem,12vw,10rem) clamp(2rem,8vw,7rem) clamp(2rem,4vw,3rem);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(40px);
+  transition: opacity 0.35s ease, transform 0.45s var(--ease-expo);
+  will-change: opacity, transform;
+}
+.inq-step.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.inq-step.is-exiting {
+  opacity: 0;
+  transform: translateY(-40px);
+  transition: opacity 0.28s ease, transform 0.32s ease;
+  pointer-events: none;
+}
+
+/* ── STEP NUMBER ── */
+.inq-step-num {
+  font-size: 8.5px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--c-dim);
+  font-weight: 500;
+  margin-bottom: clamp(1.2rem,3vh,2rem);
+}
+
+/* ── QUESTION ── */
+.inq-question {
+  font-size: clamp(1.7rem,4vw,3.2rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+  color: var(--c-fg);
+  margin-bottom: clamp(1.8rem,4vh,3rem);
+  max-width: 640px;
+}
+
+/* ── INPUT ── */
+.inq-field-wrap {
+  position: relative;
+  max-width: 560px;
+  margin-bottom: clamp(1.2rem,2.5vh,2rem);
+}
+.inq-input,
+.inq-textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(245,243,238,0.18);
+  padding: 0.8rem 0;
+  color: var(--c-fg);
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(0.9rem,1.8vw,1.2rem);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  outline: none;
+  resize: none;
+  -webkit-appearance: none;
+  caret-color: rgba(245,243,238,0.7);
+  transition: border-color 0.3s ease;
+}
+.inq-textarea {
+  min-height: clamp(80px, 12vh, 130px);
+  max-height: 200px;
+}
+.inq-input::placeholder,
+.inq-textarea::placeholder {
+  color: rgba(245,243,238,0.18);
+  font-size: 0.75em;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+}
+.inq-field-wrap::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 1px;
+  background: rgba(245,243,238,0.55);
+  transition: width 0.4s var(--ease-expo);
+}
+.inq-field-wrap:focus-within::after { width: 100%; }
+.inq-field-wrap:focus-within .inq-input,
+.inq-field-wrap:focus-within .inq-textarea {
+  border-color: rgba(245,243,238,0.08);
+}
+
+/* Error state */
+.inq-field-wrap.is-error .inq-input,
+.inq-field-wrap.is-error .inq-textarea {
+  border-color: rgba(200,60,60,0.5) !important;
+}
+.inq-field-wrap.is-error::after { background: rgba(200,60,60,0.5); }
+.inq-error-msg {
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(200,80,80,0.75);
+  margin-top: 0.4rem;
+  display: none;
+}
+.inq-field-wrap.is-error + .inq-error-msg { display: block; }
+
+/* Shake animation */
+@keyframes inq-shake {
+  0%,100% { transform: translateX(0); }
+  20%     { transform: translateX(-8px); }
+  40%     { transform: translateX(8px); }
+  60%     { transform: translateX(-5px); }
+  80%     { transform: translateX(5px); }
+}
+.inq-field-wrap.do-shake {
+  animation: inq-shake 0.4s ease;
+}
+
+/* ── ENTER HINT ── */
+.inq-hint {
+  font-size: 9px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(245,243,238,0.22);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: opacity 0.4s ease;
+  margin-bottom: clamp(2rem,5vh,4rem);
+}
+.inq-hint kbd {
+  font-family: inherit;
+  font-size: 8px;
+  background: rgba(245,243,238,0.06);
+  border: 1px solid rgba(245,243,238,0.12);
+  border-radius: 4px;
+  padding: 2px 6px;
+  letter-spacing: 0.1em;
+}
+
+/* ── NEXT PREVIEW ── */
+.inq-preview {
+  padding-top: clamp(1.4rem,3vh,2.5rem);
+  border-top: 1px dashed rgba(245,243,238,0.07);
+  max-width: 560px;
+  opacity: 0;
+  transition: opacity 0.4s ease 0.2s;
+}
+.inq-step.is-active .inq-preview { opacity: 1; }
+.inq-preview-label {
+  font-size: 7.5px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(245,243,238,0.16);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+.inq-preview-text {
+  font-size: clamp(0.85rem,1.6vw,1.1rem);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  color: rgba(245,243,238,0.22);
+}
+
+/* ── SUCCESS STATE ── */
+.inq-success {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2rem,8vw,7rem);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+.inq-success.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.inq-success-mark {
+  font-size: 2rem;
+  line-height: 1;
+  margin-bottom: 1.8rem;
+}
+.inq-success-heading {
+  font-size: clamp(2rem,5vw,4rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  margin-bottom: 1rem;
+}
+.inq-success-body {
+  font-size: clamp(0.78rem,1.4vw,0.9rem);
+  line-height: 1.9;
+  color: var(--c-muted);
+  max-width: 380px;
+  margin-bottom: 2.5rem;
+}
+.inq-success-back {
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--c-dim);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
+}
+.inq-success-back:hover { color: var(--c-fg); }
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  .inq-step { padding-bottom: calc(64px + env(safe-area-inset-bottom,0px) + 2rem); }
+  .inq-success { padding-bottom: calc(64px + env(safe-area-inset-bottom,0px) + 2rem); }
+  .inq-textarea { min-height: 80px; }
+}
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="/nav.js?v=1.0" defer></script>
+</head>
+
+<body id="page-inquiry">
+
+<canvas id="global-thermo" aria-hidden="true" style="position:fixed;inset:0;z-index:9998;pointer-events:none;display:block;width:100%;height:100%;"></canvas>
+<canvas id="inq-canvas" style="position:fixed;inset:0;z-index:-1;display:block;width:100%;height:100%;pointer-events:none;" aria-hidden="true"></canvas>
+<div class="page-overlay" aria-hidden="true"></div>
+
+<!-- Progress bar -->
+<div class="inq-progress" id="inq-progress" aria-hidden="true">
+  <div class="inq-progress-meta">
+    <span class="inq-progress-label">New Project</span>
+    <span class="inq-progress-count"><strong id="inq-step-num">1</strong> / 5</span>
+  </div>
+  <div class="inq-progress-track">
+    <div class="inq-progress-fill" id="inq-progress-fill"></div>
+  </div>
+</div>
+
+<!-- Steps -->
+<div class="inq-container" id="inq-container">
+
+  <!-- Step 1: Vision -->
+  <div class="inq-step is-active" data-step="1" id="inq-step-1">
+    <p class="inq-step-num">Step 01</p>
+    <h1 class="inq-question">What are you<br>building?</h1>
+    <div class="inq-field-wrap" id="inq-wrap-1">
+      <textarea class="inq-textarea" id="inq-vision" name="vision"
+        placeholder="Describe your vision, brand, or project…"
+        rows="3"></textarea>
+    </div>
+    <p class="inq-error-msg">Please describe your project</p>
+    <p class="inq-hint"><kbd>Enter</kbd> to continue</p>
+    <div class="inq-preview">
+      <p class="inq-preview-label">Up next</p>
+      <p class="inq-preview-text">When do you need to move?</p>
+    </div>
+  </div>
+
+  <!-- Step 2: Timeline -->
+  <div class="inq-step" data-step="2" id="inq-step-2">
+    <p class="inq-step-num">Step 02</p>
+    <h2 class="inq-question">When do you<br>need to move?</h2>
+    <div class="inq-field-wrap" id="inq-wrap-2">
+      <input class="inq-input" id="inq-timeline" name="timeline" type="text"
+        placeholder="e.g. Q3 2026, ASAP, flexible…">
+    </div>
+    <p class="inq-error-msg">Please enter a timeline</p>
+    <p class="inq-hint"><kbd>Enter</kbd> to continue</p>
+    <div class="inq-preview">
+      <p class="inq-preview-label">Up next</p>
+      <p class="inq-preview-text">What's your budget range?</p>
+    </div>
+  </div>
+
+  <!-- Step 3: Budget -->
+  <div class="inq-step" data-step="3" id="inq-step-3">
+    <p class="inq-step-num">Step 03</p>
+    <h2 class="inq-question">What's your<br>budget range?</h2>
+    <div class="inq-field-wrap" id="inq-wrap-3">
+      <input class="inq-input" id="inq-budget" name="budget" type="text"
+        placeholder="e.g. $5k – $15k">
+    </div>
+    <p class="inq-error-msg">Please enter a budget range</p>
+    <p class="inq-hint"><kbd>Enter</kbd> to continue</p>
+    <div class="inq-preview">
+      <p class="inq-preview-label">Up next</p>
+      <p class="inq-preview-text">Your name</p>
+    </div>
+  </div>
+
+  <!-- Step 4: Name -->
+  <div class="inq-step" data-step="4" id="inq-step-4">
+    <p class="inq-step-num">Step 04</p>
+    <h2 class="inq-question">Your name</h2>
+    <div class="inq-field-wrap" id="inq-wrap-4">
+      <input class="inq-input" id="inq-name" name="name" type="text"
+        placeholder="Full name" autocomplete="name">
+    </div>
+    <p class="inq-error-msg">Please enter your name</p>
+    <p class="inq-hint"><kbd>Enter</kbd> to continue</p>
+    <div class="inq-preview">
+      <p class="inq-preview-label">Last step</p>
+      <p class="inq-preview-text">Almost done.</p>
+    </div>
+  </div>
+
+  <!-- Step 5: Email -->
+  <div class="inq-step" data-step="5" id="inq-step-5">
+    <p class="inq-step-num">Step 05</p>
+    <h2 class="inq-question">Your email</h2>
+    <div class="inq-field-wrap" id="inq-wrap-5">
+      <input class="inq-input" id="inq-email" name="email" type="email"
+        placeholder="you@company.com" autocomplete="email">
+    </div>
+    <p class="inq-error-msg" id="inq-email-error">Enter a valid email address</p>
+    <p class="inq-hint" id="inq-submit-hint"><kbd>Enter</kbd> to send</p>
+    <div class="inq-preview">
+      <p class="inq-preview-label">&nbsp;</p>
+      <p class="inq-preview-text"></p>
+    </div>
+  </div>
+
+</div>
+
+<!-- Success state -->
+<div class="inq-success" id="inq-success" aria-live="polite">
+  <p class="inq-success-mark" aria-hidden="true">✦</p>
+  <h2 class="inq-success-heading">We'll be<br>in touch.</h2>
+  <p class="inq-success-body">
+    Your inquiry has been received.<br>
+    Expect to hear from us within 48 hours.
+  </p>
+  <a href="/" class="inq-success-back">← Back to ØRENO</a>
+</div>
+
+<!-- Desktop glow nav -->
+<nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+  <div class="snav-bg-glow" aria-hidden="true"></div>
+  <ul class="snav-list" role="list">
+    <li class="snav-item" data-nav="work">
+      <a class="snav-link" href="/#work" data-goto="#work">
+        <div class="snav-flipper">
+          <div class="snav-glow" style="background:radial-gradient(circle,rgba(212,160,23,.18) 0%,rgba(212,160,23,.07) 50%,transparent 100%)" aria-hidden="true"></div>
+          <div class="snav-face snav-face--front">Work</div>
+          <div class="snav-face snav-face--back">Work</div>
+        </div>
+      </a>
+    </li>
+    <li class="snav-item" data-nav="studio">
+      <a class="snav-link" href="/#studio" data-goto="#studio">
+        <div class="snav-flipper">
+          <div class="snav-glow" style="background:radial-gradient(circle,rgba(245,243,238,.14) 0%,rgba(245,243,238,.05) 50%,transparent 100%)" aria-hidden="true"></div>
+          <div class="snav-face snav-face--front">Studio</div>
+          <div class="snav-face snav-face--back">Studio</div>
+        </div>
+      </a>
+    </li>
+    <li class="snav-item" data-nav="voices">
+      <a class="snav-link" href="/testimonials.html">
+        <div class="snav-flipper">
+          <div class="snav-glow" style="background:radial-gradient(circle,rgba(59,130,246,.18) 0%,rgba(59,130,246,.07) 50%,transparent 100%)" aria-hidden="true"></div>
+          <div class="snav-face snav-face--front">Voices</div>
+          <div class="snav-face snav-face--back">Voices</div>
+        </div>
+      </a>
+    </li>
+    <li class="snav-item snav-item--cta" data-nav="start">
+      <a class="snav-link" href="/inquiry.html">
+        <div class="snav-flipper">
+          <div class="snav-face snav-face--front">Start a project <span aria-hidden="true">→</span></div>
+          <div class="snav-face snav-face--back">Start a project <span aria-hidden="true">→</span></div>
+        </div>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<!-- Mobile bottom tab nav -->
+<nav class="site-nav-mobile" id="site-nav-mobile" aria-label="Mobile navigation">
+  <a class="snm-tab" data-tab="home" href="/">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+    <span class="snm-label">Home</span>
+    <span class="snm-dot" aria-hidden="true"></span>
+  </a>
+  <a class="snm-tab" data-tab="work" href="/#work">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+    <span class="snm-label">Work</span>
+    <span class="snm-dot" aria-hidden="true"></span>
+  </a>
+  <a class="snm-tab" data-tab="studio" href="/#studio">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+    <span class="snm-label">Studio</span>
+    <span class="snm-dot" aria-hidden="true"></span>
+  </a>
+  <a class="snm-tab" data-tab="voices" href="/testimonials.html">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <span class="snm-label">Voices</span>
+    <span class="snm-dot" aria-hidden="true"></span>
+  </a>
+  <a class="snm-tab snm-tab--cta" data-tab="start" href="/inquiry.html">
+    <span class="snm-label">Start</span>
+  </a>
+</nav>
+
+<script>
+/* ═══════════════════════════════════════════
+   ØRENO — Inquiry step-by-step flow v5.0
+═══════════════════════════════════════════ */
+(function () {
+  'use strict';
+
+  const STEPS = [
+    { id: 'inq-step-1', fieldId: 'inq-vision',    wrapId: 'inq-wrap-1', type: 'vision'    },
+    { id: 'inq-step-2', fieldId: 'inq-timeline',  wrapId: 'inq-wrap-2', type: 'timeline'  },
+    { id: 'inq-step-3', fieldId: 'inq-budget',    wrapId: 'inq-wrap-3', type: 'budget'    },
+    { id: 'inq-step-4', fieldId: 'inq-name',      wrapId: 'inq-wrap-4', type: 'name'      },
+    { id: 'inq-step-5', fieldId: 'inq-email',     wrapId: 'inq-wrap-5', type: 'email'     },
+  ];
+  const TOTAL = STEPS.length;
+
+  let current = 0;
+  let isTransitioning = false;
+  const values = {};
+
+  const progressFill = document.getElementById('inq-progress-fill');
+  const stepNumEl    = document.getElementById('inq-step-num');
+  const successEl    = document.getElementById('inq-success');
+  const progressEl   = document.getElementById('inq-progress');
+
+  function getStepEl(idx)  { return document.getElementById(STEPS[idx].id); }
+  function getFieldEl(idx) { return document.getElementById(STEPS[idx].fieldId); }
+  function getWrapEl(idx)  { return document.getElementById(STEPS[idx].wrapId); }
+
+  /* ── Update progress ── */
+  function updateProgress(idx) {
+    const pct = ((idx + 1) / TOTAL * 100).toFixed(1) + '%';
+    progressFill.style.width = pct;
+    stepNumEl.textContent = idx + 1;
+  }
+
+  /* ── Validate current field ── */
+  function validateCurrent() {
+    const step  = STEPS[current];
+    const field = getFieldEl(current);
+    const wrap  = getWrapEl(current);
+    const val   = field.value.trim();
+
+    wrap.classList.remove('is-error', 'do-shake');
+
+    if (!val) {
+      void wrap.offsetWidth; /* reflow for re-trigger */
+      wrap.classList.add('is-error', 'do-shake');
+      return false;
+    }
+    if (step.type === 'email') {
+      const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRe.test(val)) {
+        void wrap.offsetWidth;
+        wrap.classList.add('is-error', 'do-shake');
+        return false;
+      }
+    }
+    wrap.classList.remove('is-error');
+    return true;
+  }
+
+  /* ── Advance to next step ── */
+  function advance() {
+    if (isTransitioning) return;
+    if (!validateCurrent()) return;
+
+    /* Store value */
+    values[STEPS[current].type] = getFieldEl(current).value.trim();
+
+    if (current >= TOTAL - 1) {
+      submitForm();
+      return;
+    }
+
+    isTransitioning = true;
+    const outEl = getStepEl(current);
+    const inEl  = getStepEl(current + 1);
+
+    outEl.classList.add('is-exiting');
+    outEl.classList.remove('is-active');
+
+    current++;
+    updateProgress(current);
+
+    /* Small delay so exit animation starts first */
+    setTimeout(() => {
+      inEl.classList.add('is-active');
+      const field = getFieldEl(current);
+      /* Focus with delay to let transition settle */
+      setTimeout(() => { field && field.focus(); }, 180);
+
+      setTimeout(() => {
+        outEl.classList.remove('is-exiting');
+        isTransitioning = false;
+      }, 450);
+    }, 60);
+  }
+
+  /* ── Submit ── */
+  async function submitForm() {
+    const submitHint = document.getElementById('inq-submit-hint');
+    isTransitioning = true;
+
+    /* Email verification gate */
+    let verifyToken = '';
+    if (window.OrenoVerify && values.email) {
+      if (submitHint) submitHint.textContent = 'Verify email to continue…';
+      try {
+        verifyToken = await window.OrenoVerify.verify(values.email);
+      } catch {
+        if (submitHint) submitHint.innerHTML = '<kbd>Enter</kbd> to send';
+        isTransitioning = false;
+        return;
+      }
+    }
+
+    if (submitHint) submitHint.textContent = 'Sending…';
+
+    try {
+      const fd = new FormData();
+      fd.append('type', 'inquiry');
+      fd.append('vision',   values.vision   || '');
+      fd.append('timeline', values.timeline || '');
+      fd.append('budget',   values.budget   || '');
+      fd.append('name',     values.name     || '');
+      fd.append('email',    values.email    || '');
+      if (verifyToken) fd.append('verify_token', verifyToken);
+
+      const res  = await fetch('/send-mail.php', { method: 'POST', headers: { 'Accept': 'application/json' }, body: fd });
+      const data = await res.json();
+      if (!data.ok) throw new Error(data.error || 'Send failed');
+    } catch (err) {
+      if (submitHint) submitHint.textContent = 'Failed — try WhatsApp';
+      isTransitioning = false;
+      return;
+    }
+
+    /* Success */
+    const lastStep = getStepEl(current);
+    lastStep.classList.add('is-exiting');
+    lastStep.classList.remove('is-active');
+    progressEl.style.opacity = '0';
+
+    setTimeout(() => {
+      successEl.classList.add('is-visible');
+    }, 300);
+  }
+
+  /* ── Key handling: Enter to advance (Shift+Enter = newline in textarea) ── */
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Enter') return;
+    const active = STEPS[current];
+    if (!active) return;
+
+    /* Shift+Enter in textarea = newline, not advance */
+    if (active.type === 'vision' && e.shiftKey) return;
+
+    /* Regular Enter in textarea = advance */
+    if (active.type === 'vision' && !e.shiftKey) { e.preventDefault(); advance(); return; }
+
+    e.preventDefault();
+    advance();
+  });
+
+  /* ── Init: focus first field ── */
+  updateProgress(0);
+  setTimeout(() => {
+    const f = getFieldEl(0);
+    if (f) f.focus();
+  }, 400);
+
+  /* ── Page transitions ── */
+  const overlay = document.querySelector('.page-overlay');
+  document.addEventListener('click', e => {
+    const link = e.target.closest('a[href]');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('mailto') || link.target === '_blank') return;
+    e.preventDefault();
+    if (overlay && typeof gsap !== 'undefined') {
+      gsap.fromTo(overlay, { y: '100%' }, { y: '0%', duration: 0.55, ease: 'power3.inOut',
+        onComplete: () => { window.location.href = href; } });
+    } else { window.location.href = href; }
+  });
+
+})();
+</script>
+
+<script>
+/* ── Grayscale thermodynamic grid (full-page background) ── */
+(function() {
+  const canvas = document.getElementById("inq-canvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d", { alpha: false });
+  if (!ctx) return;
+
+  const RES = 28, COOLING = 0.97;
+  let grid, cols, rows, W, H;
+  const mouse = { x:-9999, y:-9999, px:-9999, py:-9999, active:false };
+
+  function resize() {
+    W = window.innerWidth; H = window.innerHeight;
+    canvas.width = W; canvas.height = H;
+    cols = Math.ceil(W / RES); rows = Math.ceil(H / RES);
+    grid = new Float32Array(cols * rows);
+  }
+
+  function grayColor(t) {
+    const v = Math.min(255, Math.max(0, Math.round(t * 180 + 10)));
+    return "rgb(" + v + "," + v + "," + v + ")";
+  }
+
+  function tick() {
+    if (mouse.active) {
+      const dx=mouse.x-mouse.px, dy=mouse.y-mouse.py;
+      const steps=Math.max(1,Math.ceil(Math.sqrt(dx*dx+dy*dy)/(RES/2)));
+      for (let s=0;s<=steps;s++) {
+        const f=steps>0?s/steps:0;
+        const cx=Math.floor((mouse.px+dx*f)/RES);
+        const cy=Math.floor((mouse.py+dy*f)/RES);
+        for (let di=-2;di<=2;di++) for (let dj=-2;dj<=2;dj++) {
+          const c=cx+di,r=cy+dj;
+          if (c<0||c>=cols||r<0||r>=rows) continue;
+          const d=Math.sqrt(di*di+dj*dj);
+          if(d<=2) grid[c+r*cols]=Math.min(1,grid[c+r*cols]+0.25*(1-d/2));
+        }
+      }
+    }
+    mouse.px=mouse.x; mouse.py=mouse.y;
+    ctx.fillStyle="#050505"; ctx.fillRect(0,0,W,H);
+    for (let r=0;r<rows;r++) for (let c=0;c<cols;c++) {
+      const idx=c+r*cols, t=grid[idx];
+      grid[idx]*=COOLING;
+      if (t>0.04) {
+        const fontSize=Math.round(RES*(0.7+t*0.5));
+        ctx.fillStyle=grayColor(t);
+        ctx.font=fontSize+"px Montserrat, sans-serif";
+        ctx.textAlign="center"; ctx.textBaseline="middle";
+        ctx.fillText("Ø",c*RES+RES/2,r*RES+RES/2);
+      } else if (c%3===0&&r%3===0) {
+        ctx.fillStyle="#141414";
+        ctx.fillRect(c*RES+RES/2-1,r*RES+RES/2-1,1,1);
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+
+  window.addEventListener("mousemove", e => { mouse.x=e.clientX; mouse.y=e.clientY; mouse.active=true; });
+  window.addEventListener("resize", resize);
+  resize(); tick();
+})();
+</script>
+
+<script src="thermo-global.js?v=1.1"></script>
+
+</body>
+</html>

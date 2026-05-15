@@ -1,0 +1,20 @@
+# ØRENO — gitignore
+# Sensitive files — never commit these
+config.php
+vendor/
+
+# Editor / OS artifacts
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/settings.json
+settings.local.json
+
+# Logs
+*.log
+error_log
+
+# Windows system files
+desktop.ini
+Thumbs.db

@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Social Media Packages — ØRENO Studio</title>
+<meta name="description" content="Two monthly social media management packages built for Sri Lankan businesses. Choose your level, add extras, and get started.">
+<meta name="author" content="ØRENO Studio">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#050505">
+<link rel="canonical" href="https://oreno.lk/packages">
+
+<!-- Icons & PWA -->
+<link rel="icon" href="/assets/icons/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<meta property="og:image" content="https://oreno.lk/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://oreno.lk/assets/og-image.jpg">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ØRENO Studio">
+<meta property="og:title" content="Social Media Packages — ØRENO Studio">
+<meta property="og:description" content="Two monthly social media management packages built for Sri Lankan businesses.">
+<meta property="og:url" content="https://oreno.lk/packages">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
+
+<!-- PROPOSAL DATA -->
+<script>
+window.PROPOSAL_DATA = {
+  studio: 'ØRENO',
+  currency: 'LKR',
+  packages: [
+    {
+      id: 'essential',
+      name: 'Essential',
+      price: 35000,
+      setup: 8000,
+      commitment: '1 month',
+      desc: 'A consistent, professional presence across Instagram, Facebook, TikTok and YouTube. Clean posts, on time, every week.',
+      features: [
+        '12 feed posts / month (IG + FB)',
+        '8 Stories / month',
+        '4 TikTok posts + 4 YouTube Shorts',
+        'Custom brand-aligned design — no templates',
+        'Captions, hashtags & optimal scheduling',
+        'Monthly content calendar + performance report',
+        '2 revision rounds per post'
+      ],
+      deliverables: [
+        ['Feed posts (IG + FB)', '12'],
+        ['Stories', '8'],
+        ['TikTok + YouTube Shorts', '4 + 4'],
+        ['Platforms managed', '4'],
+        ['Revisions per post', '2']
+      ]
+    },
+    {
+      id: 'premium',
+      name: 'Premium',
+      price: 65000,
+      setup: 15000,
+      commitment: '3 months',
+      recommended: true,
+      desc: 'More content, more platforms, active community management, bi-weekly strategy calls, and a free monthly sponsored boost.',
+      features: [
+        '20 feed posts / month (IG + FB)',
+        '16 Stories + 4 Instagram Reels',
+        '8 TikTok posts + 8 YouTube Shorts',
+        'Community management — comments, DMs, outreach',
+        'Bi-weekly strategy calls + competitor monitoring',
+        'Priority WhatsApp support (2h response)',
+        'Free monthly sponsored boost on Facebook + Instagram'
+      ],
+      deliverables: [
+        ['Feed posts (IG + FB)', '20'],
+        ['Stories', '16'],
+        ['TikTok + YouTube Shorts', '8 + 8'],
+        ['Instagram Reels', '4'],
+        ['Platforms managed', '4'],
+        ['Sponsored boost', 'Monthly'],
+        ['Strategy calls', '2 / month'],
+        ['Revisions per post', '3']
+      ]
+    }
+  ],
+  addons: [
+    { id: 'google-biz',    name: 'Google Business Profile management',      price: 8000 },
+    { id: 'extra-posts',   name: 'Additional feed posts (per post)',         price: 2500, unit: 'post' },
+    { id: 'whatsapp-bc',   name: 'WhatsApp broadcast content templates',     price: 10000 },
+    { id: 'profile-setup', name: 'Social media profile setup & optimisation', price: 12000, oneTime: true }
+  ]
+};
+</script>
+
+<link rel="stylesheet" href="/styles.css?v=12.5">
+<link rel="stylesheet" href="/verify.css?v=1.0">
+<script src="/verify.js?v=1.0" defer></script>
+<script src="/nav.js?v=1.0" defer></script>
+
+<style>
+/* ═══════════════════════════════════════════════════════════
+   ØRENO — packages.html  Unified Package Page
+   Dark theme · Montserrat only · Matches inquiry.html
+   IMPORTANT: this <style> block MUST be after /styles.css so
+   these page-local :root variables and overrides win the cascade.
+═══════════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+:root {
+  --c-bg:       #050505;
+  --c-fg:       rgba(245,243,238,0.92);
+  --c-muted:    rgba(245,243,238,0.50);
+  --c-dim:      rgba(245,243,238,0.32);
+  --c-border:   rgba(245,243,238,0.08);
+  --c-border-h: rgba(245,243,238,0.22);
+  --pad-x:      clamp(1.6rem,7vw,6rem);
+  --max-w:      900px;
+  --fs-h2:      clamp(1.8rem,4.5vw,3.2rem);
+  --fs-body:    clamp(0.78rem,1.4vw,0.88rem);
+  --fs-label:   clamp(0.58rem,0.9vw,0.65rem);
+  --ease-expo:  cubic-bezier(0.16,1,0.3,1);
+  --gold:       #b8860b;
+  --gold-l:     #f5d87a;
+}
+
+body {
+  background: var(--c-bg); color: var(--c-fg);
+  font-family: 'Montserrat', sans-serif; font-weight: 400;
+  line-height: 1.65; -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  cursor: auto;
+}
+/* Suppress the global custom cursor — this page doesn't load script.js */
+.cursor-blob { display: none !important; }
+
+a { color: inherit; text-decoration: none; }
+
+/* Header styles come from /styles.css (unified across pages). */
+
+/* ══ FLOATING PDF ══ */
+.fab-pdf {
+  position: fixed; bottom: 28px; right: 28px; z-index: 400;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 18px; font-family: inherit;
+  font-size: var(--fs-label); font-weight: 500; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--c-muted); background: rgba(5,5,5,0.7);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--c-border-h); border-radius: 999px; cursor: pointer;
+  transition: border-color .2s, color .2s, transform .2s;
+}
+.fab-pdf:hover { border-color: var(--gold-l); color: var(--gold-l); transform: translateY(-2px); }
+@media (max-width: 560px) { .fab-pdf span { display: none; } .fab-pdf { padding: 10px 12px; } }
+
+/* ══ SECTIONS ══ */
+.sec { position: relative; z-index: 1; padding: clamp(4rem,8vw,7rem) var(--pad-x); border-top: 1px solid var(--c-border); }
+.kicker { font-size: var(--fs-label); font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--c-dim); margin-bottom: 16px; }
+.sec-title { font-size: var(--fs-h2); font-weight: 600; color: var(--c-fg); letter-spacing: -0.5px; margin-bottom: 18px; line-height: 1.1; }
+.sec-body { font-size: var(--fs-body); color: var(--c-muted); line-height: 1.85; max-width: 600px; font-weight: 300; margin-bottom: 44px; }
+
+/* ══ HERO ══ */
+.hero {
+  position: relative; z-index: 1; min-height: 70vh;
+  padding: calc(var(--pad-x) + 72px) var(--pad-x) var(--pad-x);
+  display: flex; flex-direction: column; justify-content: center;
+}
+.hero-eyebrow { font-size: var(--fs-label); font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--gold-l); margin-bottom: 20px; }
+.hero-title { font-size: clamp(2.8rem,8vw,5.5rem); font-weight: 700; line-height: 0.95; color: var(--c-fg); letter-spacing: -2px; margin-bottom: 24px; }
+.hero-title em { font-style: italic; font-weight: 300; color: var(--gold-l); }
+.hero-desc { max-width: 520px; font-size: var(--fs-body); color: var(--c-muted); line-height: 1.85; font-weight: 300; }
+
+/* ══ PACKAGE CARDS ══ */
+.pkgs { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.pkg { border: 1px solid var(--c-border); border-radius: 3px; padding: clamp(24px,4vw,36px); position: relative; transition: border-color .3s; }
+.pkg:hover { border-color: var(--c-border-h); }
+.pkg-rec { border-color: rgba(184,134,11,0.2); }
+.pkg-rec:hover { border-color: rgba(184,134,11,0.4); }
+.rec-badge { position: absolute; top: -1px; right: 20px; background: var(--gold); color: #fff; font-size: 9px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; padding: 5px 12px; border-radius: 0 0 3px 3px; }
+.pkg-tag { font-size: var(--fs-label); font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--c-dim); margin-bottom: 10px; }
+.pkg-name { font-size: clamp(1.3rem,3vw,1.7rem); font-weight: 700; color: var(--c-fg); margin-bottom: 8px; letter-spacing: -0.3px; }
+.pkg-desc { font-size: var(--fs-body); color: var(--c-muted); line-height: 1.8; font-weight: 300; margin-bottom: 20px; }
+.price-row { display: flex; align-items: baseline; gap: 6px; margin-bottom: 6px; }
+.price-main { font-size: clamp(1.5rem,3.5vw,2.2rem); font-weight: 700; color: var(--c-fg); }
+.price-cur { font-size: var(--fs-label); font-weight: 500; color: var(--c-dim); letter-spacing: .1em; }
+.price-per { font-size: var(--fs-body); color: var(--c-muted); font-weight: 300; }
+.price-setup { font-size: var(--fs-label); color: var(--c-dim); margin-bottom: 24px; }
+.pkg-divider { height: 1px; background: var(--c-border); margin: 20px 0; }
+.feat { display: flex; gap: 10px; align-items: flex-start; padding: 6px 0; font-size: var(--fs-body); color: var(--c-muted); line-height: 1.7; font-weight: 300; }
+.feat b { font-weight: 500; color: var(--c-fg); }
+.chk { color: var(--c-dim); font-size: 11px; flex-shrink: 0; margin-top: 2px; }
+.feat-gold .chk { color: var(--gold-l); }
+.feat-gold { color: var(--c-fg); }
+.dels-title { font-size: var(--fs-label); font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--c-dim); margin-bottom: 12px; }
+.del-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid var(--c-border); font-size: var(--fs-body); color: var(--c-muted); font-weight: 300; }
+.del-row:last-child { border-bottom: none; }
+.del-qty { font-weight: 500; color: var(--c-fg); }
+.del-qty-gold { color: var(--gold-l); }
+.pkg-ctas { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
+.btn-pill {
+  display: inline-flex; align-items: center; gap: .4rem; padding: .55rem 1.4rem;
+  border: 1px solid var(--c-border-h); border-radius: 999px;
+  font-size: var(--fs-label); font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+  background: transparent; color: var(--c-fg); cursor: pointer; font-family: inherit;
+  transition: background .3s, border-color .3s, transform .3s;
+}
+.btn-pill:hover { background: rgba(245,243,238,0.06); border-color: rgba(245,243,238,0.4); transform: translateY(-1px); }
+.btn-pill-primary { background: var(--c-fg); color: var(--c-bg); border-color: transparent; }
+.btn-pill-primary:hover { opacity: .88; background: var(--c-fg); }
+
+/* ══ ADD-ONS ══ */
+.addon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 12px; }
+.addon-card {
+  display: flex; align-items: flex-start; gap: 14px; padding: 16px 18px;
+  border: 1px solid var(--c-border); border-radius: 3px; cursor: pointer;
+  transition: border-color .2s, background .2s;
+}
+.addon-card:hover { border-color: var(--c-border-h); background: rgba(245,243,238,0.03); }
+.addon-card.selected { border-color: var(--gold-l); background: rgba(245,216,122,0.04); }
+.addon-check {
+  width: 18px; height: 18px; border-radius: 3px; border: 1px solid var(--c-border-h);
+  flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center;
+  font-size: 10px; color: transparent; transition: all .18s;
+}
+.addon-card.selected .addon-check { background: var(--gold-l); border-color: var(--gold-l); color: #080808; }
+.addon-card.selected .addon-check::after { content: '✓'; }
+.addon-name { font-size: 12px; font-weight: 500; color: var(--c-fg); margin-bottom: 3px; }
+.addon-price { font-size: var(--fs-label); color: var(--c-muted); font-weight: 400; }
+
+/* ══ LIVE SUMMARY ══ */
+#summary-section { display: none; }
+.sum-block { border: 1px solid var(--c-border); border-radius: 3px; overflow: hidden; max-width: 560px; }
+.sum-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 18px; border-bottom: 1px solid var(--c-border); font-size: var(--fs-body); color: var(--c-muted); font-weight: 300; }
+.sum-row:last-child { border-bottom: none; }
+.sum-val { font-weight: 500; color: var(--c-fg); white-space: nowrap; margin-left: 16px; font-size: var(--fs-body); }
+.sum-pkg { background: rgba(245,243,238,0.03); }
+.sum-pkg span:first-child { color: var(--c-fg); font-weight: 600; }
+.sum-total { background: rgba(245,216,122,0.05); }
+.sum-total span:first-child { color: var(--gold-l); font-weight: 600; }
+.sum-total .sum-val { color: var(--gold-l); }
+.sum-setup .sum-val { color: var(--c-dim); }
+
+/* ══ INQUIRY FORM ══ */
+.form-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; max-width: 560px; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-size: var(--fs-label); font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--c-dim); }
+.field input, .field textarea {
+  background: rgba(245,243,238,0.03); border: 1px solid var(--c-border); border-radius: 3px;
+  color: var(--c-fg); font-family: inherit; font-size: 13px; font-weight: 300;
+  padding: 11px 14px; outline: none; transition: border-color .2s;
+}
+.field input::placeholder, .field textarea::placeholder { color: var(--c-dim); }
+.field input:focus, .field textarea:focus { border-color: var(--c-border-h); }
+.field-full { grid-column: 1 / -1; }
+.field textarea { resize: vertical; min-height: 140px; line-height: 1.7; }
+.form-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; max-width: 560px; }
+.form-note { font-size: var(--fs-label); color: var(--c-dim); }
+.form-success { display: none; padding: 24px 0; }
+.form-success-icon { font-size: 28px; color: #4caf6a; margin-bottom: 8px; }
+.form-success-title { font-size: clamp(1.2rem,3vw,1.6rem); font-weight: 600; color: var(--c-fg); margin-bottom: 6px; }
+.form-success-body { font-size: var(--fs-body); color: var(--c-muted); }
+.form-error { display: none; margin-top: 12px; font-size: 11px; color: #e07070; padding: 10px 14px; border: 1px solid rgba(224,112,112,0.25); border-radius: 3px; max-width: 560px; }
+
+/* ══ FOOTER ══ */
+.proposal-footer { position: relative; z-index: 1; border-top: 1px solid var(--c-border); padding: clamp(3rem,6vw,5rem) var(--pad-x) clamp(2rem,4vw,3rem); }
+.footer-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; margin-bottom: clamp(2rem,4vw,3rem); }
+.footer-brand-name { font-size: clamp(1.2rem,2.5vw,1.6rem); font-weight: 700; color: var(--c-fg); letter-spacing: -0.3px; margin-bottom: 6px; }
+.footer-brand-tag { font-size: var(--fs-label); font-weight: 400; letter-spacing: .14em; text-transform: uppercase; color: var(--c-dim); }
+.footer-nav { display: flex; flex-direction: column; gap: 10px; }
+.footer-nav a { font-size: var(--fs-label); font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--c-muted); transition: color .2s; }
+.footer-nav a:hover { color: var(--c-fg); }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: clamp(1.2rem,2vw,2rem); border-top: 1px solid var(--c-border); font-size: var(--fs-label); color: var(--c-dim); }
+.footer-socials { display: flex; gap: 16px; }
+.footer-socials a { color: var(--c-dim); transition: color .2s; }
+.footer-socials a:hover { color: var(--c-fg); }
+.footer-socials svg { width: 16px; height: 16px; display: block; }
+
+/* ══ RESPONSIVE ══ */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 0;
+    padding: calc(var(--pad-x) + 88px) var(--pad-x) clamp(2rem,6vw,3rem);
+    justify-content: flex-start;
+  }
+  .hero-eyebrow { margin-bottom: 14px; }
+  .hero-title { font-size: clamp(2rem,9vw,2.8rem); letter-spacing: -1px; margin-bottom: 18px; }
+  .hero-desc  { font-size: 0.82rem; line-height: 1.7; }
+  .pkgs { grid-template-columns: 1fr; }
+  .form-fields { grid-template-columns: 1fr; }
+  .footer-top { flex-direction: column; gap: 24px; }
+  .footer-bottom { flex-direction: column; gap: 14px; text-align: center; }
+  /* Extra bottom room so mobile tab-nav doesn't cover content */
+  body { padding-bottom: 72px; }
+}
+@media (max-width: 480px) {
+  .hero-title { font-size: clamp(1.85rem,8.5vw,2.4rem); }
+  .pkg-ctas { flex-direction: column; }
+  .btn-pill { justify-content: center; }
+  .form-actions { flex-direction: column; align-items: stretch; }
+}
+
+/* Print */
+@media print { .site-header, .fab-pdf { display: none !important; } body { background: #fff !important; color: #111 !important; } }
+
+/* PDF generated from JS string — no template in DOM */
+</style>
+</head>
+<body>
+
+<!-- ══ NAV — mobile bottom tab bar ══ -->
+
+<!-- ══ PDF BUTTON ══ -->
+<button class="fab-pdf" id="downloadPdf" aria-label="Download PDF">
+  <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1v8M6.5 9l-3-3M6.5 9l3-3M1 11h11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <span>Download PDF</span>
+</button>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-eyebrow">Social Media Management</div>
+  <h1 class="hero-title">
+    Social Media<br><em>Packages.</em>
+  </h1>
+  <p class="hero-desc">Two monthly packages built for Sri Lankan businesses. Pick your level, add any extras, and reach out — via WhatsApp or the form below.</p>
+</section>
+
+<!-- ══ PACKAGES ══ -->
+<section class="sec" id="packages"></section>
+
+<!-- ══ ADD-ONS ══ -->
+<section class="sec" id="addons-section" style="display:none;">
+  <div class="kicker">Optional extras</div>
+  <h2 class="sec-title">Add-on services.</h2>
+  <p class="sec-body">Available with either package. All optional.</p>
+  <div class="addon-grid" id="addon-grid"></div>
+</section>
+
+<!-- ══ SUMMARY ══ -->
+<section class="sec" id="summary-section">
+  <div class="kicker">Your selection</div>
+  <h2 class="sec-title">Summary.</h2>
+  <div id="summary-content"></div>
+</section>
+
+<!-- ══ INQUIRY FORM ══ -->
+<section class="sec" id="inquiry">
+  <div class="kicker">Get started</div>
+  <h2 class="sec-title">Send us an inquiry.</h2>
+  <p class="sec-body">We'll review your selection and get back to you within 48 hours.</p>
+
+  <div id="form-wrap">
+    <div class="form-fields">
+      <div class="field">
+        <label for="f-name">Your name</label>
+        <input id="f-name" type="text" placeholder="Full name" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="f-email">Your email</label>
+        <input id="f-email" type="email" placeholder="you@company.com" autocomplete="email" required>
+      </div>
+      <div class="field field-full">
+        <label for="f-message">Message</label>
+        <textarea id="f-message" placeholder="Tell us about your business and any questions you have..." rows="8"></textarea>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn-pill btn-pill-primary" id="send-btn" type="button">Send Inquiry →</button>
+      <span class="form-note">Sent to contact@oreno.lk</span>
+    </div>
+    <div class="form-error" id="form-error"></div>
+  </div>
+
+  <div class="form-success" id="form-success">
+    <div class="form-success-icon">✓</div>
+    <div class="form-success-title">Inquiry sent.</div>
+    <div class="form-success-body">We'll review your package selection and be in touch within 48 hours.</div>
+  </div>
+</section>
+
+<!-- PDF template removed — built as HTML string in JS -->
+
+<!-- ══ FOOTER ══ -->
+<footer class="proposal-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name">ØRENO</div>
+      <div class="footer-brand-tag">Brand Architecture &amp; Software Studio · Colombo</div>
+    </div>
+    <nav class="footer-nav">
+      <a href="/">Home</a>
+      <a href="/inquiry">Inquiry</a>
+      <a href="mailto:contact@oreno.lk">contact@oreno.lk</a>
+      <a href="https://wa.me/94729537427" target="_blank" rel="noopener">WhatsApp</a>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 ØRENO Studio</span>
+    <div class="footer-socials">
+      <a href="https://www.instagram.com/orenostudio/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg></a>
+      <a href="https://www.tiktok.com/@orenostudio" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9.05a8.16 8.16 0 0 0 4.77 1.52V7.13a4.85 4.85 0 0 1-1-.44z"/></svg></a>
+      <a href="https://www.facebook.com/orenostudio" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+      <a href="https://www.linkedin.com/company/orenostudio" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+  const D = window.PROPOSAL_DATA;
+  if (!D) return;
+
+  let selectedPkg = null;
+  const selectedAddons = new Set();
+  const fmt = n => 'LKR ' + Number(n).toLocaleString('en-LK');
+
+  /* ── Render packages ── */
+  const pkgSec = document.getElementById('packages');
+  let pkgHTML = '<div class="kicker">The packages</div><h2 class="sec-title">Choose your level.</h2><p class="sec-body">Both are monthly retainers. Essential has no lock-in. Premium requires a 3-month commitment — results compound over time.</p><div class="pkgs">';
+
+  D.packages.forEach((p, i) => {
+    const isRec = p.recommended;
+    const waText = encodeURIComponent(`Hi ØRENO, I'm interested in the ${p.name} package (${fmt(p.price)}/month). Can we discuss?`);
+    pkgHTML += `<div class="pkg${isRec ? ' pkg-rec' : ''}">`;
+    if (isRec) pkgHTML += '<div class="rec-badge">Recommended</div>';
+    pkgHTML += `<div class="pkg-tag">Package 0${i+1}</div>`;
+    pkgHTML += `<div class="pkg-name">${p.name}</div>`;
+    pkgHTML += `<div class="pkg-desc">${p.desc}</div>`;
+    pkgHTML += `<div class="price-row"><span class="price-main">${Number(p.price).toLocaleString('en-LK')}</span><span class="price-cur">LKR</span><span class="price-per">/ month</span></div>`;
+    pkgHTML += `<div class="price-setup">Setup: ${fmt(p.setup)} (one-time)</div>`;
+
+    pkgHTML += '<div class="pkg-divider"></div>';
+    p.features.forEach((f, fi) => {
+      const isLast = f.toLowerCase().includes('sponsored boost');
+      pkgHTML += `<div class="feat${isLast ? ' feat-gold' : ''}"><div class="chk">${isLast ? '★' : '✓'}</div><span>${f}</span></div>`;
+    });
+
+    pkgHTML += '<div class="pkg-divider"></div><div class="dels-title">Monthly deliverables</div>';
+    p.deliverables.forEach(d => {
+      const isGold = d[0].toLowerCase().includes('boost');
+      pkgHTML += `<div class="del-row"><span>${d[0]}</span><span class="del-qty${isGold ? ' del-qty-gold' : ''}">${d[1]}</span></div>`;
+    });
+
+    pkgHTML += `<div class="pkg-ctas">
+      <a href="https://wa.me/94729537427?text=${waText}" class="btn-pill btn-pill-primary" target="_blank" rel="noopener">WhatsApp Us →</a>
+      <button class="btn-pill btn-select" data-pkg="${p.id}">Send Inquiry →</button>
+    </div>`;
+    pkgHTML += '</div>';
+  });
+  pkgHTML += '</div>';
+  pkgSec.innerHTML = pkgHTML;
+
+  /* ── Render add-ons ── */
+  const addonGrid = document.getElementById('addon-grid');
+  D.addons.forEach(a => {
+    const card = document.createElement('div');
+    card.className = 'addon-card';
+    card.dataset.id = a.id;
+    card.innerHTML = `<div class="addon-check"></div><div><div class="addon-name">${a.name}</div><div class="addon-price">${fmt(a.price)}${a.unit ? ' / ' + a.unit : ''}${a.oneTime ? ' (one-time)' : ' / month'}</div></div>`;
+    card.addEventListener('click', () => toggleAddon(a.id));
+    addonGrid.appendChild(card);
+  });
+
+  /* ── Select package (via "Send Inquiry" button) ── */
+  document.querySelectorAll('.btn-select').forEach(btn => {
+    btn.addEventListener('click', () => selectPackage(btn.dataset.pkg));
+  });
+
+  function selectPackage(id) {
+    selectedPkg = id;
+    document.getElementById('addons-section').style.display = '';
+    document.getElementById('summary-section').style.display = '';
+    updateSummary();
+    updateFormMessage();
+    setTimeout(() => {
+      document.getElementById('inquiry').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.getElementById('f-name').focus({ preventScroll: true });
+    }, 80);
+  }
+
+  function toggleAddon(id) {
+    if (selectedAddons.has(id)) selectedAddons.delete(id);
+    else selectedAddons.add(id);
+    document.querySelectorAll('.addon-card').forEach(c => c.classList.toggle('selected', selectedAddons.has(c.dataset.id)));
+    updateSummary();
+    updateFormMessage();
+  }
+
+  function getSelection() {
+    const pkg = D.packages.find(p => p.id === selectedPkg);
+    const addons = D.addons.filter(a => selectedAddons.has(a.id));
+    const addonTotal = addons.reduce((s, a) => s + a.price, 0);
+    const monthly = (pkg ? pkg.price : 0) + addonTotal;
+    return { pkg, addons, addonTotal, monthly };
+  }
+
+  function updateSummary() {
+    const { pkg, addons, monthly } = getSelection();
+    if (!pkg) return;
+    const el = document.getElementById('summary-content');
+    let rows = `<div class="sum-row sum-pkg"><span>${pkg.name} package</span><span class="sum-val">${fmt(pkg.price)} / month</span></div>`;
+    if (addons.length) {
+      addons.forEach(a => { rows += `<div class="sum-row"><span>${a.name}</span><span class="sum-val">${fmt(a.price)}${a.oneTime ? ' (one-time)' : ' / mo'}</span></div>`; });
+    } else {
+      rows += '<div class="sum-row"><span style="color:var(--c-dim);font-style:italic;">No add-ons selected</span><span>—</span></div>';
+    }
+    rows += `<div class="sum-row sum-total"><span>Monthly total</span><span class="sum-val">${fmt(monthly)} / month</span></div>`;
+    rows += `<div class="sum-row sum-setup"><span>First invoice (inc. setup)</span><span class="sum-val">${fmt(monthly + pkg.setup)}</span></div>`;
+    el.innerHTML = '<div class="sum-block">' + rows + '</div>';
+  }
+
+  function updateFormMessage() {
+    const { pkg, addons, monthly } = getSelection();
+    if (!pkg) return;
+    const ta = document.getElementById('f-message');
+    let lines = [];
+    lines.push(`Hi ØRENO team,`);
+    lines.push('');
+    lines.push(`I'm interested in the ${pkg.name} package (${fmt(pkg.price)}/month).`);
+    if (addons.length) {
+      lines.push('');
+      lines.push('Add-ons:');
+      addons.forEach(a => lines.push(`  — ${a.name}: ${fmt(a.price)}${a.oneTime ? ' (one-time)' : '/month'}`));
+    }
+    lines.push('');
+    lines.push(`Estimated monthly total: ${fmt(monthly)}/month`);
+    lines.push(`First invoice: ${fmt(monthly + pkg.setup)} (includes setup fee)`);
+    lines.push('');
+    lines.push('---');
+    lines.push('Additional details about my business:');
+    lines.push('');
+    ta.value = lines.join('\n');
+  }
+
+  /* ── Send form ── */
+  document.getElementById('send-btn').addEventListener('click', async () => {
+    const nameEl = document.getElementById('f-name');
+    const emailEl = document.getElementById('f-email');
+    const msgEl = document.getElementById('f-message');
+    const btn = document.getElementById('send-btn');
+    const errEl = document.getElementById('form-error');
+    errEl.style.display = 'none';
+
+    if (!nameEl.value.trim()) { showErr(errEl, 'Please enter your name.'); nameEl.focus(); return; }
+    if (!emailEl.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value.trim())) { showErr(errEl, 'Please enter a valid email.'); emailEl.focus(); return; }
+
+    btn.disabled = true;
+
+    /* Email verification gate */
+    let verifyToken = '';
+    if (window.OrenoVerify) {
+      btn.textContent = 'Verify email…';
+      try {
+        verifyToken = await window.OrenoVerify.verify(emailEl.value.trim());
+      } catch {
+        btn.textContent = 'Send Inquiry →';
+        btn.disabled = false;
+        return;
+      }
+    }
+
+    btn.textContent = 'Sending…';
+
+    const { pkg, addons, monthly } = getSelection();
+    const fd = new FormData();
+    fd.append('type', 'proposal');
+    fd.append('name', nameEl.value.trim());
+    fd.append('email', emailEl.value.trim());
+    fd.append('package', pkg ? `${pkg.name} — ${fmt(pkg.price)}/month` : 'Not selected');
+    fd.append('addons', addons.map(a => `${a.name}: ${fmt(a.price)}`).join('\n'));
+    fd.append('total', pkg ? `${fmt(monthly)}/month` : '');
+    fd.append('body', msgEl.value);
+    if (verifyToken) fd.append('verify_token', verifyToken);
+
+    try {
+      const res = await fetch('/send-mail.php', { method: 'POST', headers: { 'Accept': 'application/json' }, body: fd });
+      const json = await res.json();
+      if (!json.ok) throw new Error(json.error || 'Send failed');
+      document.getElementById('form-wrap').style.display = 'none';
+      document.getElementById('form-success').style.display = 'block';
+    } catch (err) {
+      showErr(errEl, err.message || 'Could not send. Please try WhatsApp instead.');
+      btn.textContent = 'Send Inquiry →';
+      btn.disabled = false;
+    }
+  });
+
+  function showErr(el, msg) { el.textContent = msg; el.style.display = 'block'; }
+
+  /* ── PDF ── */
+  document.getElementById('downloadPdf').addEventListener('click', () => {
+    if (typeof html2pdf === 'undefined') { alert('PDF library not loaded.'); return; }
+    const btn = document.getElementById('downloadPdf');
+    const label = btn.querySelector('span');
+    if (label) label.textContent = 'Generating…';
+    btn.style.pointerEvents = 'none';
+
+    /* Build package rows */
+    let pkgRows = '';
+    D.packages.forEach(p => {
+      let rows = '';
+      p.deliverables.forEach(d => {
+        rows += '<tr><td style="padding:5px 0;border-bottom:1px solid #eee;font-size:11px;color:#333;">' + d[0] + '</td><td style="padding:5px 0;border-bottom:1px solid #eee;font-size:11px;color:#111;font-weight:600;text-align:right;">' + d[1] + '</td></tr>';
+      });
+      rows += '<tr><td style="padding:5px 0;border-bottom:1px solid #eee;font-size:11px;color:#333;">Setup fee</td><td style="padding:5px 0;border-bottom:1px solid #eee;font-size:11px;color:#111;font-weight:600;text-align:right;">' + fmt(p.setup) + '</td></tr>';
+      rows += '<tr><td style="padding:5px 0;font-size:11px;color:#333;">Min. commitment</td><td style="padding:5px 0;font-size:11px;color:#111;font-weight:600;text-align:right;">' + p.commitment + '</td></tr>';
+
+      pkgRows += '<div style="border-top:1px solid #ddd;padding-top:20px;margin-bottom:24px;">'
+        + '<div style="font-size:13px;font-weight:700;letter-spacing:.05em;margin-bottom:4px;color:#111;">' + p.name + (p.recommended ? ' <span style="color:#b8860b;">★ Recommended</span>' : '') + '</div>'
+        + '<div style="font-size:18px;font-weight:700;color:#111;margin-bottom:14px;">' + fmt(p.price) + ' <span style="font-size:11px;font-weight:400;color:#888;">/ month</span></div>'
+        + '<table style="width:100%;border-collapse:collapse;">' + rows + '</table>'
+        + '</div>';
+    });
+
+    /* Full HTML string — no DOM element needed */
+    const pdfHTML = '<div style="font-family:Helvetica,Arial,sans-serif;color:#111;padding:40px 32px;max-width:540px;margin:0 auto;">'
+      + '<div style="border-bottom:2px solid #111;padding-bottom:16px;margin-bottom:32px;">'
+      +   '<div style="font-size:22px;font-weight:700;letter-spacing:-0.5px;">ORENO</div>'
+      +   '<div style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#888;margin-top:4px;">Brand Architecture &amp; Software Studio</div>'
+      + '</div>'
+      + '<div style="margin-bottom:28px;">'
+      +   '<div style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#888;margin-bottom:8px;">Social Media Packages 2026</div>'
+      +   '<div style="font-size:24px;font-weight:700;letter-spacing:-0.5px;">Package Overview</div>'
+      + '</div>'
+      + pkgRows
+      + '<div style="border-top:2px solid #111;padding-top:20px;margin-top:32px;font-size:10px;color:#888;line-height:1.8;">'
+      +   '<div style="font-weight:600;color:#111;margin-bottom:4px;">ORENO Studio &middot; Colombo, Sri Lanka</div>'
+      +   'contact@oreno.lk &middot; oreno.lk &middot; +94 72 953 7427'
+      + '</div>'
+      + '</div>';
+
+    /* Create a visible container — html2canvas requires painted pixels */
+    const el = document.createElement('div');
+    el.style.cssText = 'position:fixed;top:0;left:0;width:595px;background:#fff;z-index:99999;';
+    el.innerHTML = pdfHTML;
+    document.body.appendChild(el);
+
+    setTimeout(() => {
+      html2pdf().set({
+        margin: 0,
+        filename: 'ORENO_Social_Media_Packages_2026.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      }).from(el).save().then(() => {
+        el.remove();
+        if (label) label.textContent = 'Download PDF';
+        btn.style.pointerEvents = '';
+      }).catch(() => {
+        el.remove();
+        if (label) label.textContent = 'Download PDF';
+        btn.style.pointerEvents = '';
+      });
+    }, 300);
+  });
+
+})();
+</script>
+
+<!-- ══ DESKTOP NAV — Glow Menu ══ -->
+<nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+  <div class="snav-bg-glow" aria-hidden="true"></div>
+  <ul class="snav-list" role="list">
+    <li class="snav-item" data-nav="work">
+      <a class="snav-link" href="/#work" data-goto="#work">
+        <div class="snav-flipper">
+          <div class="snav-glow" style="background:radial-gradient(circle,rgba(212,160,23,.18) 0%,rgba(212,160,23,.07) 50%,transparent 100%)" aria-hidden="true"></div>
+          <div class="snav-face snav-face--front">Work</div>
+          <div class="snav-face snav-face--back">Work</div>
+        </div>
+      </a>
+    </li>
+    <li class="snav-item" data-nav="studio">
+      <a class="snav-link" href="/#studio" data-goto="#studio">
+        <div class="snav-flipper">
+          <div class="snav-glow" style="background:radial-gradient(circle,rgba(245,243,238,.16) 0%,rgba(245,243,238,.06) 50%,transparent 100%)" aria-hidden="true"></div>
+          <div class="snav-face snav-face--front">Studio</div>
+          <div class="snav-face snav-face--back">Studio</div>
+        </div>
+      </a>
+    </li>
+    <li class="snav-item" data-nav="voices">
+      <a class="snav-link" href="/testimonials">
+        <div class="snav-flipper">
+          <div class="snav-glow" style="background:radial-gradient(circle,rgba(59,130,246,.15) 0%,rgba(59,130,246,.05) 50%,transparent 100%)" aria-hidden="true"></div>
+          <div class="snav-face snav-face--front">Voices</div>
+          <div class="snav-face snav-face--back">Voices</div>
+        </div>
+      </a>
+    </li>
+    <li class="snav-item snav-item--cta" data-nav="start">
+      <a class="snav-link" href="/inquiry">
+        <div class="snav-flipper">
+          <div class="snav-face snav-face--front">Start a project <span aria-hidden="true">→</span></div>
+          <div class="snav-face snav-face--back">Start a project <span aria-hidden="true">→</span></div>
+        </div>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<!-- ══ MOBILE NAV — Bottom Tab Bar ══ -->
+<nav class="site-nav-mobile" id="site-nav-mobile" aria-label="Mobile navigation">
+  <a class="snm-tab" href="/" data-tab="home">
+    <span class="snm-dot" aria-hidden="true"></span>
+    <svg class="snm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 9.75L12 3l9 6.75V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.75z" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 21V12h6v9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span class="snm-label">Home</span>
+  </a>
+  <a class="snm-tab" href="/#work" data-tab="work" data-goto="#work">
+    <span class="snm-dot" aria-hidden="true"></span>
+    <svg class="snm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+    <span class="snm-label">Work</span>
+  </a>
+  <a class="snm-tab" href="/#studio" data-tab="studio" data-goto="#studio">
+    <span class="snm-dot" aria-hidden="true"></span>
+    <svg class="snm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M4 20c0-4 3.582-7 8-7s8 3 8 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span class="snm-label">Studio</span>
+  </a>
+  <a class="snm-tab" href="/testimonials" data-tab="voices">
+    <span class="snm-dot" aria-hidden="true"></span>
+    <svg class="snm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4h14a2 2 0 012 2v10a2 2 0 01-2 2h-6l-4 3v-3H5a2 2 0 01-2-2V6a2 2 0 012-2z" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 9h10M7 13h7" stroke-linecap="round"/></svg>
+    <span class="snm-label">Voices</span>
+  </a>
+  <a class="snm-tab snm-tab--cta" href="/inquiry" data-tab="start">
+    <svg class="snm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span class="snm-label">Start</span>
+  </a>
+</nav>
+
+</body>
+</html>

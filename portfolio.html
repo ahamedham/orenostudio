@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — ØRENO Studio</title>
+<meta name="description" content="Selected design work from ØRENO Studio. Brand identity, social media, packaging, and art direction.">
+<meta name="author" content="ØRENO Studio">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="canonical" href="https://oreno.lk/portfolio">
+
+<!-- Icons & PWA -->
+<link rel="icon" href="/assets/icons/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Portfolio — ØRENO Studio",
+  "url": "https://oreno.lk/portfolio",
+  "description": "Selected design work from ØRENO Studio — brand identity, social media, packaging, and art direction."
+}
+</script>
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ØRENO Studio">
+<meta property="og:title" content="Portfolio — ØRENO Studio">
+<meta property="og:description" content="Selected design work from ØRENO Studio.">
+<meta property="og:url" content="https://oreno.lk/portfolio">
+<meta property="og:image" content="https://oreno.lk/assets/og-image.jpg">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Portfolio — ØRENO Studio">
+<meta name="twitter:description" content="Selected design work from ØRENO Studio.">
+<meta name="twitter:image" content="https://oreno.lk/assets/og-image.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="/styles.css?v=12.5">
+<link rel="stylesheet" href="/portfolio.css?v=1.0">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+<script src="/nav-universal.js?v=1.0" defer></script>
+<script src="/portfolio.js?v=1.4" defer></script>
+</head>
+
+<body id="page-portfolio">
+
+<canvas id="global-thermo" aria-hidden="true" style="position:fixed;inset:0;z-index:9998;pointer-events:none;display:block;width:100%;height:100%;"></canvas>
+<div class="page-overlay" aria-hidden="true"></div>
+<div class="cursor-blob" id="cursor-blob" aria-hidden="true"></div>
+
+<!-- ── DESKTOP NAV ── -->
+<nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+  <div class="snav-bg-glow" aria-hidden="true"></div>
+  <ul class="snav-list" role="list">
+    <li class="snav-item" data-nav="work">
+      <a class="snav-link" href="/#work" data-goto="#work">
+        <div class="snav-flipper">
+          <div class="snav-glow" style="background:radial-gradient(circle,rgba(212,160,23,.18) 0%,rgba(212,160,23,.07) 50%,transparent 100%)" aria-hidden="true"></div>
+          <div class="snav-face snav-face--front">Work</div>
+          <div class="snav-face snav-face--back">Work</div>
+        </div>
+      </a>
+    </li>
+    <li class="snav-item" data-nav="portfolio">
+      <a class="snav-link is-current" href="/portfolio.html" aria-current="page">
+        <div class="snav-flipper">
+          <div class="snav-glow" style="background:radial-gradient(circle,rgba(245,243,238,.18) 0%,rgba(245,243,238,.07) 50%,transparent 100%)" aria-hidden="true"></div>
+          <div class="snav-face snav-face--front">Portfolio</div>
+          <div class="snav-face snav-face--back">Portfolio</div>
+        </div>
+      </a>
+    </li>
+    <li class="snav-item" data-nav="voices">
+      <a class="snav-link" href="/testimonials.html">
+        <div class="snav-flipper">
+          <div class="snav-glow" style="background:radial-gradient(circle,rgba(59,130,246,.15) 0%,rgba(59,130,246,.05) 50%,transparent 100%)" aria-hidden="true"></div>
+          <div class="snav-face snav-face--front">Voices</div>
+          <div class="snav-face snav-face--back">Voices</div>
+        </div>
+      </a>
+    </li>
+    <li class="snav-item snav-item--cta" data-nav="start">
+      <a class="snav-link" href="/inquiry.html">
+        <div class="snav-flipper">
+          <div class="snav-face snav-face--front">Start a project <span aria-hidden="true">→</span></div>
+          <div class="snav-face snav-face--back">Start a project <span aria-hidden="true">→</span></div>
+        </div>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<!-- ── MOBILE NAV ── -->
+<nav class="site-nav-mobile" id="site-nav-mobile" aria-label="Mobile navigation">
+  <a class="snm-tab" href="/" data-tab="home">
+    <span class="snm-dot" aria-hidden="true"></span>
+    <svg class="snm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 9.75L12 3l9 6.75V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.75z" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 21V12h6v9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span class="snm-label">Home</span>
+  </a>
+  <a class="snm-tab" href="/#work" data-tab="work" data-goto="#work">
+    <span class="snm-dot" aria-hidden="true"></span>
+    <svg class="snm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+    <span class="snm-label">Work</span>
+  </a>
+  <a class="snm-tab is-active" href="/portfolio.html" data-tab="portfolio" aria-current="page">
+    <span class="snm-dot" aria-hidden="true"></span>
+    <svg class="snm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span class="snm-label">Portfolio</span>
+  </a>
+  <a class="snm-tab" href="/testimonials.html" data-tab="voices">
+    <span class="snm-dot" aria-hidden="true"></span>
+    <svg class="snm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 4h14a2 2 0 012 2v10a2 2 0 01-2 2h-6l-4 3v-3H5a2 2 0 01-2-2V6a2 2 0 012-2z" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 9h10M7 13h7" stroke-linecap="round"/></svg>
+    <span class="snm-label">Voices</span>
+  </a>
+  <a class="snm-tab snm-tab--cta" href="/inquiry.html" data-tab="start">
+    <svg class="snm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span class="snm-label">Start</span>
+  </a>
+</nav>
+
+<main id="main-content">
+
+  <!-- ══════════════════════════════
+       HERO
+  ══════════════════════════════ -->
+  <section class="pf-hero" aria-labelledby="pf-hero-title">
+    <span class="pf-label pf-hero-label">01 — Selected Works</span>
+    <h1 class="pf-hero-title" id="pf-hero-title">
+      <span class="pf-title-row"><span class="pf-title-text">Selected</span></span>
+      <span class="pf-title-row"><span class="pf-title-text">Works.</span></span>
+    </h1>
+    <p class="pf-hero-sub">A curated view of systems, identities, and visual work from across the studio.</p>
+    <div class="pf-scroll-hint" aria-hidden="true">
+      <span class="pf-scroll-hint-line"></span>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+       STORY 01 — Raaidh · Brand Identity
+  ══════════════════════════════ -->
+  <section class="pf-story pf-story--dark" aria-label="Raaidh — Brand Identity">
+    <div class="pf-story-inner">
+      <div class="pf-story-head">
+        <span class="pf-story-num">01</span>
+        <span class="pf-story-tag">Brand Identity</span>
+      </div>
+      <div class="pf-story-body">
+        <div class="pf-story-text">
+          <h2 class="pf-story-title">Raaidh</h2>
+          <p class="pf-story-desc">Brand identity for Raaidh. A mark built on clarity and quiet authority.</p>
+        </div>
+        <div class="pf-story-img">
+          <img src="assets/PORTFOLIO%20ASSETS/design%20portfolio/raaidh.png" alt="Raaidh brand identity" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+       STORY 02 — Austasia & Daily Needs · Brand Design
+  ══════════════════════════════ -->
+  <section class="pf-story pf-story--light" aria-label="Austasia & Daily Needs — Brand Design">
+    <div class="pf-story-inner">
+      <div class="pf-story-head">
+        <span class="pf-story-num">02</span>
+        <span class="pf-story-tag">Brand Design</span>
+      </div>
+      <div class="pf-story-body">
+        <div class="pf-story-text">
+          <h2 class="pf-story-title">Austasia<br>& Daily<br>Needs</h2>
+          <p class="pf-story-desc">Visual brand design for a Sri Lankan grocery and daily essentials brand.</p>
+        </div>
+        <div class="pf-story-img">
+          <img src="assets/PORTFOLIO%20ASSETS/design%20portfolio/austasia%26dailyneeds.png" alt="Austasia & Daily Needs brand design" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+       STORY 03 — Iftar 26 · Event Identity
+  ══════════════════════════════ -->
+  <section class="pf-story pf-story--dark" aria-label="Iftar 26 — Event Identity">
+    <div class="pf-story-inner">
+      <div class="pf-story-head">
+        <span class="pf-story-num">03</span>
+        <span class="pf-story-tag">Event Identity</span>
+      </div>
+      <div class="pf-story-body">
+        <div class="pf-story-text">
+          <h2 class="pf-story-title">Iftar 26</h2>
+          <p class="pf-story-desc">Identity system for a community iftar celebration. Warmth and structure in equal measure.</p>
+        </div>
+        <div class="pf-story-img">
+          <img src="assets/PORTFOLIO%20ASSETS/design%20portfolio/FInal_Logo_Iftar26.png" alt="Iftar 26 event identity" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+       STORY 04 — Packaging · Product Design
+  ══════════════════════════════ -->
+  <section class="pf-story pf-story--light" aria-label="Label Design — Product Packaging">
+    <div class="pf-story-inner">
+      <div class="pf-story-head">
+        <span class="pf-story-num">04</span>
+        <span class="pf-story-tag">Packaging</span>
+      </div>
+      <div class="pf-story-body">
+        <div class="pf-story-text">
+          <h2 class="pf-story-title">Label<br>Design</h2>
+          <p class="pf-story-desc">Product label and packaging system. Detail-oriented, shelf-ready, brand-coherent.</p>
+        </div>
+        <div class="pf-story-img">
+          <img src="assets/PORTFOLIO%20ASSETS/design%20portfolio/Rectangle_Label_Mockup_3.png" alt="Product label design" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+       STORY 05 — HPE · Corporate Design
+  ══════════════════════════════ -->
+  <section class="pf-story pf-story--dark" aria-label="HPE Tech Partner — Corporate Design">
+    <div class="pf-story-inner">
+      <div class="pf-story-head">
+        <span class="pf-story-num">05</span>
+        <span class="pf-story-tag">Corporate Design</span>
+      </div>
+      <div class="pf-story-body">
+        <div class="pf-story-text">
+          <h2 class="pf-story-title">HPE Tech<br>Partner</h2>
+          <p class="pf-story-desc">Corporate design for an HPE technology partnership. Precision in every detail.</p>
+        </div>
+        <div class="pf-story-img">
+          <img src="assets/PORTFOLIO%20ASSETS/design%20portfolio/techpartner_hpe243i.jpg" alt="HPE tech partner corporate design" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+       ALL WORKS GRID
+  ══════════════════════════════ -->
+  <section class="pf-grid-section" aria-labelledby="pf-grid-heading">
+    <div class="pf-grid-header">
+      <span class="pf-grid-label">02 — All Work</span>
+      <h2 class="pf-grid-title" id="pf-grid-heading">Everything.</h2>
+    </div>
+    <div id="pf-grid" role="list" aria-label="All portfolio work"></div>
+  </section>
+
+  <!-- ══════════════════════════════
+       CTA
+  ══════════════════════════════ -->
+  <section class="pf-cta" aria-label="Start a project">
+    <span class="pf-cta-label">Let's build together</span>
+    <h2 class="pf-cta-heading">Let's make<br>something<br>worth keeping.</h2>
+    <a href="/inquiry.html" class="pf-cta-link">Start a project <span aria-hidden="true">→</span></a>
+  </section>
+
+  <!-- ══════════════════════════════
+       FOOTER
+  ══════════════════════════════ -->
+  <footer class="pf-footer" role="contentinfo">
+    <a href="/" class="pf-footer-logo">ØRENO Studio</a>
+    <ul class="pf-footer-links" role="list">
+      <li><a href="/portfolio.html" aria-current="page">Portfolio</a></li>
+      <li><a href="/testimonials.html">Voices</a></li>
+      <li><a href="/packages.html">Packages</a></li>
+      <li><a href="/inquiry.html">Inquiry</a></li>
+    </ul>
+    <p class="pf-footer-copy">© 2026 ØRENO Studio</p>
+  </footer>
+
+</main>
+
+<script src="/thermo-global.js?v=1.1"></script>
+
+</body>
+</html>
