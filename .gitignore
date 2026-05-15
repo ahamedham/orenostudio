@@ -18,3 +18,10 @@ error_log
 # Windows system files
 desktop.ini
 Thumbs.db
+
+# Windows metadata
+desktop.ini
+
+# Version archives
+v*.zip
+launch.json
