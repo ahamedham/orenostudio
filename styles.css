@@ -2451,3 +2451,50 @@ button:focus-visible,
   .snm-tab, .snm-dot { transition: none; }
 }
 
+
+/* ── PORTFOLIO CTA PANEL ── */
+.section-portfolio-cta {
+  background: #0A0A0A;
+  color: var(--c-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--pad-x);
+  min-width: clamp(320px, 50vw, 680px);
+}
+.port-cta-inner {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.2rem, 2.5vw, 2rem);
+  max-width: 480px;
+}
+.section-portfolio-cta .section-tag { color: rgba(245,243,238,0.38); }
+.port-cta-heading { color: #F5F3EE; }
+.port-cta-sub {
+  font-size: var(--fs-body);
+  color: rgba(245,243,238,0.42);
+  line-height: 1.7;
+  max-width: 32ch;
+}
+.port-cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #F5F3EE;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(245,243,238,0.22);
+  padding-bottom: 0.3rem;
+  width: fit-content;
+  transition: gap 0.25s ease, border-color 0.25s ease;
+}
+.port-cta-link:hover { gap: 1rem; border-color: rgba(245,243,238,0.7); }
+.port-cta-arrow { transition: transform 0.25s ease; }
+.port-cta-link:hover .port-cta-arrow { transform: translateX(4px); }
+
+@media (max-width: 768px) {
+  .section-portfolio-cta { min-width: 100%; }
+}

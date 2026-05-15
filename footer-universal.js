@@ -135,12 +135,12 @@
     <footer class="site-footer universal-footer" role="contentinfo">
       <div class="footer-wordmark" aria-hidden="true">ØRENO</div>
       <div class="footer-inner">
-        <span class="footer-mark">© 2025 ØRENO<br>Brand Architecture</span>
+        <span class="footer-mark">© 2026 ØRENO<br>Brand Architecture</span>
         <nav class="footer-links" aria-label="Footer navigation">
           <a href="/#studio">Studio</a>
           <a href="/#work">Work</a>
           <a href="/#testimonials">Testimonials</a>
-          <a href="/testimonials">All Reviews</a>
+          <a href="/portfolio.html">Portfolio</a>
           <a href="/inquiry">Inquiry</a>
         </nav>
 

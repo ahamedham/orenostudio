@@ -3,6 +3,8 @@
    Horizontal scroll · char-reveal · Ø distortion
 ===================================================== */
 
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
 /* ── BFCACHE RESTORE ──
    The loader, hero entrance tweens, and horizontal-scroll
    engine all bootstrap inside window.load — which does NOT
