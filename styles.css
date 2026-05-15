@@ -2453,15 +2453,7 @@ button:focus-visible,
 
 
 /* ── PORTFOLIO CTA PANEL ── */
-.section-portfolio-cta {
-  background: #0A0A0A;
-  color: var(--c-bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--pad-x);
-  min-width: clamp(320px, 50vw, 680px);
-}
+.section-portfolio-cta { background: #0A0A0A; }
 .port-cta-inner {
   display: flex;
   flex-direction: column;
@@ -2494,7 +2486,3 @@ button:focus-visible,
 .port-cta-link:hover { gap: 1rem; border-color: rgba(245,243,238,0.7); }
 .port-cta-arrow { transition: transform 0.25s ease; }
 .port-cta-link:hover .port-cta-arrow { transform: translateX(4px); }
-
-@media (max-width: 768px) {
-  .section-portfolio-cta { min-width: 100%; }
-}
